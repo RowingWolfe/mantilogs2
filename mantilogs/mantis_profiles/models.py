@@ -80,6 +80,7 @@ class Picture(models.Model):
     def __str__(self):
         return self.mantis.name + " @ " + str(self.date)
     mantis = models.ForeignKey(Mantis, on_delete=models.CASCADE)
+    print(mantis.name)
     date = models.DateField(default=date.today)
     image_to_upload = get_picture(mantis.name)
     image = models.ImageField(upload_to='pic_folder/',
