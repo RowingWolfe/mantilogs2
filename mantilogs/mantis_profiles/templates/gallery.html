@@ -1,0 +1,8 @@
+{% load static %}
+
+<h1>Gallery!</h1>
+{{mantis_name}}
+{% for picture in images %}
+<img src="{% static picture %}">
+<h2>{{picture}}</h2>
+{%endfor%}
