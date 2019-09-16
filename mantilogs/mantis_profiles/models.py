@@ -35,7 +35,9 @@ class Mantis(models.Model):
     gender = models.CharField(
         max_length=12, default="Unsexed", help_text="Does the bug have wedding tackle?")
     personality = models.CharField(max_length=1200, default="I'm a standard ass bug. Can't fault me for meeting expectations.",
-                                   help_text="What's the bug like? Outgoing? Skittish?")
+                                    help_text="What's the bug like? Outgoing? Skittish?")
+    color = models.CharField(max_length=120, default="Uncertain", help_text="Ex. Brown, Green, Half Brown Half Green, Covered in the blood of it's enemies")
+    species = models.CharField(max_length=120,default="Tenodora Sinensis", help_text="Species, I.E: Tenodora Sinenses, Idolomantis Diabolica, Steve")
 
 
 class Logs(models.Model):
@@ -47,7 +49,7 @@ class Logs(models.Model):
     molted = models.BooleanField(
         default=False, help_text="Has the bug molted today?")
     notes = models.CharField(max_length=1200, default="Nothing in particular",
-                             help_text="Anything odd or interesting to report today?")
+                                help_text="Anything odd or interesting to report today?")
     fed_today = models.BooleanField(default=False)
     personality_changes = models.CharField(
         max_length=240, help_text="Any notable shifts in personality?", default="None.")
@@ -56,7 +58,7 @@ class Logs(models.Model):
     crisis_today = models.BooleanField(
         default=False, help_text="Did something stupid happen?")
     amount_fed = models.CharField(max_length=200, default="None.",
-                                  help_text="How much of what did they eat? Ex: Big Piece of Mealworm, Whole housefly, 3 Neighbor kids")
+                                    help_text="How much of what did they eat? Ex: Big Piece of Mealworm, Whole housefly, 3 Neighbor kids")
     # This will eventually be something that Jake will handle, but for now...
     high_temp_last_24 = models.IntegerField(
         default=0, help_text="How high was it? Jake will do this later.")
@@ -84,4 +86,4 @@ class Picture(models.Model):
     date = models.DateField(default=date.today)
     image_to_upload = get_picture(mantis.name)
     image = models.ImageField(upload_to='pic_folder/',
-                              default=image_to_upload)
+                                default=image_to_upload)

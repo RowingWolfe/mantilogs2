@@ -16,9 +16,11 @@ def picture(request, mantis_name, date):
 
     image = './static/{0}/{0}_{1}.jpg'.format(mantis_name, date)
     os.system('raspistill -o ' + image)
+    # TODO: Add button to mantis log entry to fire this endpoint.
+    # TODO: Add View templates.
     return HttpResponse("Picture taken: %s." % mantis_name + date + ' || ' + image)
 
 
 def gallery(request, mantis_name):
     # Display gallery for mantis.
-    pass
+    return HttpResponse("Yo, this will give you the mantis' gallery soon.")
