@@ -9,12 +9,12 @@ def index(request):
 
 
 def picture(request, mantis_name, date):
-    if not os.path.exists("./static/" + mantis_name):
-        os.system('mkdir ./static/' + mantis_name)
+    if not os.path.exists("./mantis_profiles/static/" + mantis_name):
+        os.system('mkdir ./mantis_profiles/static/' + mantis_name)
     # if not os.path.exists("./static/" + mantis_name + '/' + date):
     #     os.system('mkdir ./static/' + mantis_name + '/' + date)
 
-    image = './static/{0}/{0}_{1}.jpg'.format(mantis_name, date)
+    image = './mantis_profiles/static/{0}/{0}_{1}.jpg'.format(mantis_name, date)
     os.system('raspistill -o ' + image)
     # TODO: Add button to mantis log entry to fire this endpoint.
     # TODO: Add View templates.
@@ -23,4 +23,16 @@ def picture(request, mantis_name, date):
 
 def gallery(request, mantis_name):
     # Display gallery for mantis.
-    return HttpResponse("Yo, this will give you the mantis' gallery soon.")
+    images = []
+    directory = './mantis_profiles/static/'+mantis_name
+    for filename in os.listdir(directory):
+        if filename.endswith('.jpg'):
+            #Add by picture date, for now be lazy.
+            images.append('/'+mantis_name+'/'+filename)
+    context={
+        'mantis_name': mantis_name,
+        'images': images,
+        'directory': mantis_name + '/' ,
+
+    }
+    return render(request, 'gallery.html', context)
