@@ -38,6 +38,8 @@ class Mantis(models.Model):
                                     help_text="What's the bug like? Outgoing? Skittish?")
     color = models.CharField(max_length=120, default="Uncertain", help_text="Ex. Brown, Green, Half Brown Half Green, Covered in the blood of it's enemies")
     species = models.CharField(max_length=120,default="Tenodora Sinensis", help_text="Species, I.E: Tenodora Sinenses, Idolomantis Diabolica, Steve")
+    profile_pic_default = "/static/mantis_riding_snake1.jpg"
+    profile_pic = models.CharField(max_length=260, default=profile_pic_default, help_text="Is changed every new picture, can be set manually if need be from /static/")
 
 
 class Logs(models.Model):

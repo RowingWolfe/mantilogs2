@@ -61,48 +61,70 @@
     <nav class="tabs">
       <div class="container">
         <ul>
-          <li class="is-active"><a>Overview</a></li>
-          <li><a>Add</a></li>
-          <li><a>Filter</a></li>
-          <li><a>Buttons</a></li>
-          <li><a>Here</a></li>
-          <li><a>Idiot</a></li>
+          <li class="is-active"><a href="/mantis">Overview</a></li>
+          <li><a href="/mantis/deadn">Died Naturally</a></li>
+          <li><a href="/mantis/deadu">Died Mysteriously</a></li>
+          <li><a href="/mantis/crisis">Crisis</a></li>
+          <li><a href="/mantis/alive">Alive</a></li>
+          <li><a href="/mantis/feed">Need Feeding</a></li>
         </ul>
       </div>
     </nav>
   </div>
 </section>
+<br/>
 
 {% for mantis in mantids %}
 
   {% if mantis.died_natural or mantis.died_unknown %}
-    <section class="hero is-warning">
+    <section class="hero is-dark has-text-dark">
+  {% elif crisis_last_48|get_item:mantis.name  %}
+    <section class="hero is-danger">
   {% else %}
-    <section class="hero is-success">
+    <section class="hero is-dark">
   {% endif %}
   <div class="hero-body columns">
   <div class="column">
-  <figure class="image is-128x128">
-        <img class="is-rounded" src="/static/mantis_riding_snake1.jpg">
+  <figure class="">
+  {{logs_last_48.mantis}}
+        <img class="image is-rounded is-vcentered is-16-by-9 profile-pic" src="{{mantis.profile_pic}}">
     </figure>
   </div>
     <div class="container column">
       <h1 class="title">
-        <a class="link mantis-link" href="/mantis/profile/{{mantis}}">{{mantis.nickname}} : {{mantis}}</a> 
+        <a class="button is-large is-dark is-bold" href="/mantis/profile/{{mantis}}">{{mantis.nickname}} : {{mantis}}</a> 
+        </h1>
+      <h1 class="has-text-warning">
+      {% if mantis.died_natural or mantis.died_unknown %}
+        Died: {{mantis.deathday}} of causes: {{ mantis.cause_of_death }}
+      {% endif %}
+      {% if crisis_last_48|get_item:mantis.name %}
+        <h1 class="has-text-danger">Crisis Mode!</h1>
+      {% endif %}    
       </h1>
-      <h2 class="subtitle has-text-black">
-        L{{mantis.lifestage}} <span class="has-text-danger">{{mantis.species}}</span>, {{mantis.color}}
+      <h1 class="has-text-grey">
+        {% if last_fed|get_item:mantis.name %}
+        Last fed: {{last_fed|get_item:mantis.name}}
+        {%endif%}
+      </h1>
+      <hr/>
+      <h2 class="subtitle has-text-grey-lighter is-bold columns">
+        <div class="column is-one-fifth">L{{mantis.lifestage}}</div> <div class="has-text-grey-light column is-one-third">{{mantis.species}}</div> <div class="column is-one-fifth">{{mantis.color}}</div>
       </h2>
     </div>
   </div>
 </section>
+<br/>
+{% if logs_last_48|get_item:mantis.name %}
+<div class="has-text-light" style="padding: 20px;">{{ logs_last_48|get_item:mantis.name }}</div>
+{% endif %}
 {% endfor %}
 
 
-<footer class="footer">
-  <div class="content has-text-centered">
+<footer class="footer is-dark has-background-dark">
+  <div class="content has-text-centered is-dark">
     <p>
-      <strong>Mantilogs</strong> by <a href="https://aeventeam.xyz">Aeven Team</a>. 
+      <strong class="has-text-light">Mantilogs</strong> by <a href="https://aeventeam.xyz">Aeven Team</a>. 
     </p>
   </div>
 </footer>

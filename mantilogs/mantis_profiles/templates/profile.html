@@ -39,11 +39,16 @@
   </div>
     <div class="container column is-vcentered">
       <h1 class="title">
-        {{ mantis_data.name }}
+        {{ mantis_data.name }} @ L{{ mantis_data.lifestage }}
       </h1>
       <h2 class="subtitle">
         <h1 class="is-size-4">But you can call me {{ mantis_data.nickname }}</h1>
         <h2>Hatched: {{ mantis_data.birthday }}</h2>
+        {% if mantis_data.died_natural %}
+        <h2>Died: {{mantis_data.deathday}}</h2>
+        {%elif mantis_data.died_unknown %}
+        <h2 class="has-text-warning">Died mysteriously: {{mantis_data.deathday}} by causes: {{mantis_data.cause_of_death}} </h2>
+        {% endif %}
         <h3>L{{ mantis_data.lifestage }}</h3>
         <h3>Generation: {{ mantis_data.generation }}</h3>
         <h3>Sticker Generation: {{ mantis_data.sticker_generation }}</h3>
@@ -77,7 +82,11 @@
         <hr />
         <!-- Loop through and display all log entries with dates.-->
         {% for log in logs %}
+        {% if log.crisis_today %}
+        <div class="crisis">
+        {%else%}
         <div class='dark'>
+        {% endif %}
         <h5 class='is-size-4'> Date: {{ log.date }} </h5>
         <p>Recorded Temperatures: {{ log.high_temp_last_24 }}/{{ log.low_temp_last_24 }}</p>
         {% if log.molted %}
