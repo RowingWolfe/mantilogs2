@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> Index - Mantilogs</title>
     <link rel="stylesheet" href="/static/css/bulma.css">
-
+    <link rel="stylesheet" href="/static/css/index.css">
 </head>
 <body>
 
@@ -74,7 +74,12 @@
 </section>
 
 {% for mantis in mantids %}
-  <section class="hero is-success">
+
+  {% if mantis.died_natural or mantis.died_unknown %}
+    <section class="hero is-warning">
+  {% else %}
+    <section class="hero is-success">
+  {% endif %}
   <div class="hero-body columns">
   <div class="column">
   <figure class="image is-128x128">
@@ -83,10 +88,10 @@
   </div>
     <div class="container column">
       <h1 class="title">
-        <a href="/mantis/profile/{{mantis}}">{{mantis.nickname}} : {{mantis}}</a> 
+        <a class="link mantis-link" href="/mantis/profile/{{mantis}}">{{mantis.nickname}} : {{mantis}}</a> 
       </h1>
-      <h2 class="subtitle">
-        L{{mantis.lifestage}} {{mantis.species}}, {{mantis.color}}
+      <h2 class="subtitle has-text-black">
+        L{{mantis.lifestage}} <span class="has-text-danger">{{mantis.species}}</span>, {{mantis.color}}
       </h2>
     </div>
   </div>

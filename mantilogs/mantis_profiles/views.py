@@ -44,9 +44,15 @@ def gallery(request, mantis_name):
 
 
 def profile(request, mantis_name):
+    # Need to check for gallery folder here to prevent fuuuucking stupidity.
+
     ts = calendar.timegm(time.gmtime())
     today = str(ts)
     directory = './mantis_profiles/static/' + mantis_name
+    # Do the check, man.
+    if not os.path.exists(directory):
+        os.system('mkdir '+directory)
+
     mantis_data = Mantis.objects.get(name=mantis_name)
     logs = Logs.objects.filter(mantis=mantis_name).order_by('-date')
     picture_gallery = []
@@ -55,7 +61,14 @@ def profile(request, mantis_name):
         if filename.endswith('.jpg'):
             picture_gallery.append('/static/'+mantis_name+'/'+filename)
 
-    profile_picture = picture_gallery[0]
+    profile_picture = ''
+    if len(picture_gallery) > 0:
+        try:
+            profile_picture = picture_gallery[0]
+        except (FileNotFoundError):
+            print("No pictures.")
+    else:
+        profile_picture = '/static/mantis_riding_snake1.jpg'
 
     return render(request, 'profile.html', {"mantis_data": mantis_data,  "logs": logs, "date": today, "profile_picture": profile_picture, "gallery": picture_gallery})
 
