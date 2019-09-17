@@ -1,0 +1,33 @@
+body {
+    background-color: #BDE77B;
+    color: #B17252;
+}
+
+.dark {
+    background-color: #93BA4B;
+    color: rgb(122, 100, 1);
+    border-radius: 5px;
+    margin: 10px, 10px;
+    padding: 20px, 20px;
+}
+
+.profile-pic {
+    max-width: 512px;
+}
+
+.profile-info {
+    max-width: 512px;
+}
+
+.level {
+    height: 100px;
+}
+
+.hero {
+    border-radius: 5px;
+}
+
+#logs {
+    max-height: 500px;
+    overflow-y: auto;
+}

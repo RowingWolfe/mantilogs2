@@ -1,0 +1,121 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> {{ mantis_data.name }} - Mantilogs</title>
+    <link rel="stylesheet" href="/static/css/bulma.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<nav class="level has-background-dark">
+  <p class="level-item has-text-centered">
+    <a href="/mantis" class="button is-info">Home</a>
+  </p>
+  <p class="level-item has-text-centered">
+    <a href="/admin/mantis_profiles/mantis/" class="button is-info">Edit Profile</a>
+  </p>
+  <p class="level-item has-text-centered">
+    <img src="{{profile_picture}}" alt="" style="height: 80px;">
+  </p>
+  <p class="level-item has-text-centered">
+    <a href="/admin/mantis_profiles/logs/add" class="button is-info">Add Log</a>
+  </p>
+  <p class="level-item has-text-centered">
+    <a href="/mantis/picture/{{ mantis_data.name }}/{{ date }}" class="button is-warning">Take Picture</a>
+  </p>
+</nav>
+
+<section class="hero is-medium is-dark is-bold">
+  <div class="hero-body center columns">
+  <div class="container column">
+  <img class="profile-pic" src="{{profile_picture}}" />
+  </div>
+    <div class="container column is-vcentered">
+      <h1 class="title">
+        {{ mantis_data.name }}
+      </h1>
+      <h2 class="subtitle">
+        <h1 class="is-size-4">But you can call me {{ mantis_data.nickname }}</h1>
+        <h2>Hatched: {{ mantis_data.birthday }}</h2>
+        <h3>L{{ mantis_data.lifestage }}</h3>
+        <h3>Generation: {{ mantis_data.generation }}</h3>
+        <h3>Sticker Generation: {{ mantis_data.sticker_generation }}</h3>
+      </h2>
+    </div>
+  </div>
+</section>
+    <h1 class="is-size-1"></h1>
+    <div id="about" class="dark">
+        <h1 class="is-size-2">{{ mantis_data.name }} alias {{ mantis_data.nickname }}</h1>
+        <h2>Hatched: {{ mantis_data.birthday }}</h2>
+        <h3>L{{ mantis_data.lifestage }}</h3>
+        <h3>Generation: {{ mantis_data.generation }}</h3>
+        <h3>Sticker Generation: {{ mantis_data.sticker_generation }}</h3>
+    </div>
+    <hr/>
+    <div id="bio" class="dark">
+        <h4 class="is-size-3">About me: </h4>
+        <p>{{ mantis_data.personality }}</p>
+        <h4>Color: </h4>
+        <p>{{ mantis_data.color }}</p>
+        <h4>Species: </h4>
+        <p>{{ mantis_data.species }}</p>
+       
+    </div>
+
+
+    <div id="logs">
+     <hr />
+     <h2 class="is-size-3">Logs:</h2>
+        <hr />
+        <!-- Loop through and display all log entries with dates.-->
+        {% for log in logs %}
+        <div class='dark'>
+        <h5 class='is-size-4'> Date: {{ log.date }} </h5>
+        <p>Recorded Temperatures: {{ log.high_temp_last_24 }}/{{ log.low_temp_last_24 }}</p>
+        {% if log.molted %}
+        <p> Molted: {{log.molted }} </p>
+        {%endif%}
+        {% if log.crisis %}
+        <p> Crisis: {{log.crisis_today}} </p>
+        {%endif%}
+        {% if not log.amount_fed == "None." and log.fed %}
+        <p> Amount fed: {{log.amount_fed}} </p>
+        {%else%}
+        <p> Not Fed Today </p>
+        {%endif%}
+        {%if log.ooths_produced %}
+        <p>Ooths: {{ log.ooths_produced }} </p>
+        {% endif %}
+        {% if log.mated %}
+        <p>Mated: {{ log.mated }}</p>
+        {%endif%}
+        <br/>
+        <p>Notes: {{log.notes}}</p>
+        </div>
+        <hr /> {% endfor %}
+    </div>
+    <div id="gallery">
+        <!-- Get pictures from correct folder, display them here but as thumbnails with a link to original.-->
+
+        <div class="columns">
+            {% for picture in gallery %}
+            <div class="column">
+                <a href="{{picture}}"><img class="image is-128x128" src="{{picture}}" /></a>
+            
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>
