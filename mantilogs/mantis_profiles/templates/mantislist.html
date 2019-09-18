@@ -73,7 +73,9 @@
   </div>
 </section>
 <br/>
-
+{% if not all_good == ''%}
+  <h2 class="is-big has-text-grey-light title">{{all_good}}</h2>
+{%endif%}
 {% for mantis in mantids %}
 
   {% if mantis.died_natural or mantis.died_unknown %}

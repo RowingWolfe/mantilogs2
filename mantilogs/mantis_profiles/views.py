@@ -1,14 +1,25 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.template.defaulttags import register
 from django.http import HttpResponse
-from datetime import date, timedelta
-import datetime
+from django.core.exceptions import ObjectDoesNotExist
+from datetime import date, timedelta, datetime
+
+#import datetime
 import calendar
 import time
 
 import os
 
 from .models import Mantis, Logs
+
+
+# setup.
+cam_options = '-ex night -awb tungsten -ifx denoise'
+
+low_temp_last_24 = 100
+high_temp_last_24 = 0
+
+
 
 
 @register.filter
@@ -21,13 +32,29 @@ def index(request):
 # Create your views here.
 
 
+def set_high(request, temp):
+    if temp > high_temp_last_24:
+        high_temp_last_24 = temp
+        return HttpResponse("High Temp Recorded {0}".format(high_temp_last_24))
+    else:
+        return HttpResponse("Higher exists.")
+
+
+def set_low(request, temp):
+    if temp > low_temp_last_24:
+        low_temp_last_24 = temp
+        return HttpResponse("Low Temp Recorded {0}".format(low_temp_last_24))
+    else:
+        return HttpResponse("Lower exists.")
+
+
 def picture(request, mantis_name, today):
     if not os.path.exists("./mantis_profiles/static/" + mantis_name):
         os.system('mkdir ./mantis_profiles/static/' + mantis_name)
     image = './mantis_profiles/static/{0}/{1}.jpg'.format(
         mantis_name, today)
     print(image)
-    os.system('raspistill -o ' + image)
+    os.system('raspistill -o ' + image + ' '+cam_options)
     # TODO: Add button to mantis log entry to fire this endpoint.
     # TODO: Add View templates.
     profile_pic_to_change = Mantis.objects.get(name=mantis_name)
@@ -163,77 +190,72 @@ def mantis_list_alive(request):
 
 def mantis_list_crisis(request):
     # Select all logs where date - today <= 48 hours. Pass data along for each mantis.
-    mantids = Mantis.objects.all()
+    living_mantids = Mantis.objects.filter(
+        died_unknown=False, died_natural=False)
+    print(living_mantids)
     logs_last_48 = {}
     crisis_last_48 = {}
     last_fed = {}
-    filtered_mantids = {}
-    for mantis in mantids:
-        # Find logs for mantis
-        if(Logs.objects.filter(mantis=mantis.name)):
-            logs_last_48[mantis.name] = Logs.objects.filter(
-                mantis=mantis.name).latest('date')
-            crisis_last_48[mantis.name] = logs_last_48[mantis.name].crisis_today
-        if Logs.objects.filter(mantis=mantis.name).filter(fed_today=True):
-            last_fed[mantis.name] = Logs.objects.filter(
-                mantis=mantis.name).filter(fed_today=True).latest('date').date
-    for mantis in mantids:
-        if crisis_last_48.__contains__(mantis.name):
-            filtered_mantids[mantis.name] = mantis
+    all_good_here = ''
+    # For each mantis
 
-    return render(request, 'mantislist.html', {'mantids': filtered_mantids, 'logs_last_48': logs_last_48, 'crisis_last_48': crisis_last_48, 'last_fed': last_fed, })
+    filtered_mantids = []
+    for mantis in living_mantids:
+        # Get last log of mantis where fed_today=true
+        try:
+            if not mantis in filtered_mantids:
+                if Logs.objects.filter(mantis=mantis, crisis_today=True).latest('date'):
+                    last_log = Logs.objects.filter(
+                        mantis=mantis, crisis_today=True).latest('date')
+                # Add mantis to some data struct that can have no duplicate vals
+                # TODO: Do that thing with the data structures, this is cheap.
+                    if not last_log.mantis in filtered_mantids:
+                        filtered_mantids.append(last_log.mantis)
+                        last_fed[mantis.name] = last_log.date
+                        print(last_log.mantis)
+        except ObjectDoesNotExist:
+            pass
+
+    if not len(filtered_mantids):
+        all_good_here = "Everything seems fine. You should probably panic."
+
+    return render(request, 'mantislist.html', {'mantids': filtered_mantids, 'logs_last_48': logs_last_48, 'crisis_last_48': crisis_last_48, 'last_fed': last_fed, 'all_good': all_good_here, })
 
 
 def mantis_list_feed(request):
+    # TODO: FIx me
     # Select all logs where date - today <= 48 hours. Pass data along for each mantis.
-    mantids = Mantis.objects.all()
-    mantis_logs = Logs.objects.filter(fed_today=True)
-    filtered_mantids = mantids.filter(
-        mantis=mantis_logs.mantis)
+    # You only need the logs, dummy.
+    living_mantids = Mantis.objects.filter(
+        died_unknown=False, died_natural=False)
+    print(living_mantids)
     logs_last_48 = {}
     crisis_last_48 = {}
     last_fed = {}
-    print(filtered_mantids)
-    # for mantis in mantids:
-    #     # Find logs for mantis
-    #     if(Logs.objects.filter(mantis=mantis.name)):
-    #         logs_last_48[mantis.name] = Logs.objects.filter(
-    #             mantis=mantis.name).latest('date')
-    #         crisis_last_48[mantis.name] = logs_last_48[mantis.name].crisis_today
-    #     if Logs.objects.filter(mantis=mantis.name).filter(fed_today=True):
-    #         last_fed[mantis.name] = Logs.objects.filter(
-    #             mantis=mantis.name).filter(fed_today=True).latest('date').date
+    all_good_here = ''
+    # For each mantis
 
-    return render(request, 'mantislist.html', {'mantids': filtered_mantids, 'logs_last_48': logs_last_48, 'crisis_last_48': crisis_last_48, 'last_fed': last_fed, })
+    filtered_mantids = []
+    for mantis in living_mantids:
+        # Get last log of mantis where fed_today=true
+        try:
+            if not mantis in filtered_mantids:
+                if Logs.objects.filter(mantis=mantis, fed_today=True).latest('date'):
+                    last_log = Logs.objects.filter(
+                        mantis=mantis, fed_today=True).latest('date')
+                # Add mantis to some data struct that can have no duplicate vals
+                # TODO: Do that thing with the data structures, this is cheap.
+                    if not last_log.mantis in filtered_mantids:
+                        # Check if log date's delta is more than 3 from today.
+                        time_since_fed = datetime.now().date() - last_log.date
+                        if time_since_fed.days > 3:
+                            filtered_mantids.append(last_log.mantis)
+                            last_fed[mantis.name] = last_log.date
+                            print(last_log.mantis)
+        except ObjectDoesNotExist:
+            pass
 
+    if not len(filtered_mantids):
+        all_good_here = "Everything seems fine. You should probably panic."
 
-# def mantis_list_feed(request):
-#     # Select all logs where date - today <= 48 hours. Pass data along for each mantis.
-#     mantids = Mantis.objects.filter()
-#     logs_last_48 = {}
-#     crisis_last_48 = {}
-#     last_fed = {}
-#     filtered_mantids = {}
-#     for mantis in mantids:
-#         # Find logs for mantis
-
-#         if Logs.objects.filter(mantis=mantis.name).filter(fed_today=True):
-#             last_fed[mantis.name] = Logs.objects.filter(
-#                 mantis=mantis.name).filter(fed_today=True).latest('date').date
-#             if last_fed[mantis.name]:
-#                 print(last_fed[mantis.name])
-#                 print(datetime.date.today())
-#                 d0 = last_fed[mantis.name]
-#                 d1 = datetime.date.today()
-#                 delta = d1 - d0
-#                 days_since_fed = delta.days
-#                 if days_since_fed > 2:
-#                     filtered_mantids[mantis.name] = mantids[mantis].values()
-#                     if(filtered_mantids[mantis.name]):
-#                         logs_last_48[mantis.name] = Logs.objects.filter(
-#                             mantis=mantis.name).latest('date')
-#                         crisis_last_48[mantis.name] = logs_last_48[mantis.name].crisis_today
-#                         print(filtered_mantids)
-#                         print(mantids)
-
-#     return render(request, 'mantislist.html', {'mantids': filtered_mantids, 'logs_last_48': logs_last_48, 'crisis_last_48': crisis_last_48, 'last_fed': last_fed, })
+    return render(request, 'mantislist.html', {'mantids': filtered_mantids, 'logs_last_48': logs_last_48, 'crisis_last_48': crisis_last_48, 'last_fed': last_fed, 'all_good': all_good_here, })
