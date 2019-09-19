@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['192.168.42.141', 'localhost', '192.168.42.32']
 
 INSTALLED_APPS = [
     'mantis_profiles.apps.MantisProfilesConfig',
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -119,6 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 #MEDIA_ROOT = '/'
 #MEDIA_URL = '/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

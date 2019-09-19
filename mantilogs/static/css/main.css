@@ -1,0 +1,46 @@
+body {
+    background-color: #BDE77B;
+    color: #B17252;
+}
+
+.dark {
+    background-color: #93BA4B;
+    color: rgb(109, 89, 1);
+    border-radius: 5px;
+    margin: 10px, 10px;
+    padding: 20px, 20px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.crisis {
+    background-color: rgb(109, 89, 1);
+    color: lawngreen;
+    border-radius: 5px;
+    margin-top: 15px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-pic {
+    max-width: 45%;
+}
+
+.profile-info {
+    max-width: 512px;
+}
+
+.level {
+    height: 100px;
+}
+
+.hero {
+    border-radius: 5px;
+}
+
+#logs {
+    max-height: 500px;
+    overflow-y: auto;
+}
