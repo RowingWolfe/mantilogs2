@@ -10,16 +10,11 @@ import time
 
 import os
 
-from .models import Mantis, Logs
+from .models import Mantis, Logs, Environment_Log
 
 
 # setup.
 cam_options = '-ex night -awb tungsten -ifx denoise'
-
-low_temp_last_24 = 100
-high_temp_last_24 = 0
-
-
 
 
 @register.filter
@@ -29,23 +24,16 @@ def get_item(dictionary, key):
 
 def index(request):
     return HttpResponse("Mantis Profiles Hit!")
-# Create your views here.
 
+def log_env(request,temp,humidity):
+    #Environment goodies.
+    new_env_log = Environment_Log(
+        humidity=humidity,
+        temp=temp
+    )
+    new_env_log.save()
+    return HttpResponse("Temp and humidity logged: " + temp + ' ' + humidity)
 
-def set_high(request, temp):
-    if temp > high_temp_last_24:
-        high_temp_last_24 = temp
-        return HttpResponse("High Temp Recorded {0}".format(high_temp_last_24))
-    else:
-        return HttpResponse("Higher exists.")
-
-
-def set_low(request, temp):
-    if temp > low_temp_last_24:
-        low_temp_last_24 = temp
-        return HttpResponse("Low Temp Recorded {0}".format(low_temp_last_24))
-    else:
-        return HttpResponse("Lower exists.")
 
 
 def picture(request, mantis_name, today):
@@ -58,10 +46,11 @@ def picture(request, mantis_name, today):
     # TODO: Add button to mantis log entry to fire this endpoint.
     # TODO: Add View templates.
     profile_pic_to_change = Mantis.objects.get(name=mantis_name)
-    profile_pic_to_change.profile_pic = '/static/{0}/{1}.jpg'.format(
+    pic_location = '/static/{0}/{1}.jpg'.format(
         mantis_name, today)
+    profile_pic_to_change.profile_pic = pic_location
     profile_pic_to_change.save()
-    return HttpResponse("Picture taken: %s" % mantis_name + '/' + today + '.jpg')
+    return HttpResponse("Picture taken: %s" % mantis_name + '/' + today + '.jpg' + '<img src="{0}">'.format(pic_location))
 
 
 def gallery(request, mantis_name):

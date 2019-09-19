@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date
+from datetime import date, datetime
 import os
 
 # Create your models here.
@@ -35,11 +35,14 @@ class Mantis(models.Model):
     gender = models.CharField(
         max_length=12, default="Unsexed", help_text="Does the bug have wedding tackle?")
     personality = models.CharField(max_length=1200, default="I'm a standard ass bug. Can't fault me for meeting expectations.",
-                                    help_text="What's the bug like? Outgoing? Skittish?")
-    color = models.CharField(max_length=120, default="Uncertain", help_text="Ex. Brown, Green, Half Brown Half Green, Covered in the blood of it's enemies")
-    species = models.CharField(max_length=120,default="Tenodora Sinensis", help_text="Species, I.E: Tenodora Sinenses, Idolomantis Diabolica, Steve")
+                                   help_text="What's the bug like? Outgoing? Skittish?")
+    color = models.CharField(max_length=120, default="Uncertain",
+                             help_text="Ex. Brown, Green, Half Brown Half Green, Covered in the blood of it's enemies")
+    species = models.CharField(max_length=120, default="Tenodora Sinensis",
+                               help_text="Species, I.E: Tenodora Sinenses, Idolomantis Diabolica, Steve")
     profile_pic_default = "/static/mantis_riding_snake1.jpg"
-    profile_pic = models.CharField(max_length=260, default=profile_pic_default, help_text="Is changed every new picture, can be set manually if need be from /static/")
+    profile_pic = models.CharField(max_length=260, default=profile_pic_default,
+                                   help_text="Is changed every new picture, can be set manually if need be from /static/")
 
 
 class Logs(models.Model):
@@ -51,7 +54,7 @@ class Logs(models.Model):
     molted = models.BooleanField(
         default=False, help_text="Has the bug molted today?")
     notes = models.CharField(max_length=1200, default="Nothing in particular",
-                                help_text="Anything odd or interesting to report today?")
+                             help_text="Anything odd or interesting to report today?")
     fed_today = models.BooleanField(default=False)
     personality_changes = models.CharField(
         max_length=240, help_text="Any notable shifts in personality?", default="None.")
@@ -60,7 +63,7 @@ class Logs(models.Model):
     crisis_today = models.BooleanField(
         default=False, help_text="Did something stupid happen?")
     amount_fed = models.CharField(max_length=200, default="None.",
-                                    help_text="How much of what did they eat? Ex: Big Piece of Mealworm, Whole housefly, 3 Neighbor kids")
+                                  help_text="How much of what did they eat? Ex: Big Piece of Mealworm, Whole housefly, 3 Neighbor kids")
     # This will eventually be something that Jake will handle, but for now...
     high_temp_last_24 = models.IntegerField(
         default=0, help_text="How high was it? Jake will do this later.")
@@ -69,23 +72,67 @@ class Logs(models.Model):
     ooths_produced = models.BooleanField(
         default=False, help_text="Is this bug a mammy bug?")
 
+# Converted to a route.
+# def get_picture(mantis):
+#     # Fire raspistill command with today's date and the mantis name
+#     # Only works on Pi with camera.
+#     pic_cmd = 'raspistill -o ./pic_folder/{0}/{0}_{1}.png'.format(
+#         mantis, str(date.today))
+#     os.system(pic_cmd)
+#     return '/pic_folder/{0}/{0}_{1}.png'.format(
+#         mantis, str(date.today))
 
-def get_picture(mantis):
-    # Fire raspistill command with today's date and the mantis name
-    # Only works on Pi with camera.
-    pic_cmd = 'raspistill -o ./pic_folder/{0}/{0}_{1}.png'.format(
-        mantis, str(date.today))
-    os.system(pic_cmd)
-    return '/pic_folder/{0}/{0}_{1}.png'.format(
-        mantis, str(date.today))
 
-
+# Other pictures, taken by outside cameras.
 class Picture(models.Model):
     def __str__(self):
         return self.mantis.name + " @ " + str(self.date)
     mantis = models.ForeignKey(Mantis, on_delete=models.CASCADE)
     print(mantis.name)
     date = models.DateField(default=date.today)
-    image_to_upload = get_picture(mantis.name)
-    image = models.ImageField(upload_to='pic_folder/',
-                                default=image_to_upload)
+    image = models.ImageField(upload_to='static/uploaded_pics')
+
+# Environmental Logging.
+
+
+class Environment_Log(models.Model):
+    def __str__(self):
+        return str(self.date) + " Environmental Log"
+    # Store by date and time. Log everu X minutes?(15 maybe)
+    index = models.AutoField(primary_key=True)
+    date = models.DateTimeField(default=datetime.now)
+    notes = models.CharField(max_length=240, default='None')
+    humidity = models.CharField(max_length=4, default='0')
+    temp = models.CharField(max_length=3, default='0')
+
+
+class Feeder_Culture(models.Model):
+    def __str__(self):
+        return self.culture_name
+    culture_name = models.CharField(
+        max_length=50, default='Name Me', help_text="Sticker on the culture")
+    aprox_population = models.CharField(
+        max_length=50, default='100', help_text="Estimated numbers")
+    culture_type = models.CharField(
+        max_length=120, default="Mealworm", help_text="What's in it?")
+    culture_bedding = models.CharField(
+        max_length=120, default="Oatato", help_text="What are they in?")
+    culture_watering = models.CharField(
+        max_length=120, default="Beetle Jelly", help_text="What are they getting their water from?")
+    culture_notes = models.CharField(
+        max_length=360, default="None", help_text="Notes about the overall culture")
+    culture_creation_date = models.DateField(
+        default=date.today, help_text="When was this culture created?")
+    culture_retired = models.BooleanField(
+        default=False, help_text="Has it been retired or the feeders removed or died?")
+
+
+class Feeder_Log(models.Model):
+    def __str__(self):
+        return str(self.date) + " " + self.culture
+    date = models.DateField(default=date.today)
+    culture = models.ForeignKey(Feeder_Culture, on_delete=models.CASCADE)
+    log_notes = models.CharField(
+        max_length=1200, default='None', help_text="Anything to note.")
+    changed_watering_media = models.BooleanField(default=False)
+    cleaned_culture_tank = models.BooleanField(default=False)

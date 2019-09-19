@@ -113,13 +113,20 @@
     </div>
     <div id="gallery">
         <!-- Get pictures from correct folder, display them here but as thumbnails with a link to original.-->
-
-        <div class="columns">
+        <div class="columns is-multiline has-background-dark">
             {% for picture in gallery %}
-            <div class="column">
-                <a href="{{picture}}"><img class="image is-128x128" src="{{picture}}" /></a>
-            
-            </div>
+            <div class="column is-one-quarter-desktop is-one-half-tablet">
+              <div class="card">
+                <div class="card-image">
+                <figure class="image is-3-by-2">
+                  <a href="{{picture}}"><img src="{{picture}}" /></a>
+                </figure>
+                </div>
+                  <div class="card-content">
+                  Date: Placeholder
+                  </div>
+                </div>
+              </div>
             {% endfor %}
         </div>
     </div>
