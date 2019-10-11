@@ -239,6 +239,7 @@ def mantis_list_feed(request):
                         time_since_fed = datetime.now().date() - last_log.date
                         if time_since_fed.days > 3:
                             filtered_mantids.append(last_log.mantis)
+                            
                             last_fed[mantis.name] = last_log.date
                             print(last_log.mantis)
         except ObjectDoesNotExist:

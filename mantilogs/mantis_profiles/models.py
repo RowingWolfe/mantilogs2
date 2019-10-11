@@ -129,7 +129,7 @@ class Feeder_Culture(models.Model):
 
 class Feeder_Log(models.Model):
     def __str__(self):
-        return str(self.date) + " " + self.culture
+        return str(self.date) + " " + self.culture.culture_name
     date = models.DateField(default=date.today)
     culture = models.ForeignKey(Feeder_Culture, on_delete=models.CASCADE)
     log_notes = models.CharField(

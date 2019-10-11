@@ -56,15 +56,7 @@
     </div>
   </div>
 </section>
-    <h1 class="is-size-1"></h1>
-    <div id="about" class="dark">
-        <h1 class="is-size-2">{{ mantis_data.name }} alias {{ mantis_data.nickname }}</h1>
-        <h2>Hatched: {{ mantis_data.birthday }}</h2>
-        <h3>L{{ mantis_data.lifestage }}</h3>
-        <h3>Generation: {{ mantis_data.generation }}</h3>
-        <h3>Sticker Generation: {{ mantis_data.sticker_generation }}</h3>
-    </div>
-    <hr/>
+
     <div id="bio" class="dark">
         <h4 class="is-size-3">About me: </h4>
         <p>{{ mantis_data.personality }}</p>
@@ -74,12 +66,12 @@
         <p>{{ mantis_data.species }}</p>
        
     </div>
-
-
-    <div id="logs">
-     <hr />
+<br/>
+<br/>
      <h2 class="is-size-3">Logs:</h2>
-        <hr />
+      <hr />
+    <div id="logs">
+    
         <!-- Loop through and display all log entries with dates.-->
         {% for log in logs %}
         {% if log.crisis_today %}
@@ -97,7 +89,9 @@
         {%endif%}
         {% if not log.amount_fed == "None." and log.fed %}
         <p> Amount fed: {{log.amount_fed}} </p>
-        {%else%}
+        {% elif log.fed_today %}
+        <p>Fed, amount not entered</p>
+        {% else %}
         <p> Not Fed Today </p>
         {%endif%}
         {%if log.ooths_produced %}
@@ -111,6 +105,8 @@
         </div>
         <hr /> {% endfor %}
     </div>
+    <br/>
+    <br/>
     <div id="gallery">
         <!-- Get pictures from correct folder, display them here but as thumbnails with a link to original.-->
         <div class="columns is-multiline has-background-dark">
@@ -122,8 +118,8 @@
                   <a href="{{picture}}"><img src="{{picture}}" /></a>
                 </figure>
                 </div>
-                  <div class="card-content">
-                  Date: Placeholder
+                  <div class="card-content has-background-black has-text-white has-text-centered">
+                  {{mantis_data.nickname}}
                   </div>
                 </div>
               </div>
