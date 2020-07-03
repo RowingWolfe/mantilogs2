@@ -237,7 +237,7 @@ def mantis_list_feed(request):
                     if not last_log.mantis in filtered_mantids:
                         # Check if log date's delta is more than 3 from today.
                         time_since_fed = datetime.now().date() - last_log.date
-                        if time_since_fed.days > 3:
+                        if time_since_fed.days > 2:
                             filtered_mantids.append(last_log.mantis)
                             
                             last_fed[mantis.name] = last_log.date

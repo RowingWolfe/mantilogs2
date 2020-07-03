@@ -136,3 +136,112 @@ class Feeder_Log(models.Model):
         max_length=1200, default='None', help_text="Anything to note.")
     changed_watering_media = models.BooleanField(default=False)
     cleaned_culture_tank = models.BooleanField(default=False)
+
+
+class Gecko(models.Model):
+    def __str__(self):
+        return self.name
+    name = models.CharField(
+        max_length=200, primary_key=True, help_text='Gecko name')
+    father = models.CharField(max_length=200,default="Unknown")
+    mother = models.CharField(max_length=200,default="Unknown")
+    birthday = models.DateField(
+        help_text='Should be the date of hatching or aprox.', default=date.today)
+    deathday = models.DateField(
+        help_text='In the case of death.', default=date.today, blank=True)
+    cause_of_death = models.CharField(
+        default='Old age', max_length=200, help_text='Can be Mismolt, Old age or whatever caused it.')
+    nickname = models.CharField(max_length=200, default="None", blank=True)
+    # Logs can be found with code referencing Mantis.name
+    # Bool Flags
+    mated = models.BooleanField(default=False)
+    died_unknown = models.BooleanField(
+        default=False, help_text="Did the poor sod bite it mysteriously?")
+    died_natural = models.BooleanField(
+        default=False, help_text="Did they live a long and happy life?")
+    generation = models.IntegerField(
+        default=0, help_text="Is this the offspring of one of ours, how many generations in?")  # Gen 0 ftw.
+    gender = models.CharField(
+        max_length=12, default="Unsexed", help_text="Does the gecko have wedding tackle?")
+    personality = models.CharField(max_length=1200, default="I'm a standard ass Gecko. Can't fault me for meeting expectations.",
+                                   help_text="What's the Gecko like? Outgoing? Skittish?")
+    morphs = models.CharField(max_length=120, default="Unknown",
+                               help_text="Blizzard, Albino_Bell, Leucistic, POSSIBLE_Melanistic")
+    profile_pic_default = "/static/gecko.jpg"
+    profile_pic = models.CharField(max_length=260, default=profile_pic_default,
+                                   help_text="Is changed every new picture, can be set manually if need be from /static/")
+    #HERE THERE BE DRAGONS! (Or smol nippy gexles.)
+
+
+class Gecko_Log(models.Model):
+    def __str__(self):
+        return "{0}: {1} || {2}".format(self.gecko.name, self.date, self.notes)
+    gecko = models.ForeignKey(Gecko, on_delete=models.CASCADE)
+    date = models.DateField(
+        default=date.today, help_text="What day IS it though?")
+    molted = models.BooleanField(
+        default=False, help_text="Has the gecko molted today?")
+    notes = models.CharField(max_length=1200, default="Nothing in particular",
+                             help_text="Anything odd or interesting to report today?")
+    fed_today = models.BooleanField(default=False)
+    personality_changes = models.CharField(
+        max_length=240, help_text="Any notable shifts in personality?", default="None")
+    mated = models.BooleanField(
+        default=False, help_text="Have they done the horizontal monster mash today?")
+    crisis_today = models.BooleanField(
+        default=False, help_text="Did something stupid happen?")
+    amount_fed = models.CharField(max_length=200, default="None",
+                                  help_text="How much of what did they eat? Ex: Big Piece of Mealworm, Whole housefly, 3 Neighbor kids")
+    # This will eventually be something that Jake will handle, but for now...
+    high_temp_last_24 = models.IntegerField(
+        default=0, help_text="How high was it? Jake will do this later.")
+    low_temp_last_24 = models.IntegerField(
+        default=0, help_text="Also will be a Jake job later.")
+    eggs_produced = models.BooleanField(
+        default=False, help_text="Has this gecko laid eggs today?")
+    number_eggs_produced = models.IntegerField(default= 0, help_text="How many eggs if any?")
+    color_changes = models.CharField(max_length=200, default="None", help_text="Any notable changes in color? More orange, less orange, black feet, yellow feet, white left front foot, etc.")
+    calcium_fortified = models.BooleanField(default=True, help_text="Food dusted in calcium?")
+    calc_with_vit_d = models.BooleanField(default=False, help_text="Food dusted with calcium and vitamin D")
+    multivitamin_fortified = models.BooleanField(default=False, help_text="Dusted with a multivit?")
+
+class Gecko_Morph(models.Model):
+    #name
+    name = models.CharField(
+        max_length=200, primary_key=True, help_text='Name of Morph')
+    #discover date default today because fux it.
+    date = models.DateField(default=date.today, help_text="Date of discovery?")
+    #visual
+    visual = models.BooleanField(
+        default=False, help_text="Is it a visual trait?")
+    #eye morph bool
+    eye = models.BooleanField(
+        default=False, help_text="Is it an eye morph?")
+    #size morph bool
+    size = models.BooleanField(
+        default=False, help_text="Is it a size trait, eg; giant, etc??")
+    #primary features
+    primary_features = models.CharField(max_length=1200, help_text="Primary known features of the morph. eg; Orange Skin")
+    #secondary featuers
+    secondary_features = models.CharField(max_length=1200, help_text="Secondary known features of the morph. eg; Red eyes if a certain type of albino.")
+    #estimated transmission to offspring %
+    transmission_chance_estimate = models.IntegerField(default=0, help_text="Chance of passing it off based on how many children were born with the trait as known G2+ from the DB.")
+    #recessive bool Rewrute descriptions later. implement now.
+    recessive = models.BooleanField(
+        default=False, help_text="Is it recessive?")
+    #dominant bool
+    dominant = models.BooleanField(
+        default=False, help_text="Is it dominant?")
+    #codominant bool
+    codominant = models.BooleanField(
+        default=False, help_text="Is it codominant?")
+    #polygenic
+    polygenic = models.BooleanField(
+        default=False, help_text="Is it polygenic?")
+    #potential issues
+    potential_issues = models.CharField(max_length=1200, default="None known.", help_text="Prone to boneitis, etc.")
+    #bool for combo morph (If this morph is a combo)
+    combo_morph = models.BooleanField(
+        default=False, help_text="Is this morph a combination of other morphs?")
+    #morphs to make this morph if combo morph default none
+    morphs_required = models.CharField(max_length=1200, default="None", help_text="Traits required to create, eg; Tangerine, Melanistic, Raptor")
