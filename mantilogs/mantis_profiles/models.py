@@ -204,6 +204,12 @@ class Gecko_Log(models.Model):
     calcium_fortified = models.BooleanField(default=True, help_text="Food dusted in calcium?")
     calc_with_vit_d = models.BooleanField(default=False, help_text="Food dusted with calcium and vitamin D")
     multivitamin_fortified = models.BooleanField(default=False, help_text="Dusted with a multivit?")
+    moist_hide_media_changed = models.BooleanField(default=False, help_text="Changed out stanky moss?")
+    moisturized_moist_hide = models.BooleanField(default=False, help_text="Spritz the moss?")
+    water_bowl_good = models.BooleanField(default=False, help_text="Enough water in the water bowl?")
+    cleaned_water_bowl = models.BooleanField(default=False, help_text="Have to clean the water bowl?")
+    cleaned_food_bowl = models.BooleanField(default=False, help_text="Have to clean the food bowl?")
+    habitat_full_clean = models.BooleanField(default=False, help_text="Did the habitat get cleaned today?")
 
 class Gecko_Morph(models.Model):
     #name
@@ -245,3 +251,5 @@ class Gecko_Morph(models.Model):
         default=False, help_text="Is this morph a combination of other morphs?")
     #morphs to make this morph if combo morph default none
     morphs_required = models.CharField(max_length=1200, default="None", help_text="Traits required to create, eg; Tangerine, Melanistic, Raptor")
+
+
