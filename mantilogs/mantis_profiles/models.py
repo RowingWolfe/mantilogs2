@@ -141,6 +141,9 @@ class Culture_Log(models.Model):
     log_notes = models.CharField(
         max_length=1200, default='None', help_text="Anything to note.")
     changed_watering_media = models.BooleanField(default=False)
+    complete_food_change = models.BooleanField(default=False, help_text="Dumped out the old food, put in fresh.")
+    added_fresh_food = models.BooleanField(default=False, help_text="Added food to old food.")
+    food_added = models.CharField(max_length=200, default="None", help_text="Eg; Fluker's Cricket Diet, Orange Cubes, etc")
     cleaned_culture_tank = models.BooleanField(default=False)
     mite_infestation = models.BooleanField(default=False)
     mass_death = models.BooleanField(default=False)
@@ -149,6 +152,7 @@ class Culture_Log(models.Model):
     recent_spawning_activity = models.BooleanField(default=False, help_text="Fresh eggs, ooths, evidence of them doing the horizontal monster mash?")
     high_temp_last_24 = models.IntegerField(default=0, help_text="You could use the logging endpoints or manually input the temp. Code assumes F, will change if needed.") 
     low_temp_last_24 = models.IntegerField(default=0, help_text="You could use the logging endpoints or manually input the temp. Fahrenheit. ^ ") 
+
 
 
 class Gecko(models.Model):
