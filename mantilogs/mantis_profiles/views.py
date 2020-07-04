@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.template.defaulttags import register
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic import ListView, CreateView, UpdateView
 from datetime import date, timedelta, datetime
 
 #import datetime
@@ -10,10 +12,10 @@ import time
 
 import os
 
-from .models import Mantis, Logs, Environment_Log
+from .models import Mantis, Logs, Environment_Log, Gecko, Gecko_Morph, Gecko_Log, Culture, Culture_Log
 
 
-# setup.
+# setup. Move this to settings and link to docs.
 cam_options = '-ex night -awb tungsten -ifx denoise'
 
 

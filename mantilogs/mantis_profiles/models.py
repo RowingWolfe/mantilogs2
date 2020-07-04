@@ -106,7 +106,7 @@ class Environment_Log(models.Model):
     temp = models.CharField(max_length=3, default='0')
 
 
-class Feeder_Culture(models.Model):
+class Culture(models.Model):
     def __str__(self):
         return self.culture_name
     culture_name = models.CharField(
@@ -125,17 +125,30 @@ class Feeder_Culture(models.Model):
         default=date.today, help_text="When was this culture created?")
     culture_retired = models.BooleanField(
         default=False, help_text="Has it been retired or the feeders removed or died?")
+    had_mass_dieoff = models.BooleanField(default=False, help_text="Has this culture ever suffered a mass dieoff?")
+    quarantined = models.BooleanField(default=False, help_text="Is this culture quarantined from other cultures for some reason?")
+    quarantine_reasons = models.CharField(default="None", help_text="CSV: Mites, Unknown Worms, Recent Mass Death of Unknown Cause, etc")
+    parent_culture=models.CharField(max_length=120, defualt="None", help_text="TROGDORRRRRRRRRRR wants to know what culture begat this one.")
+    culture_health=models.CharField(max_length=120, defualt="Good", help_text="Good, Poor, Unknown, Destroyed, Collapsed (This will be a drop-down when I write the forms.)")
 
 
-class Feeder_Log(models.Model):
+
+class Culture_Log(models.Model):
     def __str__(self):
         return str(self.date) + " " + self.culture.culture_name
     date = models.DateField(default=date.today)
-    culture = models.ForeignKey(Feeder_Culture, on_delete=models.CASCADE)
+    culture = models.ForeignKey(Culture, on_delete=models.CASCADE)
     log_notes = models.CharField(
         max_length=1200, default='None', help_text="Anything to note.")
     changed_watering_media = models.BooleanField(default=False)
     cleaned_culture_tank = models.BooleanField(default=False)
+    mite_infestation = models.BooleanField(default=False)
+    mass_death = models.BooleanField(default=False)
+    quarantined = models.BooleanField(default=False)
+    reason_for_quarantine = models.CharField(max_length=500, default="None", help_text="Mites, Mold, etc. I need to make this a drop down too.")
+    recent_spawning_activity = models.BooleanField(default=False, help_text="Fresh eggs, ooths, evidence of them doing the horizontal monster mash?")
+    high_temp_last_24 = models.IntegerField(default=0, help_text="You could use the logging endpoints or manually input the temp. Code assumes F, will change if needed.") 
+    low_temp_last_24 = models.IntegerField(default=0, help_text="You could use the logging endpoints or manually input the temp. Fahrenheit. ^ ") 
 
 
 class Gecko(models.Model):
