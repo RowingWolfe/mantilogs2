@@ -127,7 +127,7 @@ class Culture(models.Model):
         default=False, help_text="Has it been retired or the feeders removed or died?")
     had_mass_dieoff = models.BooleanField(default=False, help_text="Has this culture ever suffered a mass dieoff?")
     quarantined = models.BooleanField(default=False, help_text="Is this culture quarantined from other cultures for some reason?")
-    quarantine_reasons = models.CharField(default="None", help_text="CSV: Mites, Unknown Worms, Recent Mass Death of Unknown Cause, etc")
+    quarantine_reasons = models.CharField(max_length=400, default="None", help_text="CSV: Mites, Unknown Worms, Recent Mass Death of Unknown Cause, etc")
     parent_culture=models.CharField(max_length=120, default="None", help_text="TROGDORRRRRRRRRRR wants to know what culture begat this one.")
     culture_health=models.CharField(max_length=120, default="Good", help_text="Good, Poor, Unknown, Destroyed, Collapsed (This will be a drop-down when I write the forms.)")
 
