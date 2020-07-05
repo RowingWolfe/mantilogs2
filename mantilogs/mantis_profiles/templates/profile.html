@@ -87,7 +87,7 @@
         {% if log.crisis %}
         <p> Crisis: {{log.crisis_today}} </p>
         {%endif%}
-        {% if not log.amount_fed == "None." and log.fed %}
+        {% if log.amount_fed != "None." and log.fed_today %}
         <p> Amount fed: {{log.amount_fed}} </p>
         {% elif log.fed_today and log.amount_fed == "None" %}
         <p>Fed, amount not entered</p>
