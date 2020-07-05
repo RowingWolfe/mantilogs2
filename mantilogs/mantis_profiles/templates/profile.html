@@ -111,6 +111,9 @@
         <!-- Get pictures from correct folder, display them here but as thumbnails with a link to original.-->
         <div class="columns is-multiline has-background-dark">
             {% for picture in gallery %}
+            <!-- So, I need to use the picture name to get the time data, then organize the images by time. Foolish of me to think it was indexed by numbers.-->
+            <!-- I could use a picture field, I guess. Add an entry whenever a picture is added? For now this is going to have to work. Fixing bugs.-->
+            <!--  print os.path.splitext(os.path.basename("hemanth.txt"))[0] You know.-->
             <div class="column is-one-quarter-desktop is-one-half-tablet">
               <div class="card">
                 <div class="card-image">
@@ -119,7 +122,7 @@
                 </figure>
                 </div>
                   <div class="card-content has-background-black has-text-white has-text-centered">
-                  {{mantis_data.nickname}}
+                  {{mantis_data.nickname + " - " +  picture}}
                   </div>
                 </div>
               </div>
