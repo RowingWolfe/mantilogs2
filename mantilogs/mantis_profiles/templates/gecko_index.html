@@ -70,24 +70,28 @@
   </div>
 </section>
 <br/>
+<div class="container is-fluid">
 {% for gecko in geckos %}
-<div class="container is-fluid notification tile is-ancestor">
-<div class="tile is-parent">
-  <div class="tile is-child is-2">
-    <img class="image is-square" src="https://picsum.photos/200" alt="Picture of {{gecko.name}}">
-  </div>
-  <div class="tile is-child is-10">
-  <p class="title">{{gecko.name}} ::: {{gecko.gender}} ::: Mated: {{gecko.mated}} ::: Alias: {{gecko.nickname}}</p>
-  <p class="subtitle">Into this world: {{gecko.birthday}} ::: Generation {{gecko.generation}}</p>
-  <p>Known morphs: {{gecko.morphs}} ::: Parents: F={{gecko.father}} M={{gecko.mother}}</p>
-  <p>Status: Probably healthy, I gotta implement this on the model.</p>
-  </div>
-  <div class="tile is-parent is-12">
-  {% if last_logs|get_item:gecko.name %}
-    <div class="has-text-light tile is-child is-10">{{ last_logs|get_item:gecko.name }}</div>
-  {% endif %}
-  </div>
-  </div>
+<div class="tile is-ancestor">
+  <div class="tile is-parent">
+    <div class="tile is-child is-2">
+      <figure class="image is-200x200" >
+        <img src="https://picsum.photos/200" alt="Picture of {{gecko.name}}">
+      </figure>
+    </div>
+    <div class="tile is-child is-10">
+      <p class="title">{{gecko.name}} ::: {{gecko.gender}} ::: Mated: {{gecko.mated}} ::: Alias: {{gecko.nickname}}</p>
+      <p class="subtitle">Into this world: {{gecko.birthday}} ::: Generation {{gecko.generation}}</p>
+      <p class="subtitle">Known morphs: {{gecko.morphs}} ::: Parents: F={{gecko.father}} M={{gecko.mother}}</p>
+      <p class="subtitle">Status: Probably healthy, I gotta implement this on the model.</p>
+    </div>
+    <hr/>
+      <div class="tile is-ancestor is-12">
+        {% if last_logs|get_item:gecko.name %}
+          <div class="tile is-parent is-10">{{ last_logs|get_item:gecko.name }}</div>
+        {% endif %}
+      </div>
+    </div>
   </div>
   <br/>
   <hr />
