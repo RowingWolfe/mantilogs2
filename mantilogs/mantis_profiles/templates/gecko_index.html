@@ -71,14 +71,24 @@
 </section>
 <br/>
 {% for gecko in geckos %}
-  <img src="#" alt="null">
-  <p>{{gecko.name}} ::: {{gecko.gender}} ::: Mated: {{gecko.mated}} ::: Alias: {{gecko.nickname}}</p>
-  <p>Into this world: {{gecko.birthday}} ::: Generation {{gecko.generation}}</p>
+<div class="container is-fluid notification">
+<div class="tile is-ancestor">
+  <div class="tile is-2">
+    <img class="image is-square" src="https://picsum.photos/200" alt="Picture of {{gecko.name}}">
+  </div>
+  <div class="tile is-10">
+  <p class="title">{{gecko.name}} ::: {{gecko.gender}} ::: Mated: {{gecko.mated}} ::: Alias: {{gecko.nickname}}</p>
+  <p class="subtitle">Into this world: {{gecko.birthday}} ::: Generation {{gecko.generation}}</p>
   <p>Known morphs: {{gecko.morphs}} ::: Parents: F={{gecko.father}} M={{gecko.mother}}</p>
-  <p>Status: Probably healthy, I gotta implement this.</p>
+  <p>Status: Probably healthy, I gotta implement this on the model.</p>
+  </div>
+  <div class="tile is-12">
   {% if last_logs|get_item:gecko.name %}
-    <div class="has-text-light" style="padding: 20px;">{{ last_logs|get_item:gecko.name}}</div>
+    <div class="has-text-light tile" style="padding: 20px;">{{ last_logs|get_item:gecko.name}}</div>
   {% endif %}
+  </div>
+  </div>
+  </div>
   <br/>
   <hr />
 
