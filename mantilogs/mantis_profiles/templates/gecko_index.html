@@ -72,7 +72,7 @@
 <br/>
 <div class="container is-fluid">
 {% for gecko in geckos %}
-<div class="tile is-ancestor">
+<div class="tile is-ancestor has-background-success">
   <div class="tile is-parent">
     <div class="tile is-child is-2">
       <figure class="image is-200x200" >
@@ -85,13 +85,15 @@
       <p class="subtitle">Known morphs: {{gecko.morphs}} ::: Parents: F={{gecko.father}} M={{gecko.mother}}</p>
       <p class="subtitle">Status: Probably healthy, I gotta implement this on the model.</p>
     </div>
+    
+    </div>
     <hr/>
-      <div class="tile is-ancestor is-12">
+     <div class="block">
         {% if last_logs|get_item:gecko.name %}
-          <div class="tile is-parent is-10">{{ last_logs|get_item:gecko.name }}</div>
+          <div class="">{{ last_logs|get_item:gecko.name }}</div>
         {% endif %}
       </div>
-    </div>
+      <hr/>
   </div>
   <br/>
   <hr />
