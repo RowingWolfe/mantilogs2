@@ -85,14 +85,11 @@
       <p class="subtitle">Known morphs: {{gecko.morphs}} ::: Parents: F={{gecko.father}} M={{gecko.mother}}</p>
       <p class="subtitle">Status: Probably healthy, I gotta implement this on the model.</p>
     </div>
-    
     </div>
-    
   </div>
-  <hr/>
      <div class="block">
         {% if last_logs|get_item:gecko.name %}
-          <div class="">{{ last_logs|get_item:gecko.name }}</div>
+          <div class="has-background-dark has-text-success">{{ last_logs|get_item:gecko.name }}</div>
         {% endif %}
       </div>
   <br/>
