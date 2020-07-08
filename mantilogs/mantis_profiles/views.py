@@ -251,3 +251,18 @@ def mantis_list_feed(request):
         all_good_here = "Everything seems fine. You should probably panic."
 
     return render(request, 'mantislist.html', {'mantids': filtered_mantids, 'logs_last_48': logs_last_48, 'crisis_last_48': crisis_last_48, 'last_fed': last_fed, 'all_good': all_good_here, })
+
+
+def gecko_list(request):
+    # Select all logs where date - today <= 48 hours. Pass data along for each mantis.
+    geckos = Gecko.objects.all()
+    last_logs = {}
+    for gecko in geckos:
+        # Find logs for mantis
+        if(Logs.objects.filter(gecko=gecko.name)):
+            last_log[gecko.name] = Logs.objects.filter(
+                gecko=gecko.name).latest('date')
+        
+     
+
+    return render(request, 'gecko_index.html', {'geckos': geckos, 'last_logs': last_logs})

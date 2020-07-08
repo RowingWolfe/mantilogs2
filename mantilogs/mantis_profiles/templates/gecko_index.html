@@ -1,0 +1,96 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Gecko Index </title>
+    <link rel="stylesheet" href="/static/css/bulma.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+
+<section class="hero is-dark is-medium">
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item">
+            <h1 class="is-size-1">Mantilogs</h1>
+          </a>
+          <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenuHeroA" class="navbar-menu">
+          <div class="navbar-end">
+            <a href="/mantis" class="navbar-item is-active">
+              Home
+            </a>
+            <a href="/admin" class="navbar-item">
+              Admin
+            </a>
+            <a href="#" class="navbar-item">
+              <!-- TODO: Write documentation. Wow. Good job so far.-->
+              Documentation
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        Leopard Gecko Index
+      </h1>
+      <h2 class="subtitle">
+        Select a creature.
+      </h2>
+    </div>
+  </div>
+
+  <!-- Hero footer: will stick at the bottom -->
+  <div class="hero-foot">
+    <nav class="tabs">
+      <div class="container">
+        <ul>
+          <li class="is-active"><a href="/index">Overview</a></li>
+    
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
+<br/>
+{% for gecko in geckos %}
+  <img src="#" alt="null">
+  <p>{{gecko.name}} ::: {{gecko.gender}} ::: Mated: {{gecko.mated}} ::: Alias: {{gecko.nickname}}</p>
+  <p>Into this world: {{gecko.birthday}} ::: Generation {{gecko.generation}}</p>
+  <p>Known morphs: {{gecko.morphs}} ::: Parents: F={{gecko.father}} M={{gecko.mother}}</p>
+  <p>Status: Probably healthy, I gotta implement this.</p>
+  {% if last_logs|get_item:gecko.name %}
+    <div class="has-text-light" style="padding: 20px;">{{ last_logs|get_item:gecko.name}}</div>
+  {% endif %}
+  <br/>
+  <hr />
+
+{% endfor %}
+
+
+<footer class="footer is-dark has-background-dark">
+  <div class="content has-text-centered is-dark">
+    <p>
+      <strong class="has-text-light">Mantilogs</strong> by <a href="https://armoredmask.com">Armored Mask</a>. 
+    </p>
+  </div>
+</footer>
+</body>
+</html>

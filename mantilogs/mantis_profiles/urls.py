@@ -19,5 +19,6 @@ urlpatterns = [
     path('feed/', views.mantis_list_feed,
          name="mantis-list-feed"),
     path('newenvlog/<temp>/<humidity>', views.log_env, name='env-log'),
+    path('geckos/index', views.gecko_list, name="gecko-list"),
     path('', views.mantis_list, name="mantis-list"),
 ]
