@@ -1,11 +1,13 @@
 {% load static %}
 <html lang="en">
+<!-- TODO: A lot. All I did was change the occurences of gecko to culture. Not sure I have time today to finish.
+July 8, 2020-->
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Gecko Index </title>
+    <title> culture Index </title>
     <link rel="stylesheet" href="/static/css/bulma.css">
     <link rel="stylesheet" href="/static/css/index.css">
 </head>
@@ -49,10 +51,10 @@
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title">
-        Leopard Gecko Index
+        Culture Index
       </h1>
       <h2 class="subtitle">
-        Select a creature.
+        Select a culture.
       </h2>
     </div>
   </div>
@@ -71,25 +73,25 @@
 </section>
 <br/>
 <div class="container is-fluid">
-{% for gecko in geckos %}
+{% for culture in cultures %}
 <div class="tile is-ancestor has-background-success">
   <div class="tile is-parent">
     <div class="tile is-child is-2">
       <figure class="image is-200x200" >
-        <img class="is-rounded"src="https://picsum.photos/200" alt="Picture of {{gecko.name}}">
+        <img class="is-rounded"src="https://picsum.photos/200" alt="Picture of {{culture.name}}">
       </figure>
     </div>
     <div class="tile is-child is-9">
-      <p class="title">{{gecko.name}} ::: {{gecko.gender}} ::: Mated: {{gecko.mated}} ::: Alias: {{gecko.nickname}}</p>
-      <p class="subtitle">Into this world: {{gecko.birthday}} ::: Generation {{gecko.generation}}</p>
-      <p class="subtitle">Known morphs: {{gecko.morphs}} ::: Parents: F={{gecko.father}} M={{gecko.mother}}</p>
+      <p class="title">{{culture.name}} ::: {{culture.gender}} ::: Mated: {{culture.mated}} ::: Alias: {{culture.nickname}}</p>
+      <p class="subtitle">Into this world: {{culture.birthday}} ::: Generation {{culture.generation}}</p>
+      <p class="subtitle">Known morphs: {{culture.morphs}} ::: Parents: F={{culture.father}} M={{culture.mother}}</p>
       <p class="subtitle">Status: Probably healthy, I gotta implement this on the model.</p>
     </div>
     </div>
   </div>
      <div class="block">
-        {% if last_logs|get_item:gecko.name %}
-          <div class="has-background-dark has-text-success">{{ last_logs|get_item:gecko.name }}</div>
+        {% if last_logs|get_item:culture.name %}
+          <div class="has-background-dark has-text-success">{{ last_logs|get_item:culture.name }}</div>
         {% endif %}
       </div>
   <br/>
