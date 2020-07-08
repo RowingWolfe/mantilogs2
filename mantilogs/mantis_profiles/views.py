@@ -260,7 +260,7 @@ def gecko_list(request):
     for gecko in geckos:
         # Find logs for mantis
         if(Gecko_Log.objects.filter(gecko=gecko.name)):
-            last_log[gecko.name] = Gecko_Log.objects.filter(
+            last_logs[gecko.name] = Gecko_Log.objects.filter(
                 gecko=gecko.name).latest('date')
         
      
