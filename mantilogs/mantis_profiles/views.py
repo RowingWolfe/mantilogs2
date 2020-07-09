@@ -279,9 +279,9 @@ def culture_list(request):
     last_logs = {}
     for culture in cultures:
         # Find logs for mantis
-        if(Culture_Log.objects.filter(culture=culture.name)):
-            last_logs[culture.name] = Culture_Log.objects.filter(
-                culture=culture.name).latest('date')
+        if(Culture_Log.objects.filter(culture=culture.culture_name)):
+            last_logs[culture.culture_name] = Culture_Log.objects.filter(
+                culture=culture.culture_name).latest('date')
         
      
 
