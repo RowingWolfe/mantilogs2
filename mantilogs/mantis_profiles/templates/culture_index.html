@@ -78,7 +78,7 @@ July 8, 2020-->
   <div class="tile is-parent">
     <div class="tile is-child is-2">
       <figure class="image is-200x200" >
-        <img class="is-rounded"src="https://picsum.photos/200" alt="Picture of {{culture.name}}">
+        <img class="is-rounded"src="https://picsum.photos/200" alt="Picture of {{culture.culture_name}}">
       </figure>
     </div>
     <div class="tile is-child is-9">
@@ -99,8 +99,8 @@ July 8, 2020-->
     </div>
   </div>
      <div class="block">
-        {% if last_logs|get_item:culture.name %}
-          <div class="has-background-dark has-text-success">{{ last_logs|get_item:culture.name }}</div>
+        {% if last_logs|get_item:culture.culture_name %}
+          <div class="has-background-dark has-text-success">{{ last_logs|get_item:culture.culture_name }}</div>
         {% endif %}
       </div>
   <br/>
