@@ -1,0 +1,170 @@
+{% load static %}
+<html lang="en">
+<!-- TODO: A lot. All I did was change the occurences of gecko to culture. Not sure I have time today to finish.
+July 8, 2020-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> {{gecko.name}}'s Profile </title>
+    <link rel="stylesheet" href="/static/css/bulma.css">
+    {% comment %} <link rel="stylesheet" href="/static/css/index.css"> {% endcomment %}
+</head>
+<body>
+
+<section class="hero is-dark is-medium">
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item">
+            <h1 class="is-size-1">Mantilogs</h1>
+          </a>
+          <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenuHeroA" class="navbar-menu">
+          <div class="navbar-end">
+            <a href="/mantis" class="navbar-item is-active">
+              Home
+            </a>
+            <a href="/admin" class="navbar-item">
+              Admin
+            </a>
+            <a href="#" class="navbar-item">
+              <!-- TODO: Write documentation. Wow. Good job so far.-->
+              Documentation
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        {{ gecko.name }}
+      </h1>
+      <h2 class="subtitle">
+        Born: {{gecko.birthday}}
+      </h2>
+
+      <div class="container is-fluid">
+<div class="tile is-ancestor">
+  <div class="tile is-parent has-background-success">
+    <div class="tile is-child is-2">
+      <figure class="image is-200x200" >
+        <img class="is-rounded"src="https://picsum.photos/200" alt="Picture of {{gecko.name}}">
+      </figure>
+    </div>
+    <div class="tile is-child is-9">
+      <p class="title">Alias: {{gecko.nickname}}</p>
+      <p class="subtitle">{{gecko.personality}}</p>
+      <p class="subtitle">Generation {{gecko.generation}}</p>
+      <p class="subtitle">Known morphs: {{gecko.morphs}} </p>
+      {% if gecko.father != "Unknown" %}
+      <p class="subtitle">Father: {{gecko.father}} Mother: {{gecko.mother}}</p>
+      {% endif %}
+      {% if gecko.died_unknown || gecko.died_natural %}
+        <p class="subtitle">Died: {{gecko.deathday}}</p>
+      {% endif %}
+      {% if gecko.mated %}
+        <p class="subtitle">Mated at some point.</p>
+      {% endif %}
+      
+      
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero footer: will stick at the bottom -->
+  <div class="hero-foot">
+    <nav class="tabs">
+      <div class="container">
+        <ul>
+          <li class="is-active"><a href="/index">Overview</a></li>
+    
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
+<br/>
+
+
+    {% comment %} LOGS go here. {% endcomment %}
+  </div>
+     <div class="block">
+        {% for log in all_logs %}
+          <div class="has-background-dark has-text-success">
+           <p>{{log.date}} - Temps {{log.high_temp_last_24}}/{{log.low_temp_last_24}}</p>
+           {% if log.molted %}
+           <p>Molted</p>
+           {% endif %}
+           <p>{{log.notes}}</p>
+           {% if log.fed %}
+           <p>Fed {{ log.amount_fed }} + Calc, VitD, MultiVit</p>
+            {% if log.calcium_fortified %}
+              <p>Calcium</p>
+            {% endif %}
+            {% if log.calc_with_vit_d%}
+              <p>Calcium + Vitamin D</p>
+            {% endif %}
+            {% if log.multivitamin_fortified %}
+              <p>Multivitamin</p>
+            {% endif %}
+           {% endif %}
+           <p>Personality Changes: {{log.personality_changes}}</p>
+           <p>Color Changes: {{log.color_changes}}</p>
+           {% if log.mated %}
+              <p>Mated</p>
+            {% endif %}
+            {% if log.crisis_today %}
+              <p>In Crisis Mode</p>
+            {% endif %}
+            {% if log.eggs_produced %}
+              <p>Produced {{ log.number_eggs_produced }} eggs</p>
+            {% endif %}
+            {% if log.moist_hide_media_changed %}
+              <p>Changed moist hide media</p>
+            {% endif %}
+            {% if log.moisturized_moist_hide %}
+              <p>Moisturized moist hide</p>
+            {% endif %}
+            {% if log.water_bowl_good %}
+              <p>Water bowl is clean and filled</p>
+            {% endif %}
+            {% if log.cleaned_water_bowl %}
+              <p>Cleaned water bowl</p>
+            {% endif %}
+            {% if log.cleaned_food_bowl %}
+              <p>Cleaned food bowl</p>
+            {% endif %}
+            {% if log.habitat_full_clean %}
+              <p>Fully cleaned habitat</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+  <br/>
+
+
+
+<footer class="footer is-dark has-background-dark">
+  <div class="content has-text-centered is-dark">
+    <p>
+      <strong class="has-text-light">Mantilogs</strong> by <a href="https://armoredmask.com">Armored Mask</a>. 
+    </p>
+  </div>
+</footer>
+</body>
+</html>

@@ -262,10 +262,16 @@ def gecko_list(request):
         if(Gecko_Log.objects.filter(gecko=gecko.name)):
             last_logs[gecko.name] = Gecko_Log.objects.filter(
                 gecko=gecko.name).latest('date')
-        
-     
 
     return render(request, 'gecko_index.html', {'geckos': geckos, 'last_logs': last_logs})
+
+def gecko_profile(request, gecko_name):
+    gecko_data = Gecko.objects.get(name=gecko_name)
+    logs = Gecko_Log.objects.filter(gecko=gecko_name).order_by('-date')
+
+    return render(request, 'profile.html', {"gecko": gecko_data,  "all_logs": logs)
+
+
 
 def culture_list(request):
     # Select all logs where date - today <= 48 hours. Pass data along for each mantis.

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> Gecko Index </title>
     <link rel="stylesheet" href="/static/css/bulma.css">
-    <link rel="stylesheet" href="/static/css/index.css">
+    {% comment %} <link rel="stylesheet" href="/static/css/index.css"> {% endcomment %}
 </head>
 <body>
 
@@ -72,17 +72,20 @@
 <br/>
 <div class="container is-fluid">
 {% for gecko in geckos %}
-<div class="tile is-ancestor has-background-success">
-  <div class="tile is-parent">
+<div class="tile is-ancestor">
+  <div class="tile is-parent has-background-success">
     <div class="tile is-child is-2">
       <figure class="image is-200x200" >
         <img class="is-rounded"src="https://picsum.photos/200" alt="Picture of {{gecko.name}}">
       </figure>
     </div>
     <div class="tile is-child is-9">
-      <p class="title">{{gecko.name}} ::: {{gecko.gender}} ::: Mated: {{gecko.mated}} ::: Alias: {{gecko.nickname}}</p>
-      <p class="subtitle">Into this world: {{gecko.birthday}} ::: Generation {{gecko.generation}}</p>
-      <p class="subtitle">Known morphs: {{gecko.morphs}} ::: Parents: F={{gecko.father}} M={{gecko.mother}}</p>
+      <p class="title">{{gecko.name}} - {{gecko.gender}}, Alias: {{gecko.nickname}}</p>
+      <p class="subtitle">Born: {{gecko.birthday}}, Generation {{gecko.generation}}</p>
+      <p class="subtitle">Known morphs: {{gecko.morphs}} </p>
+      {% if gecko.father != "Unknown" %}
+      <p class="subtitle">Father: {{gecko.father}} Mother: {{gecko.mother}}</p>
+      {% endif %}
       <p class="subtitle">Status: Probably healthy, I gotta implement this on the model.</p>
     </div>
     </div>
