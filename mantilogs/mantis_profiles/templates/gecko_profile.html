@@ -73,7 +73,7 @@ July 8, 2020-->
       {% if gecko.father != "Unknown" %}
       <p class="subtitle">Father: {{gecko.father}} Mother: {{gecko.mother}}</p>
       {% endif %}
-      {% if gecko.died_unknown || gecko.died_natural %}
+      {% if gecko.died_unknown or gecko.died_natural %}
         <p class="subtitle">Died: {{gecko.deathday}}</p>
       {% endif %}
       {% if gecko.mated %}
