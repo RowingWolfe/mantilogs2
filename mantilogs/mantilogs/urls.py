@@ -19,7 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('mantis/', include('mantis_profiles.urls')),
+    #Changed the base path to be / hope nothing breaks.
+    path('/', include('mantis_profiles.urls')),
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
     #path('', view.main, name="main"),

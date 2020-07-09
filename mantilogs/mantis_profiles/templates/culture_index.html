@@ -82,10 +82,19 @@ July 8, 2020-->
       </figure>
     </div>
     <div class="tile is-child is-9">
-      <p class="title">{{culture.name}} ::: {{culture.gender}} ::: Mated: {{culture.mated}} ::: Alias: {{culture.nickname}}</p>
-      <p class="subtitle">Into this world: {{culture.birthday}} ::: Generation {{culture.generation}}</p>
-      <p class="subtitle">Known morphs: {{culture.morphs}} ::: Parents: F={{culture.father}} M={{culture.mother}}</p>
-      <p class="subtitle">Status: Probably healthy, I gotta implement this on the model.</p>
+      <p class="title">{{culture.name}} ::: Pop: {{culture.aprox_population}} Species: {{culture.culture_type}}</p>
+      <p class="subtitle">Established: {{culture.culture_creation_date}}</p>
+      {% if culture.culture_retired %}
+      <p class="subtitle"> Retired. </p>
+      {% endif %}
+      {% if culture.quarantined %}
+      <p class="subtitle">QUARANTINED! for {{culture.quarantine_reasons}}</p>
+      {% endif %}
+      {% if culture.parent_culture != "None" %}
+      <p class="subtitle"> Parent Culture: {{culture.parent_culture}} </p>
+      {% endif %}
+      <p class="subtitle"></p>
+      <p class="subtitle">Status: {{culture.health}}</p>
     </div>
     </div>
   </div>

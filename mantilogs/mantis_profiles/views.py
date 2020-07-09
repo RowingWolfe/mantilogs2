@@ -266,3 +266,17 @@ def gecko_list(request):
      
 
     return render(request, 'gecko_index.html', {'geckos': geckos, 'last_logs': last_logs})
+
+def culture_list(request):
+    # Select all logs where date - today <= 48 hours. Pass data along for each mantis.
+    cultures = Culture.objects.all()
+    last_logs = {}
+    for culture in cultures:
+        # Find logs for mantis
+        if(Culture_Log.objects.filter(culture=culture.name)):
+            last_logs[culture.name] = Culture_Log.objects.filter(
+                culture=culture.name).latest('date')
+        
+     
+
+    return render(request, 'culture_index.html', {'cultures': cultures, 'last_logs': last_logs})
