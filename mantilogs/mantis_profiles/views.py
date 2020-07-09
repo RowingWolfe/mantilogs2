@@ -269,7 +269,7 @@ def gecko_profile(request, gecko_name):
     gecko_data = Gecko.objects.get(name=gecko_name)
     logs = Gecko_Log.objects.filter(gecko=gecko_name).order_by('-date')
 
-    return render(request, 'profile.html', {"gecko": gecko_data,  "all_logs": logs})
+    return render(request, 'gecko_profile.html', {"gecko": gecko_data,  "all_logs": logs})
 
 
 
