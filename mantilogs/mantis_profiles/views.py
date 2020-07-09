@@ -274,11 +274,12 @@ def gecko_profile(request, gecko_name):
 
 
 def culture_list(request):
-    # Select all logs where date - today <= 48 hours. Pass data along for each mantis.
+    # Select all logs where date - today <= 48 hours. Pass data along for each Culture.
     cultures = Culture.objects.all()
     last_logs = {}
     for culture in cultures:
-        # Find logs for mantis
+        # Find logs for Culture
+        # TODO: invalid literal for int() with base 10: 'Cricket Grandaddy Culture'
         if(Culture_Log.objects.filter(culture=culture.culture_name)):
             last_logs[culture.culture_name] = Culture_Log.objects.filter(
                 culture=culture.culture_name).latest('date')
