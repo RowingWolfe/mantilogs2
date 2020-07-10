@@ -27,6 +27,10 @@ def get_item(dictionary, key):
 def index(request):
     return HttpResponse("Mantis Profiles Hit!")
 
+def dashboard(request):
+    context={'info':'Nothing yet.'}
+    return render(request, 'dashboard.html', context)
+
 def log_env(request,temp,humidity):
     #Environment goodies.
     new_env_log = Environment_Log(

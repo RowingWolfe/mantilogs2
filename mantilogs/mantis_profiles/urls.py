@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 
 from . import views
 urlpatterns = [
-    path('', views.mantis_list, name='index'),
+    path('', views.dashboard, name='index'),
     path('picture/<mantis_name>/<today>', views.picture, name='mantis-picture'),
     path('gallery/<mantis_name>', views.gallery, name='mantis-gallery'),
     path('mantis/profile/<mantis_name>', views.profile, name="mantis-profile"),

@@ -1,0 +1,87 @@
+{% load static %}
+<html lang="en">
+<!-- TODO: A lot. All I did was change the occurences of gecko to culture. Not sure I have time today to finish.
+July 8, 2020-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> culture Index </title>
+    <link rel="stylesheet" href="/static/css/bulma.css">
+    {% comment %} <link rel="stylesheet" href="/static/css/index.css"> {% endcomment %}
+</head>
+<body>
+<section class="hero is-dark is-medium">
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item">
+            <h1 class="is-size-1">Mantilogs</h1>
+          </a>
+          <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenuHeroA" class="navbar-menu">
+          <div class="navbar-end">
+            <a href="/mantis" class="navbar-item is-active">
+              Home
+            </a>
+            <a href="/admin" class="navbar-item">
+              Admin
+            </a>
+            <a href="#" class="navbar-item">
+              <!-- TODO: Write documentation. Wow. Good job so far.-->
+              Documentation
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        Mantilogs
+      </h1>
+      <h2 class="subtitle">
+        We log your panties... er mantids.
+        <!-- Why did underwear blow pat my window down the road? Fucking weird town... -->
+      </h2>
+    </div>
+  </div>
+
+  <!-- Hero footer: will stick at the bottom -->
+  <div class="hero-foot">
+    <nav class="tabs">
+      <div class="container">
+        <ul>
+          <li class="is-active"><a href="/index">Overview</a></li>
+    
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<a href="/mantis/alive">Mantids</a>
+<a href="/geckos/index">Geckos</a>
+<a href="/cultures/index">Cultures</a>
+
+
+<footer class="footer is-dark has-background-dark">
+  <div class="content has-text-centered is-dark">
+    <p>
+      <strong class="has-text-light">Mantilogs</strong> by <a href="https://armoredmask.com">Armored Mask</a>. 
+    </p>
+  </div>
+</footer>
+</body>
