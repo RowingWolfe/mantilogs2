@@ -51,12 +51,12 @@ July 8, 2020-->
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title">
-        {{ culture.culture_name }}
+        {{ culture.culture_name }} | Population: {{culture.aprox_population}}
       </h1>
       <h2 class="subtitle">
         Established: {{culture.culture_creation_date}}
       </h2>
-      <p><a href="/admin/mantis_profiles/culture/{{culture.culture_name}}/change/">Edit Profile</a> | <a href="/admin/mantis_profiles/culture_log/add/">Add Log</a> </p>
+      <p class="subtitle"><a href="/admin/mantis_profiles/culture/{{culture.culture_name}}/change/">Edit Profile</a> | <a href="/admin/mantis_profiles/culture_log/add/">Add Log</a> </p>
 
       <div class="container is-fluid">
 <div class="tile is-ancestor">
