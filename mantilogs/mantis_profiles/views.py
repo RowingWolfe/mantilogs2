@@ -284,9 +284,9 @@ def culture_list(request):
     for culture in cultures:
         # Find logs for Culture
         # TODO: invalid literal for int() with base 10: 'Cricket Grandaddy Culture'
-        if(Culture_Log.objects.filter(culture=culture.culture_name)):
-            last_logs[culture.culture_name] = Culture_Log.objects.filter(
-                culture=culture.culture_name).latest('date')
+        if(Culture_Log.objects.filter(culture=culture)):
+            last_logs[culture] = Culture_Log.objects.filter(
+                culture=culture).latest('date')
 
     return render(request, 'culture_index.html', {'cultures': cultures, 'last_logs': last_logs})
 
