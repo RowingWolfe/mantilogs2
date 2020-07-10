@@ -80,13 +80,13 @@
       </figure>
     </div>
     <div class="tile is-child is-9">
-      <p class="title">{{gecko.name}} - {{gecko.gender}}, Alias: {{gecko.nickname}}</p>
+      <h3 class="title">{{gecko.name}} - {{gecko.gender}}, Alias: {{gecko.nickname}}</h3>
       <p class="subtitle">Born: {{gecko.birthday}}, Generation {{gecko.generation}}</p>
       <p class="subtitle">Known morphs: {{gecko.morphs}} </p>
       {% if gecko.father != "Unknown" %}
       <p class="subtitle">Father: {{gecko.father}} Mother: {{gecko.mother}}</p>
       {% endif %}
-      <p class="subtitle">Status: Probably healthy, I gotta implement this on the model.</p>
+      <a href="/geckos/profile/{{gecko.name}}">Profile</a>
     </div>
     </div>
   </div>
