@@ -22,6 +22,6 @@ urlpatterns = [
     path('geckos/index', views.gecko_list, name="gecko-list"),
     path('geckos/profile/<gecko_name>', views.gecko_profile, name='gecko-profile'),
     path('cultures/index', views.culture_list, name="culture-list"),
-    path('cultures/profile/<culture_name>', views.gecko_profile, name='culture-profile'),
+    path('cultures/profile/<culture_name>', views.culture_profile, name='culture-profile'),
     path('', views.mantis_list, name="mantis-list"),
 ]
