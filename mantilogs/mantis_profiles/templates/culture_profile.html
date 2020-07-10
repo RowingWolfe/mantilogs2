@@ -1,0 +1,158 @@
+{% load static %}
+<html lang="en">
+<!-- TODO: A lot. All I did was change the occurences of culture to culture. Not sure I have time today to finish.
+July 8, 2020-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> {{culture.culture_name}}'s Profile </title>
+    <link rel="stylesheet" href="/static/css/bulma.css">
+    {% comment %} <link rel="stylesheet" href="/static/css/index.css"> {% endcomment %}
+</head>
+<body>
+
+<section class="hero is-dark is-medium">
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item">
+            <h1 class="is-size-1">Mantilogs</h1>
+          </a>
+          <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenuHeroA" class="navbar-menu">
+          <div class="navbar-end">
+            <a href="/mantis" class="navbar-item is-active">
+              Home
+            </a>
+            <a href="/admin" class="navbar-item">
+              Admin
+            </a>
+            <a href="#" class="navbar-item">
+              <!-- TODO: Write documentation. Wow. Good job so far.-->
+              Documentation
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        {{ culture.culture_name }}
+      </h1>
+      <h2 class="subtitle">
+        Established: {{culture.culture_creation_date}}
+      </h2>
+
+      <div class="container is-fluid">
+<div class="tile is-ancestor">
+  <div class="tile is-parent has-background-success">
+    <div class="tile is-child is-2">
+      <figure class="image is-200x200" >
+      <!-- TODO: Profile Pictures : If statements for species of culture with a default of a cup of dirt or something.-->
+        <img class="is-rounded"src="https://picsum.photos/200" alt="Picture of {{culture.culture_name}}">
+      </figure>
+    </div>
+    <div class="tile is-child is-9">
+      <p class="title">Species: {{culture.culture_type}}</p>
+      <p class="subtitle">Bedding: {{culture.culture_bedding}}</p>
+      <p class="subtitle">Water media: {{culture.culture_watering}}</p>
+      <p class="subtitle">Notes: {{culture.culture_notes}} </p>
+      {% if culture.culture_retired %}
+      <h3 class="subtitle">Retired</h3>
+      {% endif %}
+      {% if culture.had_mass_dieoff %}
+        <p class="subtitle">Has had a mass dieoff unexpectedly.</p>
+      {% endif %}
+      {% if culture.quarantined %}
+      <p class="subtitle">Quarantined: {{culture.quarantine_reasons}}</p>
+      {% endif %}
+      {% if culture.parent_culture != "None" %}
+      <p class="subtitle">Parent Culture: {{culture.parent_culture}}</p>
+      {% endif %}
+      <h3 class="subtitle">Culture health: {{culture.culture_health}}</h3>
+      
+      
+      
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero footer: will stick at the bottom -->
+  <div class="hero-foot">
+    <nav class="tabs">
+      <div class="container">
+        <ul>
+          <li class="is-active"><a href="/index">Overview</a></li>
+    
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
+<br/>
+
+
+    {% comment %} LOGS go here. {% endcomment %}
+  </div>
+     <div class="block">
+        {% for log in all_logs %}
+          <div class="has-background-dark has-text-success">
+           <p>{{log.date}} - Temps {{log.high_temp_last_24}}/{{log.low_temp_last_24}}</p>
+           {% if log.changed_watering_media %}
+           <p>Changed watering media</p>
+           {% endif %}
+           {% if log.complete_food_change %}
+           <p>Changed food completely</p>
+           {% endif %}
+           {% if log.cleaned_culture_tank %}
+           <p>Cleaned tank</p>
+           {% endif %}
+           {% if log.mite_infestation %}
+           <p>Mite Infestation</p>
+           {% endif %}
+           {% if log.mass_death %}
+           <p>Mass Death Occured</p>
+           {% endif %}
+           {% if log.added_fresh_food %}
+           <p>Added fresh food: {{log.food_added}}</p>
+           {% endif %}
+           <p>{{log.notes}}</p>
+           {% if log.quarantined %}
+           <p>Quarantined: {{log.reason_for_quarantine}}</p>
+           {% endif %}
+           {% if log.recent_spawning_activity %}
+           <p>Recent spawning activity noted</p>
+           {% endif %}
+
+
+          </div>
+        {% endfor %}
+      </div>
+  <br/>
+
+
+
+<footer class="footer is-dark has-background-dark">
+  <div class="content has-text-centered is-dark">
+    <p>
+      <strong class="has-text-light">Mantilogs</strong> by <a href="https://armoredmask.com">Armored Mask</a>. 
+    </p>
+  </div>
+</footer>
+</body>
+</html>

@@ -287,3 +287,9 @@ def culture_list(request):
      
 
     return render(request, 'culture_index.html', {'cultures': cultures, 'last_logs': last_logs})
+
+def culture_profile(request, culture_name):
+    culture_data = Culture.objects.get(name=culture_name)
+    logs = Culture_Log.objects.filter(culture=culture_name).order_by('-date')
+
+    return render(request, 'culture_profile.html', {"culture": culture_data,  "all_logs": logs})
