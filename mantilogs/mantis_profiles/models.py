@@ -104,6 +104,7 @@ class Environment_Log(models.Model):
     notes = models.CharField(max_length=240, default='None')
     humidity = models.CharField(max_length=4, default='0')
     temp = models.CharField(max_length=3, default='0')
+    location = models.CharField(max_length=50, default="Unspecified")
 
 
 class Culture(models.Model):
@@ -130,7 +131,7 @@ class Culture(models.Model):
     quarantine_reasons = models.CharField(max_length=400, default="None", help_text="CSV: Mites, Unknown Worms, Recent Mass Death of Unknown Cause, etc")
     parent_culture=models.CharField(max_length=120, default="None", help_text="TROGDORRRRRRRRRRR wants to know what culture begat this one.")
     culture_health=models.CharField(max_length=120, default="Good", help_text="Good, Poor, Unknown, Destroyed, Collapsed (This will be a drop-down when I write the forms.)")
-
+    gut_loading = models.BooleanField(default=False);
 
 
 class Culture_Log(models.Model):
@@ -157,7 +158,7 @@ class Culture_Log(models.Model):
 
 class Gecko(models.Model):
     def __str__(self):
-        return self.name
+        return self.name + " " + self.morphs 
     name = models.CharField(
         max_length=200, primary_key=True, help_text='Gecko name')
     father = models.CharField(max_length=200,default="Unknown")
@@ -209,7 +210,7 @@ class Gecko_Log(models.Model):
         default=False, help_text="Did something stupid happen?")
     amount_fed = models.CharField(max_length=200, default="None",
                                   help_text="How much of what did they eat? Ex: Big Piece of Mealworm, Whole housefly, 3 Neighbor kids")
-    # This will eventually be something that Jake will handle, but for now...
+    # TODO: Rebuild the env logger.
     high_temp_last_24 = models.IntegerField(
         default=0, help_text="How high was it? Jake will do this later.")
     low_temp_last_24 = models.IntegerField(

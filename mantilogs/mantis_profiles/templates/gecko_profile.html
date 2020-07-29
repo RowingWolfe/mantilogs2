@@ -106,8 +106,8 @@ July 8, 2020-->
   </div>
      <div class="block">
         {% for log in all_logs %}
-          <div class="has-background-dark has-text-success">
-           <h2>{{log.date}} - Temps {{log.high_temp_last_24}}/{{log.low_temp_last_24}}</h2>
+          <div class="has-background-dark">
+           <h2 class="has-text-success has-text-centered is-size-3">{{log.date}} - Temps {{log.high_temp_last_24}}/{{log.low_temp_last_24}}</h2>
            {% if log.molted %}
            <p class="has-text-warning">Molted</p>
            {% endif %}
@@ -125,9 +125,9 @@ July 8, 2020-->
             {% endif %}
             <hr\>
             {% if log.fed_today %}
-           <h3 class="has-text-success">Fed {{ log.amount_fed }} + Calc, VitD, MultiVit</h3>
+           <h3 class="has-text-success has-text-centered is-size-3">Fed {{ log.amount_fed }}</h3>
             {% if log.calcium_fortified %}
-              <p>Calcium</p>
+              <p>Calcium Dusted</p>
             {% endif %}
             {% if log.calc_with_vit_d%}
               <p class="has-text-info">Calcium + Vitamin D</p>
@@ -137,7 +137,7 @@ July 8, 2020-->
             {% endif %}
            {% endif %}
            <hr/>
-            <h3 class="has-text-primary">Habitat maintainance</h3>
+            <h3 class="has-text-primary has-text-centered is-size-3">Habitat maintainance</h3>
             {% if log.moist_hide_media_changed %}
               <p>Changed moist hide media</p>
             {% endif %}
