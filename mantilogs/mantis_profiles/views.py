@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, CreateView, UpdateView
 from datetime import date, timedelta, datetime
 
+
 #TODO: Abstract filters from the views, shit's getting ugly.
 
 #import datetime
@@ -274,9 +275,9 @@ def gecko_list(request):
         #Find the last time given multivits/vitd
         #TODO: Fix redundant queries.
         if(Gecko_Log.objects.filter(gecko=gecko.name).filter(calc_with_vit_d=True)):
-            last_vitd[gecko.name] = Gecko_Log.objects.filter(gecko=gecko.name).filter(calc_with_vit_d=True).latest('date').date
+            last_vitd[gecko.name] = Gecko_Log.objects.filter(gecko=gecko.name).order_by('date').filter(calc_with_vit_d=True).latest('date').date
         if(Gecko_Log.objects.filter(gecko=gecko.name).filter(multivitamin_fortified=True)):
-            last_multivit[gecko.name] = Gecko_Log.objects.filter(gecko=gecko.name).filter(multivitamin_fortified=True).latest('date').date
+            last_multivit[gecko.name] = Gecko_Log.objects.filter(gecko=gecko.name).order_by('date').filter(multivitamin_fortified=True).latest('date').date
 
 
 
