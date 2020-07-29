@@ -87,10 +87,10 @@
       <p class="subtitle">Father: {{gecko.father}} Mother: {{gecko.mother}}</p>
       {% endif %}
       {% if gecko.name in last_vitd %}
-        <p class="has-text-success">Last Vitamin D: {{last_vitd[gecko.name]}}</p>
+        <p class="has-text-success">Last Vitamin D: {{last_vitd|get_item:gecko.name}}</p>
       {% endif %}
       {% if gecko.name in last_multivit %}
-        <p class="has-text-success">Last Multivitamin: {{last_multivit[gecko.name]}}</p>
+        <p class="has-text-success">Last Multivitamin: {{last_multivit|get_item:gecko.name}}</p>
       {% endif %}
       <a href="/geckos/profile/{{gecko.name}}">Profile</a>
     </div>
