@@ -86,7 +86,7 @@
       {% if gecko.father != "Unknown" %}
       <p class="subtitle">Father: {{gecko.father}} Mother: {{gecko.mother}}</p>
       {% endif %}
-      {% if last_vitd[gecko.name] %}
+      {% if last_vitd.(gecko.name) %}
         <p>Last Vitamin D: {{last_vitd[gecko.name]}}</p>
       {% endif %}
       {% if last_multivit[gecko.name] %}
