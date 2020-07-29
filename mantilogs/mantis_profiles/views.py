@@ -258,16 +258,27 @@ def mantis_list_feed(request):
 
 
 def gecko_list(request):
-    # Select all logs where date - today <= 48 hours. Pass data along for each mantis.
+    # Select all logs where date - today <= 48 hours. Pass data along for each gecko
     geckos = Gecko.objects.all()
     last_logs = {}
+    last_vitd = {}
+    last_multivit = {}
     for gecko in geckos:
-        # Find logs for mantis
+        # Find logs for gecko
         if(Gecko_Log.objects.filter(gecko=gecko.name)):
             last_logs[gecko.name] = Gecko_Log.objects.filter(
                 gecko=gecko.name).latest('date')
+        
+        #Find the last time given multivits/vitd
+        if(Gecko_Log.objects.filter(gecko=gecko.name).filter(calc_with_vit_d=True)):
+            last_vit_d[gecko.name] = Gecko_Log.objects.filter(gecko=gecko.name).filter(calc_with_vit_d=True).latest('date').date
+        if(Gecko_Log.objects.filter(gecko=gecko.name).filter(multivitamin_fortified=True)):
+            last_multivit[gecko.name] = Gecko_Log.objects.filter(gecko=gecko.name).filter(multivitamin_fortified=True).latest('date').date
 
-    return render(request, 'gecko_index.html', {'geckos': geckos, 'last_logs': last_logs})
+
+
+    return render(request, 'gecko_index.html', {'geckos': geckos, 'last_logs': last_logs,
+        'last_multivit': last_multivit, 'last_vitd': last_vitd})
 
 def gecko_profile(request, gecko_name):
     gecko_data = Gecko.objects.get(name=gecko_name)
