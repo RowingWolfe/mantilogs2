@@ -116,10 +116,10 @@ July 8, 2020-->
            <p class="has-text-warning">Molted</p>
            {% endif %}
            <p>{{log.notes}}</p>
-           {% if log.personality_changes is not "None"%}
+           {% if log.personality_changes != "None"%}
            <p class="has-text-info">Personality Changes: {{log.personality_changes}}</p>
            {% endif %}
-           {% if log.color_changes is not "None"%}
+           {% if log.color_changes != "None"%}
            <p>Color Changes: {{log.color_changes}}</p>
            {% endif %}
            {% if log.mated %}
