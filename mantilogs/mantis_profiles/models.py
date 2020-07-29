@@ -272,14 +272,14 @@ class Gecko_Morph(models.Model):
 
 class Gecko_Egg_Clutch(models.Model):
     date_produced = models.DateTimeField(auto_now=True, auto_now_add=False)
-    father = models.ForeignKey(Gecko, on_delete=models.CASCADE)
-    mother = models.ForeignKey(Gecko, on_delete=models.CASCADE)
+    father = models.ForeignKey(Gecko, on_delete=models.CASCADE, related_name="gecko_father")
+    mother = models.ForeignKey(Gecko, on_delete=models.CASCADE, related_name="gecko_mother")
     eggs = models.IntegerField()
     slugs = models.IntegerField()
     notes = models.CharField(max_length=255)
 
 class Mantis_Ooth(models.Model):
     date_produced = models.DateTimeField(auto_now=True, auto_now_add=False)
-    father = models.ForeignKey(Mantis, on_delete=models.CASCADE)
-    mother = models.ForeignKey(Mantis, on_delete=models.CASCADE)
+    father = models.ForeignKey(Mantis, on_delete=models.CASCADE, related_name="mantis_father")
+    mother = models.ForeignKey(Mantis, on_delete=models.CASCADE, related_name="mantis_mother")
     notes = models.CharField(max_length=255)
