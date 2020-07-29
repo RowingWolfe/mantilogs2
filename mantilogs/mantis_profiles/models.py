@@ -270,3 +270,16 @@ class Gecko_Morph(models.Model):
     morphs_required = models.CharField(max_length=1200, default="None", help_text="Traits required to create, eg; Tangerine, Melanistic, Raptor")
 
 
+class Gecko_Egg_Clutch(models.Model):
+    date_produced = models.DateTimeField(auto_now=True, auto_now_add=False)
+    father = models.ForeignKey(Gecko, on_delete=models.CASCADE)
+    mother = models.ForeignKey(Gecko, on_delete=models.CASCADE)
+    eggs = models.IntegerField()
+    slugs = models.IntegerField()
+    notes = models.CharField(max_length=255)
+
+class Mantis_Ooth(models.Model):
+    date_produced = models.DateTimeField(auto_now=True, auto_now_add=False)
+    father = models.ForeignKey(Mantis, on_delete=models.CASCADE)
+    mother = models.ForeignKey(Mantis, on_delete=models.CASCADE)
+    notes = models.CharField(max_length=255)
