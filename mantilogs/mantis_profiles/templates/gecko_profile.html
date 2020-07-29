@@ -56,11 +56,11 @@ July 8, 2020-->
       <h2 class="subtitle">
         Born: {{gecko.birthday}}
       </h2>
-      <p class="subtitle"><a href="/admin/mantis_profiles/gecko/{{gecko.name}}/change/">Edit Profile</a> | <a href="/admin/mantis_profiles/gecko_log/add/">Add Log</a> </p>
+      <p class="subtitle"><a class=" has-text-link is-size-4" href="/admin/mantis_profiles/gecko/{{gecko.name}}/change/">Edit Profile</a> | <a class="has-text-link is-size-4" href="/admin/mantis_profiles/gecko_log/add/">Add Log</a> </p>
 
       <div class="container is-fluid">
 <div class="tile is-ancestor">
-  <div class="tile is-parent has-background-success">
+  <div class="tile is-parent has-background-success-dark">
     <div class="tile is-child is-2">
       <figure class="image is-200x200" >
         <img class="is-rounded"src="https://picsum.photos/200" alt="Picture of {{gecko.name}}">
@@ -106,7 +106,7 @@ July 8, 2020-->
   </div>
      <div class="block">
         {% for log in all_logs %}
-          <div class="has-background-dark">
+          <div class="has-background-dark has-text-light">
            <h2 class="has-text-success has-text-centered is-size-3">{{log.date}} - Temps {{log.high_temp_last_24}}/{{log.low_temp_last_24}}</h2>
            {% if log.molted %}
            <p class="has-text-warning">Molted</p>
