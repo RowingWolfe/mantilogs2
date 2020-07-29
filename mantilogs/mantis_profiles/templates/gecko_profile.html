@@ -11,7 +11,7 @@ July 8, 2020-->
     <link rel="stylesheet" href="/static/css/bulma.css">
     {% comment %} <link rel="stylesheet" href="/static/css/index.css"> {% endcomment %}
 </head>
-<body>
+<body style="background: #19291b;">
 
 <section class="hero is-dark is-medium">
   <!-- Hero head: will stick at the top -->
@@ -104,9 +104,9 @@ July 8, 2020-->
 
     {% comment %} LOGS go here. {% endcomment %}
   </div>
-     <div class="block" style="padding-left:5px;">
+     <div class="block">
         {% for log in all_logs %}
-          <div class="has-background-dark has-text-light">
+          <div class="has-background-dark has-text-light" style="padding-left: 5px;">
            <h2 class="has-text-success has-text-centered is-size-3">{{log.date}} - Temps {{log.high_temp_last_24}}/{{log.low_temp_last_24}}</h2>
            <hr/>
            {% if log.molted %}
