@@ -274,7 +274,7 @@ def gecko_list(request):
         #Find the last time given multivits/vitd
         #TODO: Fix redundant queries.
         if(Gecko_Log.objects.filter(gecko=gecko.name).filter(calc_with_vit_d=True)):
-            last_vit_d[gecko.name] = Gecko_Log.objects.filter(gecko=gecko.name).filter(calc_with_vit_d=True).latest('date').date
+            last_vitd[gecko.name] = Gecko_Log.objects.filter(gecko=gecko.name).filter(calc_with_vit_d=True).latest('date').date
         if(Gecko_Log.objects.filter(gecko=gecko.name).filter(multivitamin_fortified=True)):
             last_multivit[gecko.name] = Gecko_Log.objects.filter(gecko=gecko.name).filter(multivitamin_fortified=True).latest('date').date
 
