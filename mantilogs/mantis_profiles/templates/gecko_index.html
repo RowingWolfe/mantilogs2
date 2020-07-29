@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/css/bulma.css">
     {% comment %} <link rel="stylesheet" href="/static/css/index.css"> {% endcomment %}
 </head>
-<body>
+<body style="background: #19291b;">
 
 <section class="hero is-dark is-medium">
   <!-- Hero head: will stick at the top -->
@@ -70,12 +70,13 @@
   </div>
 </section>
 <br/>
-<div class="container is-fluid">
+<div class="container is-fluid" style="background: #19291b;">
 {% for gecko in geckos %}
 <div class="tile is-ancestor">
   <div class="tile is-parent has-background-success">
     <div class="tile is-child is-2">
       <figure class="image is-200x200" >
+      <!-- TODO: Add actual profile pictures. Will do when picture upload is implemented.-->
         <img class="is-rounded"src="https://picsum.photos/200" alt="Picture of {{gecko.name}}">
       </figure>
     </div>
