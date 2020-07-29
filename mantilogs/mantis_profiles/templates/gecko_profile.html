@@ -50,7 +50,7 @@ July 8, 2020-->
   <!-- Hero content: will be in the middle -->
   <div class="hero-body">
     <div class="container has-text-centered">
-      <h1 class="title">
+      <h1 class="title has-text-info">
         {{ gecko.name }}
       </h1>
       <h2 class="subtitle">
@@ -75,10 +75,10 @@ July 8, 2020-->
       <p class="subtitle">Father: {{gecko.father}} Mother: {{gecko.mother}}</p>
       {% endif %}
       {% if gecko.died_unknown or gecko.died_natural %}
-        <p class="subtitle">Died: {{gecko.deathday}}</p>
+        <p class="subtitle has-text-danger">Died: {{gecko.deathday}}</p>
       {% endif %}
       {% if gecko.mated %}
-        <p class="subtitle">Mated at some point.</p>
+        <p class="subtitle has-text-warning">Mated at some point.</p>
       {% endif %}
       
       
@@ -107,34 +107,37 @@ July 8, 2020-->
      <div class="block">
         {% for log in all_logs %}
           <div class="has-background-dark has-text-success">
-           <p>{{log.date}} - Temps {{log.high_temp_last_24}}/{{log.low_temp_last_24}}</p>
+           <h2>{{log.date}} - Temps {{log.high_temp_last_24}}/{{log.low_temp_last_24}}</h2>
            {% if log.molted %}
-           <p>Molted</p>
+           <p class="has-text-warning">Molted</p>
            {% endif %}
            <p>{{log.notes}}</p>
-           {% if log.fed %}
-           <p>Fed {{ log.amount_fed }} + Calc, VitD, MultiVit</p>
-            {% if log.calcium_fortified %}
-              <p>Calcium</p>
-            {% endif %}
-            {% if log.calc_with_vit_d%}
-              <p>Calcium + Vitamin D</p>
-            {% endif %}
-            {% if log.multivitamin_fortified %}
-              <p>Multivitamin</p>
-            {% endif %}
-           {% endif %}
-           <p>Personality Changes: {{log.personality_changes}}</p>
+           <p class="has-text-info">Personality Changes: {{log.personality_changes}}</p>
            <p>Color Changes: {{log.color_changes}}</p>
            {% if log.mated %}
               <p>Mated</p>
             {% endif %}
             {% if log.crisis_today %}
-              <p>In Crisis Mode</p>
+              <p class="has-text-danger">In Crisis Mode</p>
             {% endif %}
             {% if log.eggs_produced %}
               <p>Produced {{ log.number_eggs_produced }} eggs</p>
             {% endif %}
+            <hr\>
+            {% if log.fed %}
+           <h3 class="has-text-success">Fed {{ log.amount_fed }} + Calc, VitD, MultiVit</h3>
+            {% if log.calcium_fortified %}
+              <p>Calcium</p>
+            {% endif %}
+            {% if log.calc_with_vit_d%}
+              <p class="has-text-info">Calcium + Vitamin D</p>
+            {% endif %}
+            {% if log.multivitamin_fortified %}
+              <p class="has-text-success">Multivitamin</p>
+            {% endif %}
+           {% endif %}
+           <hr/>
+            <h3 class="has-text-primary">Habitat maintainance</h3>
             {% if log.moist_hide_media_changed %}
               <p>Changed moist hide media</p>
             {% endif %}
