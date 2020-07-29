@@ -104,7 +104,7 @@ July 8, 2020-->
 
     {% comment %} LOGS go here. {% endcomment %}
   </div>
-     <div class="block">
+     <div class="block" style="padding-left:5px;">
         {% for log in all_logs %}
           <div class="has-background-dark has-text-light">
            <h2 class="has-text-success has-text-centered is-size-3">{{log.date}} - Temps {{log.high_temp_last_24}}/{{log.low_temp_last_24}}</h2>
@@ -159,6 +159,8 @@ July 8, 2020-->
             {% if log.habitat_full_clean %}
               <p>Fully cleaned habitat</p>
             {% endif %}
+            <br/>
+            <br/>
           </div>
           <hr/>
         {% endfor %}
