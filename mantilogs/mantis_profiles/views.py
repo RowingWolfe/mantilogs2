@@ -34,14 +34,15 @@ def dashboard(request):
     context={'info':'Nothing yet.'}
     return render(request, 'dashboard.html', context)
 
-def log_env(request,temp,humidity):
+def log_env(request,temp,humidity, location):
     #Environment goodies.
     new_env_log = Environment_Log(
         humidity=humidity,
-        temp=temp
+        temp=temp,
+        location=location
     )
     new_env_log.save()
-    return HttpResponse("Temp and humidity logged: " + temp + ' ' + humidity)
+    return HttpResponse("Temp and humidity logged: " + temp + ' ' + humidity + ' in ' + location)
 
 
 
