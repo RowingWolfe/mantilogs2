@@ -75,10 +75,21 @@ WSGI_APPLICATION = 'mantilogs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+#DATABASES = {
+    #'default': {
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #}
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mantilogs_2',
+        'USER': 'manti_user',
+        'PASSWORD': 'Alycydu42',
+        'HOST': '192.168.0.110',
+        'PORT': '',
     }
 }
 

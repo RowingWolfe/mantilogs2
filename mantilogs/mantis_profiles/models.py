@@ -101,10 +101,10 @@ class Environment_Log(models.Model):
     # Store by date and time. Log everu X minutes?(15 maybe)
     index = models.AutoField(primary_key=True)
     date = models.DateTimeField(default=datetime.now)
-    notes = models.CharField(max_length=240, default='None')
-    humidity = models.CharField(max_length=4, default='0')
-    temp = models.CharField(max_length=3, default='0')
-    location = models.CharField(max_length=50, default="Unspecified")
+    notes = models.CharField(max_length=250, default='None')
+    humidity = models.CharField(max_length=250, default='0')
+    temp = models.CharField(max_length=250, default='0')
+    location = models.CharField(max_length=250, default="Unspecified")
 
 
 class Culture(models.Model):
