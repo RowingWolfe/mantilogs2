@@ -9,5 +9,8 @@ After that I will be adding new features like a QR code function that will open 
 
 For now it is setup to log cultures of insects, mantids and geckos. I've got a basic morph model for the geckos but I feel like I may change it a bit when I add the functions for genetic calculators.
 
-Also has a secondary project for logging environmental variables. I moved and my environemntal logging node I built out of an ESP32 was disassembled and needs to be rebuilt. I will also write a version for esp8266 when I have time so it's cheaper to make. Only used the 32 because I had one with a built-in OLED display.
+# Environmental logging node via ESP8266
+https://github.com/RowingWolfe/mantilogs-env-node/tree/master
+Takes a dht11/12/22 and an ESP8266 and posts to an endpoint in the mantilogs server with the temperature, humidity and location of the node.
+Will later integrate this into the logs for mantids, geckos, etc so no more need to manually enter the environmental data.
 
