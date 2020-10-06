@@ -138,5 +138,23 @@ dmypy.json
 
 old.db.sqlite3
 db.sqlite3
+/mantilogs/mantis_profiles/static/Alien_G1
+/mantilogs/mantis_profiles/static/Batman_G1
+/mantilogs/mantis_profiles/static/Boogaloo_G1
+/mantilogs/mantis_profiles/static/Cyclops_G1
+/mantilogs/mantis_profiles/static/Doko_G1
+/mantilogs/mantis_profiles/static/Dukes_G1
+/mantilogs/mantis_profiles/static/Fight_G1
+/mantilogs/mantis_profiles/static/Flower_G1
+/mantilogs/mantis_profiles/static/Hoard_G1
+/mantilogs/mantis_profiles/static/Omelet_G1
+/mantilogs/mantis_profiles/static/Rose_G1
+/mantilogs/mantis_profiles/static/Smirk_G1
+/mantilogs/mantis_profiles/static/Smore_G1
+/mantilogs/mantis_profiles/static/Tense_G1
+/mantilogs/mantis_profiles/static/Testington_G1
+/mantilogs/mantis_profiles/static/Whap_G1
+
+
 
 # End of https://www.gitignore.io/api/django
