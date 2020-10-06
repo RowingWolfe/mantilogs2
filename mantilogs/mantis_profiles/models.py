@@ -291,7 +291,7 @@ class Mantis_Ooth(models.Model):
 
 
 class Inventory_Item(models.Model):
-    """Things like calcium, beetle food, cricket quencher."""
+    """Inventory Management for food, supplies, etc."""
     def __str__(self):
         return f"{self.name} {self.size} x{self.stock} "
     name = models.CharField(max_length=250)
@@ -300,3 +300,23 @@ class Inventory_Item(models.Model):
     links = models.JSONField(default=list)
     historical_price_data = models.JSONField(default=list)
     brand = models.CharField(max_length=255, help_text="Fluker's, ZooMed, Etc.")
+
+
+class Purchase(models.Model):
+    """Purchases made, total expense, store acquired from, order number. Eventually will be useful for tax reasons."""
+    #TODO: When writing the interfaces link up to inventory item and add items to the inventory on purchase.
+    items_purchased = models.JSONField(default=list, help_text="Items in list structure.")
+    purchased_from = models.CharField(max_length=200, default="Amazon", help_text="Where this purchase was made.")
+    transaction_id = models.CharField(max_length=200, default="None")
+    total_price = models.DecimalField(max_digits=5, decimal_places=2, help_text="Total amount paid, eg; 54.32",
+                                      default=0.00)
+
+class Inventory_Consumption(models.Model):
+    """For each time an item in inventory is consumed, wether naturally or by rot or other means.
+    This should allow us to track if we buy something too often, or the vendor is problematic or if we should buy
+    something more often. When I do eventually write all these forms or create a secondary interface this will
+    automatically reduce the count in inventory."""
+    item_consumed = models.ForeignKey(Inventory_Item, on_delete=models.CASCADE)
+    item_size = models.CharField(max_length=200, default="6oz")
+    went_bad = models.BooleanField(default=False, help_text="Did it rot, or break prematurely?")
+    consumed_naturally = models.BooleanField(default=True, help_text="Did it just run out or expire as expected?")
