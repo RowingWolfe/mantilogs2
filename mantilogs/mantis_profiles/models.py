@@ -1,4 +1,5 @@
 from django.db import models
+#from django.contrib.postgres.fields import JSONField
 from datetime import date, datetime
 import os
 
@@ -158,7 +159,7 @@ class Culture_Log(models.Model):
 
 class Gecko(models.Model):
     def __str__(self):
-        return self.name + " " + self.morphs 
+        return f"{self.name} || Morphs:{self.morphs} Birthdate: {self.birthday}"
     name = models.CharField(
         max_length=200, primary_key=True, help_text='Gecko name')
     father = models.CharField(max_length=200,default="Unknown")
@@ -193,7 +194,7 @@ class Gecko(models.Model):
 
 class Gecko_Log(models.Model):
     def __str__(self):
-        return "{0}: {1} || {2}".format(self.gecko.name, self.date, self.notes)
+        return "{0}: {1} ||      {2}".format(self.gecko.name, self.date, self.notes)
     gecko = models.ForeignKey(Gecko, on_delete=models.CASCADE)
     date = models.DateField(
         default=date.today, help_text="What day IS it though?")
@@ -230,6 +231,8 @@ class Gecko_Log(models.Model):
     habitat_full_clean = models.BooleanField(default=False, help_text="Did the habitat get cleaned today?")
 
 class Gecko_Morph(models.Model):
+    def __str__(self):
+        return f"{self.name}"
     #name
     name = models.CharField(
         max_length=200, primary_key=True, help_text='Name of Morph')
@@ -268,6 +271,7 @@ class Gecko_Morph(models.Model):
     combo_morph = models.BooleanField(
         default=False, help_text="Is this morph a combination of other morphs?")
     #morphs to make this morph if combo morph default none
+    #TODO: Model this as a many_to_many perhaps?
     morphs_required = models.CharField(max_length=1200, default="None", help_text="Traits required to create, eg; Tangerine, Melanistic, Raptor")
 
 
@@ -284,3 +288,15 @@ class Mantis_Ooth(models.Model):
     father = models.ForeignKey(Mantis, on_delete=models.CASCADE, related_name="mantis_father")
     mother = models.ForeignKey(Mantis, on_delete=models.CASCADE, related_name="mantis_mother")
     notes = models.CharField(max_length=255)
+
+
+class Inventory_Item(models.Model):
+    """Things like calcium, beetle food, cricket quencher."""
+    def __str__(self):
+        return f"{self.name} {self.size} x{self.stock} "
+    name = models.CharField(max_length=250)
+    size = models.CharField(max_length=240, help_text="50oz, 10ft, 24in x 52in, etc.")
+    stock = models.IntegerField(help_text="How many are in inventory?")
+    links = models.JSONField(default=list)
+    historical_price_data = models.JSONField(default=list)
+    brand = models.CharField(max_length=255, help_text="Fluker's, ZooMed, Etc.")
