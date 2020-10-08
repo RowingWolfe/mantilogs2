@@ -189,6 +189,7 @@ class Gecko(models.Model):
     profile_pic_default = "/static/gecko.jpg"
     profile_pic = models.CharField(max_length=260, default=profile_pic_default,
                                    help_text="Is changed every new picture, can be set manually if need be from /static/")
+    picture = models.ImageField(upload_to='gecko_images/', default='nope.jpeg')
     #HERE THERE BE DRAGONS! (Or smol nippy gexles.)
 
 
