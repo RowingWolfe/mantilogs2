@@ -73,16 +73,6 @@ class Logs(models.Model):
     ooths_produced = models.BooleanField(
         default=False, help_text="Is this bug a mammy bug?")
 
-# Converted to a route.
-# def get_picture(mantis):
-#     # Fire raspistill command with today's date and the mantis name
-#     # Only works on Pi with camera.
-#     pic_cmd = 'raspistill -o ./pic_folder/{0}/{0}_{1}.png'.format(
-#         mantis, str(date.today))
-#     os.system(pic_cmd)
-#     return '/pic_folder/{0}/{0}_{1}.png'.format(
-#         mantis, str(date.today))
-
 
 # Other pictures, taken by outside cameras.
 class Picture(models.Model):

@@ -93,6 +93,10 @@
       {% if gecko.name in last_multivit %}
         <p class="has-text-warning-dark">Last Multivitamin: {{last_multivit|get_item:gecko.name}}</p>
       {% endif %}
+      {% if gecko.name in last_tank_clean %}
+        <p class="has-text-warning-dark">Last Full Tank Clean: {{last_tank_clean|get_item:gecko.name}}</p>
+      {% endif %}
+
       <a href="/geckos/profile/{{gecko.name}}">Profile</a>
     </div>
     </div>
@@ -109,7 +113,7 @@
 <footer class="footer is-dark has-background-dark">
   <div class="content has-text-centered is-dark">
     <p>
-      <strong class="has-text-light">Mantilogs</strong> by <a href="https://armoredmask.com">Armored Mask</a>. 
+      <strong class="has-text-light">Mantilogs</strong> by <a href="https://yarrbeard.com">Yarr Beard</a>.
     </p>
   </div>
 </footer>

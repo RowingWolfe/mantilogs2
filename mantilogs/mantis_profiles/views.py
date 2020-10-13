@@ -12,10 +12,10 @@ from datetime import date, timedelta, datetime
 #import datetime
 import calendar
 import time
-
 import os
-
 from .models import Mantis, Logs, Environment_Log, Gecko, Gecko_Morph, Gecko_Log, Culture, Culture_Log
+
+from .tools import get_last_vitd, get_last_multivit, get_last_tank_clean
 
 
 # setup. Move this to settings and link to docs.
@@ -267,23 +267,20 @@ def gecko_list(request):
     last_logs = {}
     last_vitd = {}
     last_multivit = {}
+    last_tank_clean = {}
     for gecko in geckos:
         # Find logs for gecko
         if(Gecko_Log.objects.filter(gecko=gecko.name)):
             last_logs[gecko.name] = Gecko_Log.objects.filter(
                 gecko=gecko.name).latest('date')
-        
-        #Find the last time given multivits/vitd
-        #TODO: Fix redundant queries.
-        if(Gecko_Log.objects.filter(gecko=gecko.name).filter(calc_with_vit_d=True)):
-            last_vitd[gecko.name] = Gecko_Log.objects.filter(gecko=gecko.name).order_by('date').filter(calc_with_vit_d=True).latest('date').date
-        if(Gecko_Log.objects.filter(gecko=gecko.name).filter(multivitamin_fortified=True)):
-            last_multivit[gecko.name] = Gecko_Log.objects.filter(gecko=gecko.name).order_by('date').filter(multivitamin_fortified=True).latest('date').date
 
+        last_multivit[gecko.name] = get_last_multivit(gecko)
+        last_vitd[gecko.name] = get_last_vitd(gecko)
+        last_tank_clean[gecko.name] = get_last_tank_clean(gecko)
 
 
     return render(request, 'gecko_index.html', {'geckos': geckos, 'last_logs': last_logs,
-        'last_multivit': last_multivit, 'last_vitd': last_vitd})
+        'last_multivit': last_multivit, 'last_vitd': last_vitd, 'last_tank_clean': last_tank_clean})
 
 def gecko_profile(request, gecko_name):
     gecko_data = Gecko.objects.get(name=gecko_name)
