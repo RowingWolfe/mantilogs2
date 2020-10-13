@@ -1,10 +1,13 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.template.defaulttags import register
-from django.http import HttpResponse
-from django.urls import reverse_lazy
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, CreateView, UpdateView
 from datetime import date, timedelta, datetime
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from .forms import Add_Culture_Log
 
 
 #TODO: Abstract filters from the views, shit's getting ugly.
@@ -31,7 +34,10 @@ def index(request):
     return HttpResponse("Mantis Profiles Hit!")
 
 def dashboard(request):
-    context={'info':'Nothing yet.'}
+    userinfo = {}
+    if request.user.is_authenticated:
+        userinfo = request.user
+    context={'info':'Nothing yet.', 'user_info': userinfo}
     return render(request, 'dashboard.html', context)
 
 def log_env(request,temp,humidity, location):
@@ -313,3 +319,18 @@ def culture_profile(request, culture_name):
     logs = Culture_Log.objects.filter(culture=culture_data).order_by('-date')
 
     return render(request, 'culture_profile.html', {"culture": culture_data,  "all_logs": logs})
+
+@login_required
+def add_culture_log(request, culture_name):
+    """Should render a form for adding a log to culture where <culture_name> is the Culture to add the log to."""
+    #culture = get_object_or_404(Culture, culture_name)
+    if request.user.is_authenticated and request.user.is_superuser:
+        if request.method == 'POST':
+            form = Add_Culture_Log(request.POST)
+            if form.is_valid():
+                print("Form validated.")
+        elif request.method == 'GET':
+            return render(request, 'culture_log_form.html', {'culture_name': culture_name, 'user':request.user})
+    else:
+        return redirect('/')
+

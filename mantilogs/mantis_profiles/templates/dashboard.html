@@ -39,6 +39,16 @@ July 8, 2020-->
               <!-- TODO: Write documentation. Wow. Good job so far.-->
               Documentation
             </a>
+            <a href="/accounts/login" class="navbar-item">
+                {% if user_info.is_authenticated %}
+                Logged in as: {{ user.username }}
+              {% if user_info.is_superuser %}
+                (Superuser)
+              {% endif %}
+                {% else %}
+                Login
+              {% endif %}
+            </a>
             
           </div>
         </div>
