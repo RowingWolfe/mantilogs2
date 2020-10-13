@@ -217,6 +217,7 @@ class Gecko_Log(models.Model):
     moist_hide_media_changed = models.BooleanField(default=False, help_text="Changed out stanky moss?")
     moisturized_moist_hide = models.BooleanField(default=False, help_text="Spritz the moss?")
     water_bowl_good = models.BooleanField(default=False, help_text="Enough water in the water bowl?")
+    has_defecated = models.BooleanField(default=False, help_text="Did the gecko drop a deuce?")
     cleaned_water_bowl = models.BooleanField(default=False, help_text="Have to clean the water bowl?")
     cleaned_food_bowl = models.BooleanField(default=False, help_text="Have to clean the food bowl?")
     habitat_full_clean = models.BooleanField(default=False, help_text="Did the habitat get cleaned today?")

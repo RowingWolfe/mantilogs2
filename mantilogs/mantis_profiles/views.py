@@ -15,7 +15,7 @@ import time
 import os
 from .models import Mantis, Logs, Environment_Log, Gecko, Gecko_Morph, Gecko_Log, Culture, Culture_Log
 
-from .tools import get_last_vitd, get_last_multivit, get_last_tank_clean
+from .tools import get_last_vitd, get_last_multivit, get_last_tank_clean, get_last_fed, get_last_defecation
 
 
 # setup. Move this to settings and link to docs.
@@ -268,6 +268,8 @@ def gecko_list(request):
     last_vitd = {}
     last_multivit = {}
     last_tank_clean = {}
+    last_fed = {}
+    last_defecated = {}
     for gecko in geckos:
         # Find logs for gecko
         if(Gecko_Log.objects.filter(gecko=gecko.name)):
@@ -277,10 +279,13 @@ def gecko_list(request):
         last_multivit[gecko.name] = get_last_multivit(gecko)
         last_vitd[gecko.name] = get_last_vitd(gecko)
         last_tank_clean[gecko.name] = get_last_tank_clean(gecko)
+        last_fed[gecko.name] = get_last_fed(gecko)
+        last_defecated[gecko.name] = get_last_defecation(gecko)
 
 
     return render(request, 'gecko_index.html', {'geckos': geckos, 'last_logs': last_logs,
-        'last_multivit': last_multivit, 'last_vitd': last_vitd, 'last_tank_clean': last_tank_clean})
+        'last_multivit': last_multivit, 'last_vitd': last_vitd, 'last_tank_clean': last_tank_clean,
+                                                "last_defecation": last_defecated, "last_fed": last_fed})
 
 def gecko_profile(request, gecko_name):
     gecko_data = Gecko.objects.get(name=gecko_name)

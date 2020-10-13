@@ -88,13 +88,19 @@
       <p class="subtitle">Father: {{gecko.father}} Mother: {{gecko.mother}}</p>
       {% endif %}
       {% if gecko.name in last_vitd %}
-        <p class="has-text-warning-dark">Last Vitamin D: {{last_vitd|get_item:gecko.name}}</p>
+        <p class="has-text-danger-dark">Last Vitamin D: {{last_vitd|get_item:gecko.name}}</p>
       {% endif %}
       {% if gecko.name in last_multivit %}
-        <p class="has-text-warning-dark">Last Multivitamin: {{last_multivit|get_item:gecko.name}}</p>
+        <p class="has-text-danger-dark">Last Multivitamin: {{last_multivit|get_item:gecko.name}}</p>
       {% endif %}
       {% if gecko.name in last_tank_clean %}
-        <p class="has-text-warning-dark">Last Full Tank Clean: {{last_tank_clean|get_item:gecko.name}}</p>
+        <p class="has-text-danger-dark">Last Full Tank Clean: {{last_tank_clean|get_item:gecko.name}}</p>
+      {% endif %}
+      {% if gecko.name in last_fed %}
+        <p class="has-text-danger-dark">Last Ate: {{last_fed|get_item:gecko.name}}</p>
+      {% endif %}
+      {% if gecko.name in last_defecation %}
+        <p class="has-text-danger-dark">Last Defecation: {{last_defecation|get_item:gecko.name}}</p>
       {% endif %}
 
       <a href="/geckos/profile/{{gecko.name}}">Profile</a>
