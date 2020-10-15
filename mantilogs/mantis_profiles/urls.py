@@ -23,7 +23,7 @@ urlpatterns = [
     path('geckos/profile/<gecko_name>', views.gecko_profile, name='gecko-profile'),
     path('cultures/index', views.culture_list, name="culture-list"),
     path('cultures/profile/<culture_name>', views.culture_profile, name='culture-profile'),
-    path('cultures/add_log/<culture_name>', views.add_culture_log, name='add-culture-log'),
+    #path('cultures/add_log/<culture_name>', views.add_culture_log, name='add-culture-log'),
     path('', views.mantis_list, name="mantis-list"),
 ]
 urlpatterns += [

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!--For each culture...-->
+<div class="columns is-variable is-3 is-multiline is-centered">
+{% for cul in cultures %}
+
+  <div class="card  has-background-dark has-text-light column is-three-quarters-mobile is-two-thirds-tablet is-one-third-desktop is-one-third-widescreen is-one-quarter-fullhd">
+    <div class="card-image">
+      <figure class="image is-4by3">
+        <img src="/media/{{cul.profile_picture}}" alt="Profile Picture">
+      </figure>
+    </div>
+    <div class="card-content">
+      <div class="media">
+        <div class="media-content">
+          <p class="title has-text-success is-4">{{cul.name}}</p>
+          <p class="subtitle is-6">{{cul.species}}</p>
+        </div>
+      </div>
+
+      <div class="content">
+        <b>{{cul.specie}}</b>
+        <p>Fed:
+          {% for feed in cul.feed.all %}{{ feed }} {% endfor %}
+        </p>
+
+        <br>
+        Created:
+        <time datetime="2016-1-1">{{cul.creation_date}}</time>
+        <hr/>
+        <a href="/culture/{{cul.id}}"><button class="button is-black is-large is-fullwidth">Profile</button></a>
+        <br>
+        <button class="button is-success is-large is-fullwidth">Add Log</button>
+        <br>
+        <button class="button is-danger is-large is-fullwidth">Quarantine</button>
+
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+  </div>
+{% endblock %}

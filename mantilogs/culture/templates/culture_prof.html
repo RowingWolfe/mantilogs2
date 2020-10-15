@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="columns is-centered">
+  <div class="is-one-third image is-4-by-3 is-centered">
+    <img src="/media/{{culture.profile_picture}}" alt="Profile Picture" style="min-width: 85%; max-width: 85%; margin: auto;">
+  </div>
+</section>
+<section class="hero is-small is-info is-bold">
+  <div class="hero-body">
+    <article class="media">
+      <div class="media-content">
+        <div class="content">
+              <strong>Created</strong> <time datetime="2016-1-1">{{culture.creation_date}}</time>
+          <br>
+             <strong>Feed</strong> {% for feed in culture.feed.all %}{{ feed }} {% endfor %}
+          <br>
+              {% if quarantine %}
+    <strong>Has been quarantined</strong>  {{quarantine}}
+              {%endif%}
+
+        </div>
+      </div>
+      <div class="media-right">
+
+      </div>
+    </article>
+  </div>
+</section>
+
+<!--Logs-->
+<section class="is-centered">
+{% for log in logs %}
+
+<div class="card has-text-light has-background-dark is-centered">
+  <header class="card-header">
+    <h3 class="card-header-title is-size-4 has-text-warning">
+      <time datetime="2016-1-1">{{ log.date }}</time>
+    </h3>
+  </header>
+  <div class="card-content is-centered">
+    <div class="content is-centered">
+      <div class="columns is-centered">
+        {% if log.added_feed %}
+        <p class="column is-one-third has-text-success is-size-5">Added Feed</p>
+        {% else %}
+        <p class="column is-one-third has-text-danger is-size-5">Did Not Add Feed</p>
+        {% endif %}
+        {% if log.added_watering_media %}
+        <p class="column is-one-third has-text-success is-size-5">Added Watering Media</p>
+        {% else %}
+        <p class="column is-one-third has-text-danger is-size-5">Did Not Add Watering Media</p>
+        {% endif %}
+        {% if log.cleaned_culture %}
+        <p class="column is-one-third has-text-success is-size-5">Cleaned Culture</p>
+        {% else %}
+        <p class="column is-one-third has-text-danger is-size-5">No Cleaning</p>
+        {% endif %}
+      </div>
+      <p class="is-centered is-size-5">{{ log.notes }}</p>
+      <br>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <a href="#" class="card-footer-item is-size-4">Edit</a>
+  </footer>
+</div>
+
+{% endfor %}
+</section>
+{% endblock %}

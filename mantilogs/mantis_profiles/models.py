@@ -285,7 +285,7 @@ class Mantis_Ooth(models.Model):
 class Inventory_Item(models.Model):
     """Inventory Management for food, supplies, etc."""
     def __str__(self):
-        return f"{self.name} {self.size} x{self.stock} "
+        return f"{self.stock} x {self.name} {self.size}"
     name = models.CharField(max_length=250)
     size = models.CharField(max_length=240, help_text="50oz, 10ft, 24in x 52in, etc.")
     stock = models.IntegerField(help_text="How many are in inventory?")

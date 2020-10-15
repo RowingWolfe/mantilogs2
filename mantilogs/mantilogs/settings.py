@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'mantis_profiles.apps.MantisProfilesConfig',
+    'culture',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
