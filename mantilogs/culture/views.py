@@ -26,7 +26,7 @@ def culture_profile(request, cul):
     quarantine = {}
     if logs == None:
         logs = {}
-    if Quarantine.objects.filter(culture=culture).latest():
+    if Quarantine.objects.filter(culture=culture):
         quarantine = Quarantine.objects.filter(culture=culture).latest()
 
     return render(request, 'culture_prof.html', {'culture': culture, 'logs': logs,
