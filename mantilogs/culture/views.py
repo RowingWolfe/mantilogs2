@@ -23,11 +23,12 @@ def culture_profile(request, cul):
     # TODO: Add Pagination.
     culture = get_object_or_404(Culture, id=cul)
     logs = Log.objects.filter(culture=culture)
+    quarantine = {}
     if logs == None:
         logs = {}
-    quarantine = Quarantine.objects.filter(culture=culture).latest()
-    if quarantine == None:
-        quarantine = {}
+    if Quarantine.objects.filter(culture=culture).latest():
+        quarantine = Quarantine.objects.filter(culture=culture).latest()
+
     return render(request, 'culture_prof.html', {'culture': culture, 'logs': logs,
                                           'user_info': request.user, 'page_title': culture.name,
                                           'page_subtitle': culture.specie, 'quarantine': quarantine})
