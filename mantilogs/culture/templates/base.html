@@ -56,16 +56,21 @@
             <strong>Sign up</strong>
           </a>
           {% endif %}
-          <a class="button is-light" href="/accounts/login">
+
             {% if user_info.is_authenticated %}
                 Logged in as: {{ user.username }}
               {% if user_info.is_superuser %}
-                (Superuser)
+          <i>(Superuser)</i>
               {% endif %}
-                {% else %}
-                Login
-              {% endif %}
+           <a class="button is-light" href="/accounts/logout">
+                Logout
           </a>
+                {% else %}
+          <a class="button is-light" href="/accounts/login">
+                Login
+          </a>
+              {% endif %}
+
         </div>
       </div>
     </div>
