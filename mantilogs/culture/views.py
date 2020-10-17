@@ -39,15 +39,16 @@ def culture_profile(request, cul):
 def add_log(request, cul):
     """Display form for adding a log to culture <cul>, handle POST from said form. """
     redir_path = f'/culture/{cul}'
+    culture = get_object_or_404(Culture, id=cul)
     if request.method == 'POST':
         form = Create_Log_Form(request.POST)
         if form.is_valid():
             # Process the data.
             # Redirect
-            HttpResponseRedirect('/culture/index')
+            HttpResponseRedirect(redir_path)
     else:
         form = Create_Log_Form()
 
-    return render(request, 'cul_add_log.html', {'form': form, 'culture': cul})
+    return render(request, 'cul_add_log.html', {'form': form, 'culture': culture})
 
 # Profile Views
