@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% if user.is_superuser %}
+{% if user_info.is_superuser %}
 <h2>Adding log to {{culture.name}}</h2>
 <form action="/culture/add_log/{{culture.id}}" method="post">
     {% csrf_token %}
