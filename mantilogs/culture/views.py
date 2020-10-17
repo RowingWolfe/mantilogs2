@@ -41,16 +41,19 @@ def add_log(request, cul):
     redir_path = f'/culture/{cul}'
     culture = get_object_or_404(Culture, id=cul)
     if request.method == 'POST':
-        form = Create_Log_Form(request.POST)
-        if form.is_valid():
-            # Process the data.
-            # Just gonna save it for now without cleaning because I love me some technical debt.
-            form.save()
-            # Redirect
+        if request.user.is_superuser:
+            form = Create_Log_Form(request.POST)
+            if form.is_valid():
+                # Process the data.
+                # Just gonna save it for now without cleaning because I love me some technical debt.
+                form.save()
+                # Redirect
+                HttpResponseRedirect(redir_path)
+        else:
             HttpResponseRedirect(redir_path)
     else:
         form = Create_Log_Form()
 
-    return render(request, 'cul_add_log.html', {'form': form, 'culture': culture})
+    return render(request, 'cul_add_log.html', {'form': form, 'culture': culture, 'user': request.user})
 
 # Profile Views
