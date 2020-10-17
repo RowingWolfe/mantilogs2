@@ -38,7 +38,7 @@ def culture_profile(request, cul):
 
 def add_log(request, cul):
     """Display form for adding a log to culture <cul>, handle POST from said form. """
-    redir_path = f'/culture/{cul}'
+    redir_path = f'/culture/index'
     culture = get_object_or_404(Culture, id=cul)
     if request.method == 'POST':
         if request.user.is_superuser:
@@ -48,7 +48,7 @@ def add_log(request, cul):
                 # Just gonna save it for now without cleaning because I love me some technical debt.
                 form.save()
                 # Redirect
-                HttpResponseRedirect(redir_path)
+                return HttpResponseRedirect(redir_path)
         else:
             HttpResponseRedirect(redir_path)
     else:
