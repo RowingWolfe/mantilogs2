@@ -3,7 +3,7 @@
 <h2>Adding log to {{culture.name}}</h2>
 <form action="/culture/add_log/{{culture.id}}" method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     <input type="submit" value="Submit">
 </form>
 

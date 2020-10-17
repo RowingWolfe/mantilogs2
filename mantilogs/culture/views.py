@@ -44,6 +44,8 @@ def add_log(request, cul):
         form = Create_Log_Form(request.POST)
         if form.is_valid():
             # Process the data.
+            # Just gonna save it for now without cleaning because I love me some technical debt.
+            form.save()
             # Redirect
             HttpResponseRedirect(redir_path)
     else:
