@@ -42,7 +42,7 @@ def add_log(request, cul):
     culture = get_object_or_404(Culture, id=cul)
     if request.method == 'POST':
         if request.user.is_superuser:
-            form = Create_Log_Form(request.POST)
+            form = Create_Log_Form(request.POST, initial={'culture':culture})
             if form.is_valid():
                 # Process the data.
                 # Just gonna save it for now without cleaning because I love me some technical debt.
