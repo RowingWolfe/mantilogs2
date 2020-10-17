@@ -44,7 +44,7 @@ def add_log(request, cul):
         if form.is_valid():
             # Process the data.
             # Redirect
-            HttpResponseRedirect('/culture/')
+            HttpResponseRedirect('/culture/index')
     else:
         form = Create_Log_Form()
 
