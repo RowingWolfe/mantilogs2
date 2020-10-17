@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.http import HttpResponseRedirect
 from .models import Culture, Log, Quarantine
+from .forms import Create_Log_Form
 
 
 # Index Views
@@ -33,5 +35,19 @@ def culture_profile(request, cul):
                                           'user_info': request.user, 'page_title': culture.name,
                                           'page_subtitle': culture.specie, 'quarantine': quarantine})
 
+
+def add_log(request, cul):
+    """Display form for adding a log to culture <cul>, handle POST from said form. """
+    redir_path = f'/culture/{cul}'
+    if request.METHOD == 'POST':
+        form = Create_Log_Form(request.POST)
+        if form.is_valid():
+            # Process the data.
+            # Redirect
+            HttpResponseRedirect('/culture/')
+    else:
+        form = Create_Log_Form()
+
+    return render(request, 'cul_add_log.html', {'form': form, 'culture': cul})
 
 # Profile Views
