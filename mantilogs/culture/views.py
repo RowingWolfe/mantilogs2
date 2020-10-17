@@ -54,7 +54,6 @@ def add_log(request, cul):
     else:
         form = Create_Log_Form()
         form.fields['culture'].initial = culture
-        #form.fields['culture'].initial = culture
 
     return render(request, 'cul_add_log.html', {'form': form, 'culture': culture, 'user': request.user})
 
