@@ -39,7 +39,7 @@ def culture_profile(request, cul):
 def add_log(request, cul):
     """Display form for adding a log to culture <cul>, handle POST from said form. """
     redir_path = f'/culture/{cul}'
-    if request.METHOD == 'POST':
+    if request.method == 'POST':
         form = Create_Log_Form(request.POST)
         if form.is_valid():
             # Process the data.
