@@ -43,7 +43,6 @@ def add_log(request, cul):
     if request.method == 'POST':
         if request.user.is_superuser:
             form = Create_Log_Form(request.POST)
-            form.fields['culture'].initial = culture
             if form.is_valid():
                 # Process the data.
                 # Just gonna save it for now without cleaning because I love me some technical debt.
@@ -54,6 +53,8 @@ def add_log(request, cul):
             HttpResponseRedirect(redir_path)
     else:
         form = Create_Log_Form()
+        form.fields['culture'].initial = culture
+        #form.fields['culture'].initial = culture
 
     return render(request, 'cul_add_log.html', {'form': form, 'culture': culture, 'user': request.user})
 
