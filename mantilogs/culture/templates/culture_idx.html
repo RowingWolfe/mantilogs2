@@ -2,7 +2,7 @@
 {% block content %}
 
 <!--For each culture...-->
-<div class="columns is-variable is-3 is-multiline is-centered">
+<div class="columns is-variable is-3 is-multiline is-centered has-background-dark">
 {% for cul in cultures %}
 
   <div class="card  has-background-dark has-text-light column is-three-quarters-mobile is-two-thirds-tablet is-one-third-desktop is-one-third-widescreen is-one-quarter-fullhd">
@@ -19,9 +19,9 @@
         </div>
       </div>
 
-      <div class="content" style="min-height: 400px;">
+      <div class="content">
         <b>{{cul.specie}}</b>
-        <p>Fed:
+        <p  style="min-height: 300px;">Fed:
           {% for feed in cul.feed.all %}{{ feed }} {% endfor %}
         </p>
 
