@@ -21,21 +21,21 @@
   </div>
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" href="/">
+      <a class="navbar-item has-text-light" href="/">
         Home
       </a>
-      <a class="navbar-item" href="https://github.com/RowingWolfe/mantilogs2">
+      <a class="navbar-item has-text-success" href="https://github.com/RowingWolfe/mantilogs2">
         Github
       </a>
-      <a class="navbar-item" href="https://forum.yarrbeard.com/c/yarr-proj/mantilogs/9">
+      <a class="navbar-item has-text-success" href="https://forum.yarrbeard.com/c/yarr-proj/mantilogs/9">
         Forums
       </a>
-      <div class="navbar-item has-dropdown is-hoverable">
+      <div class="navbar-item has-dropdown is-hoverable has-text-light">
         <a class="navbar-link" href="#">
           Critters
         </a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="/culture/index">
+          <a class="navbar-item " href="/culture/index">
             Cultures
           </a>
           <hr class="navbar-divider">
@@ -44,7 +44,7 @@
           </a>
         </div>
       </div>
-        <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-item has-dropdown is-hoverable has-text-light">
         <a class="navbar-link" href="#">
           Inventory
         </a>
@@ -69,7 +69,7 @@
           {% endif %}
 
             {% if user_info.is_authenticated %}
-                Logged in as: {{ user.username }}
+          <p class="is-size-3 has-text-warning">Logged in as: {{ user.username }}</p>
               {% if user_info.is_superuser %}
           <a class="button is-warning" href="/admin">
                 Admin
