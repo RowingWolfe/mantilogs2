@@ -2,13 +2,15 @@
 {% block content %}
 
 {% if user_info.is_superuser %}
-<h2 class="is-size-2">Adding log to {{culture.name}}</h2>
+<div class="">
+<h2 class="is-size-2">Add a Culture</h2>
 <form action="{{endpoint}}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit">
 </form>
 {% else %}
-    <h2>Must be logged in as with a Staff account to add logs.</h2>
+    <h2>Must be logged in as with a Staff account to add a Culture.</h2>
 {% endif %}
+</div>
 {% endblock %}

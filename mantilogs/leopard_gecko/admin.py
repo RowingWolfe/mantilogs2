@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import Gecko, Log, Breeding_Log, Feeding_Log, Cleaning_Log, Molt, Clutch, Tank, Tank_Object, Death, Morph
+from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Clutch, Tank, Tank_Object, Death, Morph, Egg
 # Register your models here.
 
 admin.site.register(Gecko)
 admin.site.register(Log)
+admin.site.register(Egg)
 admin.site.register(Feeding_Log)
-admin.site.register(Cleaning_Log)
+admin.site.register(Tank_Cleaning_Log)
 admin.site.register(Breeding_Log)
 admin.site.register(Molt)
 admin.site.register(Morph)

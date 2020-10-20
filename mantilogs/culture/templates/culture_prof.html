@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="has-text-centered" style="margin-bottom: 30px;">
+  <a class="button is-info is-large" href="/culture/edit_culture/{{culture.id}}">Edit Culture</a>
+  <a class="button is-info is-large" href="/culture/add_log/{{culture.id}}">Add Log</a>
+  <a class="button is-danger is-large" href="/culture/add_quarantine/{{culture.id}}">Quarantine</a>
+</div>
 <section class="columns is-centered">
   <div class="is-one-third image is-4-by-3 is-centered">
     <img src="/media/{{culture.profile_picture}}" alt="Profile Picture" style="min-width: 85%; max-width: 85%; margin: auto;">
@@ -15,7 +20,11 @@
              <strong>Feed</strong> {% for feed in culture.feed.all %}{{ feed }} {% endfor %}
           <br>
               {% if quarantine %}
-    <strong>Has been quarantined</strong>  {{quarantine}}
+          {% if quarantine.end_date %}
+          <strong>Quarantined before</strong> but has been cleared.
+          {% else %}
+    <strong>Has been quarantined for</strong>  {{quarantine.reason}} on {{quarantine.start_date}} <a class="has-link-text-warn is-size-5" style="color: orange;" href="/culture/edit_quarantine/{{quarantine.id}}">[Edit]</a>
+          {% endif %}
               {%endif%}
 
         </div>
@@ -61,7 +70,7 @@
     </div>
   </div>
   <footer class="card-footer">
-    <a href="#" class="card-footer-item is-size-4">Edit</a>
+    <a href="/culture/edit_log/{{culture.id}}/{{log.id}}" class="card-footer-item is-size-4">Edit</a>
   </footer>
 </div>
 

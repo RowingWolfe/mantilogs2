@@ -22,7 +22,7 @@ urlpatterns = [
     #Changed the base path to be / hope nothing breaks.
     path('', include('mantis_profiles.urls')),
     path('culture/', include('culture.urls')),
-    path('leo_gecko/', include('leopard_gecko.urls')),
+    path('leopard_gecko/', include('leopard_gecko.urls')),
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
     #path('', view.main, name="main"),

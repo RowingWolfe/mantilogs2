@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<!--Culture Interactions-->
+<div class="has-text-centered" style="margin-bottom: 30px;">
+<a class="button is-info is-large" href="/culture/add_culture">Add Culture</a>
+</div>
 <!--For each culture...-->
 <div class="columns is-variable is-3 is-multiline is-centered has-background-dark">
 {% for cul in cultures %}
@@ -29,11 +32,11 @@
         Created:
         <time datetime="2016-1-1">{{cul.creation_date}}</time>
         <hr/>
-        <a href="/culture/{{cul.id}}"><button class="button is-black is-large is-fullwidth">Profile</button></a>
+        <a href="/culture/profile/{{cul.id}}"><button class="button is-black is-large is-fullwidth">Profile</button></a>
         <br>
         <a href="/culture/add_log/{{cul.id}}"><button class="button is-success is-large is-fullwidth">Add Log</button></a>
         <br>
-        <button class="button is-danger is-large is-fullwidth">Quarantine</button>
+        <a href="/culture/add_quarantine/{{cul.id}}"><button class="button is-danger is-large is-fullwidth">Quarantine</button></a>
 
       </div>
     </div>
