@@ -253,3 +253,12 @@ class Death(models.Model):
     time = models.DateTimeField(default=datetime.datetime.now)
     # Reason (If Known)
     reason = models.TextField(max_length=2048, blank=True)
+
+
+class Temperatures(models.Model):
+    """Stores temperatures reported from temp probes in tanks"""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    tank = models.ForeignKey('Tank', on_delete=models.CASCADE)
+    date = models.DateField(default=datetime.date.today)
+    high = models.FloatField()
+    low = models.FloatField()

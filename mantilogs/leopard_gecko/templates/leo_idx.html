@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--Culture Interactions-->
+<div class="has-text-centered" style="margin-bottom: 30px;">
+<a class="button is-info is-large" href="/leopard_gecko/add_gecko">Add Gecko</a>
+</div>
+<!--For each culture...-->
+<div class="columns is-variable is-3 is-multiline is-centered has-background-dark">
+{% for gecko in geckos %}
+
+  <div class="card  has-background-dark has-text-light column is-three-quarters-mobile is-two-thirds-tablet is-one-third-desktop is-one-third-widescreen is-one-quarter-fullhd">
+    <div class="card-image">
+      <figure class="image is-4by3">
+        <img src="/media/{{gecko.profile_picture}}" alt="Profile Picture">
+      </figure>
+    </div>
+    <div class="card-content">
+      <div class="media">
+        <div class="media-content" style="min-height:60px;">
+          <p class="title has-text-success is-4">{{gecko.name}}</p>
+          <p class="subtitle is-6 has-text-success">
+            {{gecko.nickname}}
+          </p>
+        </div>
+      </div>
+
+      <div class="content">
+        <div style="min-height:300px;">
+  <!--        Gecko Information                -->
+            <div class="columns" style="margin-bottom: -30px">
+                <b class="column">Gender:</b> <p class="column">{{gecko.gender}}</p>
+            </div>
+            <div class="columns" style="margin-bottom: -30px">
+            <b class="column">Caretaker:</b> <p class="column">{{gecko.caretaker}}</p>
+            </div>
+            <div class="columns" style="margin-bottom: -20px">
+            <p class="column">Hatched</p> <time class="column" datetime="2016-1-1">{{gecko.birth_date}}</time>
+            </div>
+
+
+  <!--        Information from Logs            -->
+              <div class="columns" style="margin-bottom: -35px">
+                <p class="column">Last full tank clean:</p>
+                {% if gecko.id in full_tank_cleans %}
+                <p class="column"> {{full_tank_cleans|get_item:gecko.id}}</p>
+                {% else %}
+                <p class="column">Unknown</p>
+                {% endif %}
+              </div>
+            <div class="columns" style="margin-bottom: -35px">
+            <p class="column">Last water bowl clean:</p>
+            {% if gecko.id in last_water_bowl_cleans %}
+            <p class="column"> {{last_water_bowl_cleans|get_item:gecko.id}}</p>
+            {% else %}
+            <p class="column">Unknown</p>
+            {% endif %}
+             </div>
+            <div class="columns" style="margin-bottom: -35px">
+            <p class="column">Last food bowl clean:</p>
+            {% if gecko.id in last_food_bowl_cleans %}
+            <p class="column"> {{last_food_bowl_cleans|get_item:gecko.id}}</p>
+            {% else %}
+            <p class="column">Unknown</p>
+            {% endif %}
+             </div>
+            <div class="columns" style="margin-bottom: -35px">
+            <p class="column">Last ate:</p>
+            {% if gecko.id in last_fed %}
+            <p class="column"> {{last_fed|get_item:gecko.id}}</p>
+            {% else %}
+            <p class="column">Unknown</p>
+            {% endif %}
+             </div>
+            <div class="columns" style="margin-bottom: -35px">
+            <p class="column">Last Vitamin D:</p>
+            {% if gecko.id in last_vitd %}
+            <p class="column"> {{last_vitd|get_item:gecko.id}}</p>
+            {% else %}
+            <p class="column">Unknown</p>
+            {% endif %}
+             </div>
+            <div class="columns" style="margin-bottom: -35px">
+            <p class="column">Last Multivitamin:</p>
+            {% if gecko.id in last_multivit %}
+            <p class="column"> {{last_multivit|get_item:gecko.id}}</p>
+            {% else %}
+            <p class="column">Unknown</p>
+            {% endif %}
+             </div>
+            <div class="columns" style="margin-bottom: -35px">
+            <p class="column">Last Defecation:</p>
+            {% if gecko.id in last_defecation %}
+            <p class="column"> {{last_defecation|get_item:gecko.id}}</p>
+            {% else %}
+            <p class="column">Unknown</p>
+            {% endif %}
+             </div>
+            <div class="columns">
+            <p class="column">Last Molt:</p>
+            {% if gecko.id in last_molt %}
+            <p class="column"> {{last_molt|get_item:gecko.id}}</p>
+            {% else %}
+            <p class="column">Unknown</p>
+            {% endif %}
+             </div>
+
+
+         </div>
+
+
+        <hr/>
+        <a href="/culture/profile/{{gecko.id}}"><button class="button is-black is-large is-fullwidth">Profile</button></a>
+        <br>
+        <a href="/culture/add_log/{{gecko.id}}"><button class="button is-success is-large is-fullwidth">Add Log</button></a>
+        <br>
+        <a href="/culture/add_quarantine/{{gecko.id}}"><button class="button is-danger is-large is-fullwidth">Other Thing!</button></a>
+
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+  </div>
+{% endblock %}
