@@ -53,7 +53,7 @@ class Morph(models.Model):
     morph_type = models.CharField(max_length=16, choices=morph_types, default='COLOR')
     secondary_morph_type = models.CharField(max_length=16, choices=morph_types, default='NONE')
     # Color (If Applicable)
-    color = models.CharField(max_length=24, blank=True)
+    color = models.CharField(max_length=120, blank=True)
     # Discovery Date (If known)
     discovery_date = models.DateField(blank=True, null=True)
     # Picture
