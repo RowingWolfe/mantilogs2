@@ -219,7 +219,7 @@ def add_log(request, gecko):
 
 
 def edit_log(request, gecko, log):
-    """Add a Log to a gecko. Renders a form and takes the post request for it."""
+    """Edit a Log to a gecko. Renders a form and takes the post request for it."""
     gecko = get_object_or_404(Gecko, id=gecko)
     log = get_object_or_404(Log, id=log)
     post_endpoint = f"/leopard_gecko/edit_log/{gecko.id}/{log.id}"
