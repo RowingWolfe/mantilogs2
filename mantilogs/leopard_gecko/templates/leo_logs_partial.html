@@ -1,0 +1,13 @@
+<div class="container" id="logs-container">
+    {% for log in logs %}
+
+    <div id="{{log.id}}">
+    </div>
+
+    <script>
+        $( "#{{log.id}}" ).load( "/leopard_gecko/log_partial/{{log.id}}" );
+        $( "#logs-container" ).append( $( "#{{log.id}}" ) );
+    </script>
+
+    {% endfor %}
+</div>

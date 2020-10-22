@@ -1,0 +1,111 @@
+
+<!--Display all logs for now, will need to write a pagination system later.-->
+<!-- TODO: Pagination System -->
+<section class="container pb-6 has-background-dark box mb-4">
+    <h3 class="is-size-3 box has-background-dark has-text-success mr-3 ml-3"><time datetime="2016-1-1">{{log.time}}</time></h3>
+    <div class="container box has-background-white-ter">
+
+        <div class="columns">
+
+    <!--        If defecation -->
+            {% if log.defecation %}
+            <h3 class="column is-size-4 box has-text-success has-background-dark mr-3 ml-3">Defecation</h3>
+            {% endif %}
+        </div>
+        <hr>
+
+<!--3 Note sections, if any text in them will display.-->
+
+    <div class="container has-text-centered">
+        <div class="container columns">
+            {% if log.behavior %}
+            <div class="column box mb-3 ml-3 mr-3">
+                <h2 class="is-size-4 has-text-success-dark mb-3">Behavior</h2>
+                <p class="pb-4">
+                    {{log.behavior}}
+                </p>
+            </div>
+            {% endif %}
+            {% if log.problems %}
+            <div class="column box mr-3">
+                <h2 class="is-size-4 has-text-danger-dark mb-3 ">Problems</h2>
+                <p class="pb-4 has-text-danger">
+                    {{log.problems}}
+                </p>
+            </div>
+            {% endif %}
+        </div>
+        {% if log.other_notes %}
+        <div class="box has-background-dark has-text-light">
+            <h2 class="is-size-4 has-text-info">Other Notes</h2>
+            <hr>
+            <p class="pb-6">
+                {{log.other_notes}}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+        </div>
+
+<!--    IF feed log for log    -->
+    {% if feed_log %}
+    <div class="container pb-6 pt-4 pb-6 box has-background-white-ter">
+        <div class="box has-background-success">
+            <h2 class="has-text-centered is-size-3  has-text-light">Fed Today</h2>
+        </div>
+        <hr>
+
+        <div class="container columns box mr-1 ml-1">
+            <p class="column is-size-6"><b>Ate</b> @ <time datetime="2016-1-1">{{feed_log.time}}</time> <b class="has-text-info">{{feed_log.get_feed_supplement_display}}</b> fortified</p>
+            <p class="column is-size-5 pt-5 has-text-right"><b>Feed Item(s)</b>:</p>
+            <!--For each feed item. (Arr)-->
+            <p class="column has-text-left">
+                {% for f in feed_log.feed %}
+                <p class="column is-size-5 pt-5 has-text-left">{{f}}</p>
+                {% endfor %}
+
+            </p>
+        </div>
+
+<!--        If notes-->
+        {% if feed_log.notes %}
+        <div class="container has-text-centered box has-background-dark has-text-light">
+            <h2 class="is-size-4 has-text-info">Notes</h2>
+            <hr>
+            <p>
+               {{ feed_log.notes }}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+<!--    If Molt for Log     -->
+    {% if molt_log %}
+    <div class="container pb-6 has-background-white-ter pt-4 pb-6 box">
+        <h2 class="has-text-centered is-size-4 pb-2 has-text-warn-dark">Molted</h2>
+        <hr style="border-top: 1px solid black;">
+        <article class="media">
+          <figure class="media-left ml-6">
+            <p class="image is-128x128">
+              <img src="/media/{{molt_log.picture}}">
+            </p>
+          </figure>
+          <div class="media-content">
+<!--        IF PROBLEM add class has-text-danger -->
+              {% if molt_log.problems_with_molt %}
+            <div class="content has-text-danger">
+                {% else %}
+                <div class="content">
+                {% endif %}
+              <p>
+                <strong><time class="column" datetime="2016-1-1">{{molt_log.time}}</time></strong>
+                <br>
+                  {{molt_log.notes}}
+              </p>
+            </div>
+          </div>
+        </article>
+    </div>
+    {% endif %}
+</section>

@@ -91,12 +91,6 @@ def profile(request, gecko):
     return render(request, 'leo_prof.html', context)
 
 
-def logs_partial(request, gecko):
-    gecko = get_object_or_404(Gecko, id=gecko)
-    logs = get_list_or_404(Log, gecko=gecko)
-    context = {'user_info': request.user, 'gecko': gecko, 'logs': logs }
-    return render(request, 'leo_logs_partial.html', context)
-
 
 def info_partial(request, gecko):
     gecko = get_object_or_404(Gecko, id=gecko)
@@ -164,8 +158,6 @@ def info_partial(request, gecko):
             last_molt[gecko.id] = Molt.objects.filter(gecko=gecko).latest('time').time
     except Molt.DoesNotExist:
         pass
-    print('========================================================================================================')
-    print(last_fed)
     context = {'last_logs': last_logs,'full_tank_cleans': full_tank_clean_logs,
                 'last_10_cleans': last_10_cleaning_logs, 'last_water_bowl_cleans': last_water_bowl_cleaning_logs,
                 'last_food_bowl_cleans': last_food_bowl_cleaning_logs, 'last_vitd': last_vitd,
@@ -173,3 +165,32 @@ def info_partial(request, gecko):
                  'last_molt': last_molt, 'gecko': gecko
                }
     return render(request, 'leo_info_partial.html', context)
+
+
+def log_partial(request, log):
+    """Gets individual log for logs_partial"""
+    log = get_object_or_404(Log, id=log)
+    feed_log = {}
+    molt_log = {}
+    try:
+        feed_log = Feeding_Log.objects.filter(log=log).latest('time')
+    except Feeding_Log.DoesNotExist:
+        pass
+    try:
+        molt_log = Molt.objects.filter(log=log).latest('time')
+    except Molt.DoesNotExist:
+        pass
+    #print(log, feed_log, molt_log)
+
+    context = {'user_info': request.user, 'log': log, 'feed_log': feed_log, 'molt_log': molt_log}
+    return render(request, 'leo_log_partial.html', context)
+
+
+def logs_partial(request, gecko):
+    """Gets logs for gecko, loads the logs partial."""
+    gecko = get_object_or_404(Gecko, id=gecko)
+    logs = Log.objects.filter(gecko=gecko).order_by('-time')
+    log_count = logs.count()
+
+    context = {'user_info': request.user, 'gecko': gecko, 'logs': logs, 'log_count': log_count}
+    return render(request, 'leo_logs_partial.html', context)
