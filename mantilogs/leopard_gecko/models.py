@@ -175,6 +175,7 @@ class Egg(models.Model):
         return f"{self.name} from {self.clutch}"
     # ID
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    time = models.DateTimeField(default=datetime.datetime.now)
     # Clutch (FK)
     clutch = models.ForeignKey('Clutch', on_delete=models.CASCADE)
     # Weight (g)
@@ -217,7 +218,7 @@ class Tank_Object(models.Model):
     # Retired
     retired = models.BooleanField(default=False)
     # Picture (blank-able)
-    picture = models.ImageField(upload_to='leo_molt_pics/', blank=True)
+    picture = models.ImageField(upload_to='leo_tankobj_pics/', blank=True)
     # Notes
     notes = models.TextField(max_length=240, blank=True)
 
@@ -262,3 +263,13 @@ class Temperatures(models.Model):
     date = models.DateField(default=datetime.date.today)
     high = models.FloatField()
     low = models.FloatField()
+
+
+class Picture(models.Model):
+    """For picture gallery"""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=120)
+    gecko = models.ForeignKey('Gecko', on_delete=models.CASCADE)
+    picture = models.ImageField(upload_to='leo_gallery_pics/', blank=True)
+    time = models.DateTimeField(default=datetime.datetime.now)
+    notes = models.TextField(max_length=2048, blank=True)

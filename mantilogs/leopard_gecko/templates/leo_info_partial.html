@@ -1,0 +1,21 @@
+<h3 class="is-size-4 has-text-success-dark">Nutrition</h3>
+  <hr>
+    <div class="columns container has-text-centered pb-3">
+      <div class="column"> <h2>Last Fed: {% if gecko.id in last_fed %}{{last_fed|get_item:gecko.id}}{%endif%}</h2> </div>
+      <div class="column"> <h2>Last VitD: {% if gecko.id in last_vitd %}{{last_vitd|get_item:gecko.id}}{%endif%}</h2></div>
+      <div class="column"> <h2>Last Multivit: {% if gecko.id in last_multivit %}{{last_multivit|get_item:gecko.id}}{%endif%}</h2></div>
+    </div>
+<h3 class="is-size-4 has-text-success-dark">Cleaning</h3>
+  <hr>
+    <div class="columns container has-text-centered pb-3">
+      <div class="column"> <h2>Last Full Clean: {% if gecko.id in full_tank_cleans %}{{full_tank_cleans|get_item:gecko.id}} {%endif%}</h2></div>
+      <div class="column"> <h2>Last Water Bowl Clean: {% if gecko.id in last_water_bowl_cleans %}{{last_water_bowl_cleans|get_item:gecko.id}}{%endif%}</h2></div>
+      <div class="column"> <h2>Last Food Bowl Clean: {% if gecko.id in last_food_bowl_cleans %}{{last_food_bowl_cleans|get_item:gecko.id}}{%endif%}</h2></div>
+    </div>
+<h3 class="is-size-4 has-text-success-dark">Events</h3>
+  <hr>
+    <div class="columns container has-text-centered pb-3">
+      <div class="column"> <h2>Last Defecation: {% if gecko.id in last_defecation %}{{last_defecation|get_item:gecko.id}}{%endif%}</h2></div>
+      <div class="column"> <h2>Last Molt: {% if gecko.id in last_molt %}{{last_molt|get_item:gecko.id}}{%endif%}</h2></div>
+      <div class="column"> <h2>Empty! Put something here maybe?</h2></div>
+    </div>

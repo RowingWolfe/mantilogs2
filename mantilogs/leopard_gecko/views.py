@@ -81,3 +81,95 @@ def index(request):
                                             'last_molt': last_molt,
                                                 'user_info': request.user, 'page_title': 'Leopard Gecko Index',
                                                 'page_subtitle': f"Currently {total_geckos} Geckos"})
+
+
+def profile(request, gecko):
+    """Gather all required info for the Gecko itself. Tabbed info will be in sub-views and ajaxed in."""
+    gecko = get_object_or_404(Gecko, id=gecko)
+    morphs = gecko.morphs.all()
+    context = {'user_info': request.user, 'gecko': gecko, 'morphs': morphs}
+    return render(request, 'leo_prof.html', context)
+
+
+def logs_partial(request, gecko):
+    gecko = get_object_or_404(Gecko, id=gecko)
+    logs = get_list_or_404(Log, gecko=gecko)
+    context = {'user_info': request.user, 'gecko': gecko, 'logs': logs }
+    return render(request, 'leo_logs_partial.html', context)
+
+
+def info_partial(request, gecko):
+    gecko = get_object_or_404(Gecko, id=gecko)
+    last_logs = {}
+    full_tank_clean_logs = {}
+    last_10_cleaning_logs = {}
+    last_water_bowl_cleaning_logs = {}
+    last_food_bowl_cleaning_logs = {}
+    last_fed = {}
+    last_vitd = {}
+    last_multivit = {}
+    last_defecation = {}
+    last_molt = {}
+    # Find logs for Gecko
+    if (Log.objects.filter(gecko=gecko)):
+        last_logs[gecko] = Log.objects.filter(
+            gecko=gecko).latest('time')
+
+    # Get last tank cleaning information.
+    try:
+        if Tank.objects.get(gecko=gecko):
+            tank = Tank.objects.get(gecko=gecko)
+
+            if Tank_Cleaning_Log.objects.filter(tank=tank, full_tank_clean=True):
+                full_tank_clean_logs[gecko.id] = Tank_Cleaning_Log.objects.filter(tank=tank,
+                                                                                  full_tank_clean=True).latest(
+                    'date').date
+                last_10_cleaning_logs[gecko.id] = Tank_Cleaning_Log.objects.filter(tank=tank).order_by('date')[:10]
+
+            if Tank_Cleaning_Log.objects.filter(tank=tank, items_cleaned__icontains="Water Bowl"):
+                last_water_bowl_cleaning_logs[gecko.id] = Tank_Cleaning_Log.objects.filter(tank=tank,
+                                                                                           items_cleaned__icontains="Water Bowl").latest(
+                    'date').date
+
+            if Tank_Cleaning_Log.objects.filter(tank=tank, items_cleaned__icontains="Food Bowl"):
+                last_food_bowl_cleaning_logs[gecko.id] = Tank_Cleaning_Log.objects.filter(tank=tank,
+                                                                                          items_cleaned__icontains="Food Bowl").latest(
+                    'date').date
+
+    except Tank.DoesNotExist:
+        pass
+
+    try:
+        if Feeding_Log.objects.filter(gecko=gecko):
+            last_fed[gecko.id] = Feeding_Log.objects.filter(gecko=gecko).latest('time').time
+
+            if Feeding_Log.objects.filter(gecko=gecko, feed_supplement="VITD"):
+                last_vitd[gecko.id] = Feeding_Log.objects.filter(gecko=gecko, feed_supplement="VITD").latest(
+                    'time').time
+
+            if Feeding_Log.objects.filter(gecko=gecko, feed_supplement="MULT"):
+                last_multivit[gecko.id] = Feeding_Log.objects.filter(gecko=gecko, feed_supplement="MULT").latest(
+                    'time').time
+    except Feeding_Log.DoesNotExist:
+        pass
+
+    try:
+        if Log.objects.filter(gecko=gecko, defecation=True):
+            last_defecation[gecko.id] = Log.objects.filter(gecko=gecko, defecation=True).latest('time').time
+    except Log.DoesNotExist:
+        pass
+
+    try:
+        if Molt.objects.filter(gecko=gecko):
+            last_molt[gecko.id] = Molt.objects.filter(gecko=gecko).latest('time').time
+    except Molt.DoesNotExist:
+        pass
+    print('========================================================================================================')
+    print(last_fed)
+    context = {'last_logs': last_logs,'full_tank_cleans': full_tank_clean_logs,
+                'last_10_cleans': last_10_cleaning_logs, 'last_water_bowl_cleans': last_water_bowl_cleaning_logs,
+                'last_food_bowl_cleans': last_food_bowl_cleaning_logs, 'last_vitd': last_vitd,
+                'last_multivit': last_multivit, 'last_fed': last_fed, 'last_defecation': last_defecation,
+                 'last_molt': last_molt, 'gecko': gecko
+               }
+    return render(request, 'leo_info_partial.html', context)
