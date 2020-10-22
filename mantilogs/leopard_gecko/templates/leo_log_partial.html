@@ -2,7 +2,19 @@
 <!--Display all logs for now, will need to write a pagination system later.-->
 <!-- TODO: Pagination System -->
 <section class="container pb-6 has-background-dark box mb-4">
-    <h3 class="is-size-3 box has-background-dark has-text-success mr-3 ml-3"><time datetime="2016-1-1">{{log.time}}</time></h3>
+    <h3 class="is-size-3 box has-background-dark has-text-success mr-3 ml-3">
+        <time datetime="2016-1-1">{{log.time}}</time>
+        {% if user_info.is_superuser %}
+        <a class="button is-info ml-6" href="/leopard_gecko/add_log/{{log.gecko.id}}">Add Log</a>
+        <a class="button is-warning ml-2" href="/leopard_gecko/edit_log/{{log.gecko.id}}/{{log.id}}">Edit Log</a>
+        <a class="button is-info ml-2" href="/leopard_gecko/add_feed_log/{{log.gecko.id}}/{{log.id}}">Add feed Log</a>
+        <a class="button is-warning ml-2" href="/leopard_gecko/edit_feed_log/{{log.gecko.id}}/{{feed_log.id}}">Edit feed Log</a>
+        <a class="button is-info ml-2" href="/leopard_gecko/add_molt/{{log.gecko.id}}/{{log.id}}">Add Molt</a>
+        <a class="button is-warning ml-2" href="/leopard_gecko/edit_molt/{{log.gecko.id}}/{{molt_log.id}}">Edit Molt</a>
+        {% endif %}
+    </h3>
+    {{ feed_log.id }}
+
     <div class="container box has-background-white-ter">
 
         <div class="columns">
@@ -88,7 +100,7 @@
         <article class="media">
           <figure class="media-left ml-6">
             <p class="image is-128x128">
-              <img src="/media/{{molt_log.after_molt_picture}}">
+              <img src="/media/{{molt_log.after_molt_picture}}" alt="{{molt_log.after_molt_picture}}">
             </p>
           </figure>
           <div class="media-content">
@@ -107,5 +119,6 @@
           </div>
         </article>
     </div>
+
     {% endif %}
 </section>

@@ -52,7 +52,7 @@
 //Ideally I will have a function that will remove is-active from all tabs to run before I set active to a new tab... for now though...
 $( document ).ready(function() {
     console.log( "ready!" );
-    $( "#partialdisp" ).load( "/leopard_gecko/info_partial/{{gecko.id}}" );
+    $( "#partialdisp" ).load( "/leopard_gecko/logs_partial/{{gecko.id}}" );
     $( "#logs-tab" ).click(function() {
       $( "#partialdisp" ).load( "/leopard_gecko/logs_partial/{{gecko.id}}" );
       $("#at-a-glance").removeClass("is-active");
@@ -71,12 +71,12 @@ $( document ).ready(function() {
 <section class="container has-text-centered">
 <div class="tabs is-boxed is-large">
   <ul>
-    <li id="at-a-glance" class="is-active">
+    <li id="at-a-glance">
       <a>
         <span id="at-a-glance-tab">At A Glance</span>
       </a>
     </li>
-    <li id="logs">
+    <li id="logs"  class="is-active">
       <a>
         <span id="logs-tab">Logs</span>
       </a>
