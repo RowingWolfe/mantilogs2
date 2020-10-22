@@ -2,6 +2,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+    path('', views.index, name='landing'),
     path('index/', views.index, name='gecko-index'),
     path('profile/<gecko>', views.profile, name='gecko-prof'),
     path('info_partial/<gecko>', views.info_partial, name='info-partial'),

@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     #Changed the base path to be / hope nothing breaks.
-    path('', include('mantis_profiles.urls')),
+    path('', include('leopard_gecko.urls')),
     path('culture/', include('culture.urls')),
     path('leopard_gecko/', include('leopard_gecko.urls')),
     path('grappelli/', include('grappelli.urls')),
