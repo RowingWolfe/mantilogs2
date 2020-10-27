@@ -30,3 +30,8 @@ class Create_Molt_Form(ModelForm):
             'log': HiddenInput(),
         }
 
+
+class Create_Gecko_Form(ModelForm):
+    class Meta:
+        model = Gecko
+        fields = ['']

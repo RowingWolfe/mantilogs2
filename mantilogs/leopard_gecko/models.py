@@ -48,7 +48,7 @@ class Morph(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # Morph Name
     morph_name = models.CharField(max_length=120)
-    althernate_names = ArrayField(
+    alternate_names = ArrayField(
         models.CharField(max_length=120, blank=True, default=""), blank=True, null=True
     )
     # Morph Type (Color, Pattern, Eye, Size) Multi-Choice
