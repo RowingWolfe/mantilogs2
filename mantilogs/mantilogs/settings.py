@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'mantis_profiles.apps.MantisProfilesConfig',
     'culture',
     'leopard_gecko',
+    'specie_meta',
+    'inventory',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
