@@ -47,7 +47,7 @@ class Gecko(models.Model):
     capt_bred_choices = [('Yes', 'Yes'), ('No', 'No'), ('Unknown', 'Unknown')]
     captive_bred = models.CharField(max_length=20, choices=capt_bred_choices, default="Unknown")
     # Breeder name
-    breeder_name = models.CharField(max_length=120, default="Unknoown")
+    breeder_name = models.CharField(max_length=120, default="Unknown")
     # Breeder E-mail
     breeder_email = models.EmailField(blank=True, default="admin@yarrbeard.com")
     # Weight
