@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="ml-6 container columns is-multiline is-fullsize box has-text-centered is-centered">
+    {% for morph in morphs %}
+    <div class="box has-background-dark has-text-light ml-1 card column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+      <div class="card-image">
+        <figure class="image is-4by3">
+            <a href="/morph/{{morph.id}}"> <img src="/media/{{morph.picture}}" alt="{{morph.morph_name}}"></a>
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+          </div>
+          <div class="media-content">
+            <p class="title is-4 has-text-success">{{morph.morph_name}}</p>
+            {%if morph.alternate_names%}<p class="subtitle is-6 has-text-info">{{morph.alternate_names}}</p> {% endif %}
+          </div>
+        </div>
+
+        <div class="content">
+            <div class="box">
+                <p class="">Primary morph type: </p>
+                <p class="">{{morph.morph_type}}</p>
+            </div>
+            {% if morph.secondary_morph_type != "NONE"%}
+             <div class="box">
+                <p class="">Secondary morph type: </p>
+                <p class="">{{morph.secondary_morph_type}}</p>
+            </div>
+            {% endif %}
+            {% if morph.tertiary_morph_type != "NONE"%}
+             <div class="box">
+                <p class="">Tertiary morph type: </p>
+                <p class="">{{morph.tertiary_morph_type}}</p>
+            </div>
+            {% endif %}
+             {% if morph.id in morphs_in_combos %}
+             <div class="box">
+                <p class="">Combination of: </p>
+                <p class="">
+                    {{ morphs_in_combos|get_item:morph.id }}
+                </p>
+            </div>
+            {% endif %}
+            {% if morph.discovery_date %}
+             <hr>
+          Discovered: <time datetime="2016-1-1">{{morph.discovery_date}}</time>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

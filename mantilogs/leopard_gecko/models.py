@@ -95,6 +95,8 @@ class Morph(models.Model):
 
 class Morph_Combo(models.Model):
     """Combinations of morphs that make up other morphs"""
+    def __str__(self):
+        return f"{self.morph.morph_name}"
     #ID
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     #Morph (FK)

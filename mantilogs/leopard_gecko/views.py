@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect
 from django.template.defaulttags import register
-from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Clutch, Tank, Tank_Object, Death, Morph, Egg,Temperatures, Picture
+from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Morph_Combo, Clutch, Tank, Tank_Object, Death, Morph, Egg,Temperatures, Picture
 from .forms import Create_Log_Form, Create_Feed_Log_Form, Create_Molt_Form, Create_Gecko_Form, Create_Tank_Cleaning_Log, Add_Picture_Form
 
 @register.filter
@@ -468,3 +468,57 @@ def add_picture(request, gecko):
     return render(request, 'leo_log_form.html', {'tab_info': ' Add Cleaning Log', 'form': form, 'user_info': request.user, 'endpoint': post_endpoint})
 
 
+def morph_index(request):
+    morphs = Morph.objects.all()
+    combo_morphs = Morph_Combo.objects.all()
+    morphs_in_combos = {}
+    for m in morphs:
+        if combo_morphs.filter(morph=m).exists():
+            print(m.morph_name)
+            morph_combo_list = [
+                combo_morphs.get(morph=m).first_req_morph.morph_name,
+                combo_morphs.get(morph=m).second_req_morph.morph_name
+            ]
+            if combo_morphs.get(morph=m).third_req_morph:
+                morph_combo_list.append(combo_morphs.get(morph=m).third_req_morph.morph_name)
+            if combo_morphs.get(morph=m).fourth_req_morph:
+                morph_combo_list.append(combo_morphs.get(morph=m).fourth_req_morph.morph_name)
+            if combo_morphs.get(morph=m).fifth_req_morph:
+                morph_combo_list.append(combo_morphs.get(morph=m).fifth_req_morph.morph_name)
+            if combo_morphs.get(morph=m).sixth_req_morph:
+                morph_combo_list.append(combo_morphs.get(morph=m).sixth_req_morph.morph_name)
+            if combo_morphs.get(morph=m).seventh_req_morph:
+                morph_combo_list.append(combo_morphs.get(morph=m).seventh_req_morph.morph_name)
+            if combo_morphs.get(morph=m).eighth_req_morph:
+                morph_combo_list.append(combo_morphs.get(morph=m).eighth_req_morph.morph_name)
+            if combo_morphs.get(morph=m).ninth_req_morph:
+                morph_combo_list.append(combo_morphs.get(morph=m).ninth_req_morph.morph_name)
+            if combo_morphs.get(morph=m).tenth_req_morph:
+                morph_combo_list.append(combo_morphs.get(morph=m).tenth_req_morph.morph_name)
+            morphs_in_combos[m.id] = morph_combo_list
+
+    print(morphs_in_combos)
+    #print(morphs_in_combos['12303b17-f331-47ff-89ed-39d0b7d14348'].morph.morph_name)
+
+    context = {'tab_info': 'Morph Index', 'morphs': morphs, 'combo_morphs': combo_morphs, 'user_info': request.user,
+               'page_title': 'Leopard Gecko Morphs', 'morphs_in_combos': morphs_in_combos,
+               'page_subtitle': f"Currently {morphs.count()} Known Morphs"
+               }
+    return render(request, 'leo_morphs_index.html', context)
+
+
+def morph(request, morph):
+    morph = get_object_or_404(Morph, id=morph)
+    combo_morphs = {}
+    try:
+        combo_morphs = Morph_Combo.objects.get(morph=morph) or None
+    except:
+        pass
+    geckos_with_morph = Gecko.objects.filter(morphs__id=morph.id)
+    is_combo = {}
+    if Morph_Combo.objects.filter(morph=morph).exists():
+        is_combo = Morph_Combo.objects.filter(morph=morph)
+
+    context = {'tab_info': morph.morph_name, 'morph': morph, 'combo_morphs': combo_morphs, 'user_info': request.user,
+               'is_combo': is_combo, 'geckos_with_morph': geckos_with_morph}
+    return render(request, 'leo_morph.html', context)

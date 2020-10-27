@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img src="/media/{{morph.picture}}" alt="{{morph.morph_name}}">
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+
+      </div>
+      <div class="media-content has-text-centered">
+        <p class="title is-2">{{morph.morph_name}}</p>
+        <p class="subtitle is-3">Geckos with morph |
+            {% for gecko in geckos_with_morph %}
+                <a href="/leopard_gecko/profile/{{gecko.id}}">{{gecko.name}}</a>|
+            {% endfor %}
+        </p>
+      </div>
+    </div>
+
+    <div class="content has-text-centered">
+        <div class="columns is-centered">
+            <div class="box column">
+                <h2>Morph types</h2>
+                <div class="box">
+                    {{morph.morph_type}}
+                </div>
+                <div class="box">
+                    {{morph.secondary_morph_type}}
+                </div>
+                <div class="box">
+                    {{morph.secondary_morph_type}}
+                </div>
+            </div>
+             <div class="box column">
+                <h2>Morph Info</h2>
+                <div class="box">
+                    {{morph.color}}
+                </div>
+                <div class="box">
+                    {{morph.description}}
+                </div>
+            </div>
+            <div class="box column">
+                <h2>Genetics</h2>
+                <div class="box">
+                    {% if morph.is_dangerous %}
+                    <p class="has-text-danger">Dangerous Genetics</p>
+                    {% else %}
+                    <p class="has-text-success">Not known to be dangerous</p>
+                    {% endif %}
+                </div>
+                <div class="box">
+                     {% if morph.polygenic %}
+                    <p class="has-text-success">Polygenic</p>
+                    {% else %}
+                    <p class="">Not Polygenic</p>
+                    {% endif %}
+                    {% if morph.dominant %}
+                    <p class="has-text-success">Dominant</p>
+                    {% else %}
+                    <p class="">Not Dominant</p>
+                    {% endif %}
+                    {% if morph.codominant %}
+                    <p class="has-text-success">Codominant</p>
+                    {% else %}
+                    <p class="">Not Codominant</p>
+                    {% endif %}
+                    {% if morph.incomplete_dominant %}
+                    <p class="has-text-success">Incomplete Dominant</p>
+                    {% else %}
+                    <p class="">Not Incomplete Dominant</p>
+                    {% endif %}
+                    {% if morph.heterozygous %}
+                    <p class="has-text-success">Heterozygous</p>
+                    {% else %}
+                    <p class="">Not Heterozygous</p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+        <div class="box">
+            {% if combo_morphs %}
+            <h2>Combination of</h2>
+            <a href="/morph/{{combo_morphs.first_req_morph.id}}">{{combo_morphs.first_req_morph}}</a> +
+            <a href="/morph/{{combo_morphs.second_req_morph.id}}">{{combo_morphs.second_req_morph}}</a>
+            {% if combo_morphs.third_req_morph%}
+            + <a href="/morph/{{combo_morphs.third_req_morph.id}}">{{combo_morphs.third_req_morph}}</a>
+            {% endif %}
+            {% if combo_morphs.fourth_req_morph%}
+            + <a href="/morph/{{combo_morphs.third_req_morph.id}}">{{combo_morphs.fourth_req_morph}}</a>
+            {% endif %}
+            {% if combo_morphs.fifth_req_morph%}
+            + <a href="/morph/{{combo_morphs.third_req_morph.id}}">{{combo_morphs.fifth_req_morph}}</a>
+            {% endif %}
+            {% if combo_morphs.sixth_req_morph%}
+            + <a href="/morph/{{combo_morphs.third_req_morph.id}}">{{combo_morphs.sixth_req_morph}}</a>
+            {% endif %}
+            {% if combo_morphs.seventh_req_morph%}
+            + <a href="/morph/{{combo_morphs.third_req_morph.id}}">{{combo_morphs.seventh_req_morph}}</a>
+            {% endif %}
+            {% if combo_morphs.eighth_req_morph%}
+            + <a href="/morph/{{combo_morphs.third_req_morph.id}}">{{combo_morphs.eighth_req_morph}}</a>
+            {% endif %}
+            {% if combo_morphs.ninth_req_morph%}
+            + <a href="/morph/{{combo_morphs.third_req_morph.id}}">{{combo_morphs.ninth_req_morph}}</a>
+            {% endif %}
+            {% if combo_morphs.tenth_req_morph%}
+            + <a href="/morph/{{combo_morphs.third_req_morph.id}}">{{combo_morphs.tenth_req_morph}}</a>
+            {% endif %}
+
+
+            {% endif %}
+        </div>
+      <br>
+        <div class="box has-background-dark has-text-light">
+            Discovered: <time datetime="2016-1-1">{{morph.discovery_date}}</time>
+        </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
