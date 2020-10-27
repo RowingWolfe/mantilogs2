@@ -37,8 +37,23 @@ class Gecko(models.Model):
     caretaker_notes = models.TextField(max_length=8096, blank=True)
     # Caretaker/Owner (User FK)
     caretaker = models.ForeignKey(User, on_delete=models.CASCADE)
-    pass
-
+    # Acquired From
+    acquired_from = models.CharField(max_length=240, blank=True, default="")
+    # Acquired Date
+    acquired_date = models.DateField(default=datetime.date.today)
+    # Acquired Price
+    acquired_price = models.FloatField(default=0.00, blank=True)
+    # Captive Bred Selection (Yes, No, Unknown)
+    capt_bred_choices = [('Yes', 'Yes'), ('No', 'No'), ('Unknown', 'Unknown')]
+    captive_bred = models.CharField(max_length=20, choices=capt_bred_choices, default="Unknown")
+    # Breeder name
+    breeder_name = models.CharField(max_length=120, default="Unknoown")
+    # Breeder E-mail
+    breeder_email = models.EmailField(blank=True, default="admin@yarrbeard.com")
+    # Weight
+    weight = models.FloatField(default=0.0, help_text="In grams, usually.")
+    # Length
+    length = models.FloatField(default=0.0, help_text="In CM, unless you want to be obtuse.")
 
 class Morph(models.Model):
     """Information about gecko morphs."""
