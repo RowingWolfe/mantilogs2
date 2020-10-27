@@ -36,7 +36,7 @@
             <p class="column">Personality:</p><p class="column">{{gecko.personality}}</p>
           </div>
           <div class="columns">
-            <p class="column">Morphs:</p><p class="column">| {% for morph in morphs %}{{morph}} | {% endfor %}</p>
+            <p class="column">Morphs:</p><p class="column">| {% for morph in morphs %}<a href="/leopard_gecko/morph/{{morph.id}}"> {{morph}}</a> | {% endfor %}</p>
           </div>
           <div class="columns">
             <p class="column">Gender:</p><p class="column">{{gecko.gender}}</p>
