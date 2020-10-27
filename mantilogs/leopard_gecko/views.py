@@ -300,6 +300,7 @@ def add_molt(request, gecko, log):
     if request.method == 'POST':
         if request.user.is_superuser:
             form = Create_Molt_Form(request.POST, request.FILES)
+            print('FILES SENT:',request.FILES)
             if form.is_valid():
                 # Process the data.
                 # Just gonna save it for now without cleaning because I love me some technical debt.
@@ -325,6 +326,7 @@ def edit_molt(request, gecko, log):
     if request.method == 'POST':
         if request.user.is_superuser:
             form = Create_Molt_Form(request.POST, request.FILES, instance=molt)
+            print(request.FILES)
             if form.is_valid():
                 # Process the data.
                 # Just gonna save it for now without cleaning because I love me some technical debt.

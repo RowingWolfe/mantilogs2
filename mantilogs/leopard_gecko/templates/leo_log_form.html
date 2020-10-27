@@ -3,7 +3,7 @@
 
 {% if user_info.is_superuser %}
 <h2 class="is-size-2">Adding log to {{gecko.name}}</h2>
-<form action="{{endpoint}}" method="post">
+<form action="{{endpoint}}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit">
