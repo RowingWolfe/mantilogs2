@@ -68,8 +68,9 @@
 
 
           {% if user_info.is_superuser %}
-          <div class="columns has-text-centered">
-            <a class="button is-info ml-6 mt-6" href="/leopard_gecko/edit_gecko/{{gecko.id}}">Edit Gecko</a>
+          <div class="columns has-text-centered mt-6">
+            <a class="button is-info ml-6 column" href="/leopard_gecko/edit_gecko/{{gecko.id}}">Edit Gecko</a>
+            <a class="button is-info ml-1 column" href="/leopard_gecko/add_picture/{{gecko.id}}">Add Picture</a>
           </div>
           {% endif %}
         </div>

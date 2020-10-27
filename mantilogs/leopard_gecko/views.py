@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect
 from django.template.defaulttags import register
 from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Clutch, Tank, Tank_Object, Death, Morph, Egg,Temperatures, Picture
-from .forms import Create_Log_Form, Create_Feed_Log_Form, Create_Molt_Form, Create_Gecko_Form, Create_Tank_Cleaning_Log
+from .forms import Create_Log_Form, Create_Feed_Log_Form, Create_Molt_Form, Create_Gecko_Form, Create_Tank_Cleaning_Log, Add_Picture_Form
 
 @register.filter
 def get_item(dictionary, key):
@@ -444,3 +444,27 @@ def add_clean_log(request, tank):
         form.fields['tank'].initial = tank
 
     return render(request, 'leo_log_form.html', {'tab_info': ' Add Cleaning Log', 'form': form, 'user_info': request.user, 'endpoint': post_endpoint})
+
+
+def add_picture(request, gecko):
+    """Add a gecko."""
+    post_endpoint = f"/leopard_gecko/add_picture/{gecko}"
+    gecko = get_object_or_404(Gecko, id=gecko)
+    if request.method == 'POST':
+        if request.user.is_superuser:
+            form = Add_Picture_Form(request.POST, request.FILES)
+            if form.is_valid():
+                # Process the data.
+                # Just gonna save it for now without cleaning because I love me some technical debt.
+                form.save()
+                # Redirect
+                return HttpResponseRedirect('/leopard_gecko/profile/' + str(gecko.id))
+        else:
+            return HttpResponseRedirect('/leopard_gecko/profile/' + str(gecko.id))
+    else:
+        form = Add_Picture_Form()
+        form.fields['gecko'].initial = gecko
+
+    return render(request, 'leo_log_form.html', {'tab_info': ' Add Cleaning Log', 'form': form, 'user_info': request.user, 'endpoint': post_endpoint})
+
+
