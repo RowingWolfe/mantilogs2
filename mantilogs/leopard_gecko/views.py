@@ -299,7 +299,7 @@ def add_molt(request, gecko, log):
     post_endpoint = f"/leopard_gecko/add_molt/{gecko.id}/{log.id}"
     if request.method == 'POST':
         if request.user.is_superuser:
-            form = Create_Molt_Form(request.POST)
+            form = Create_Molt_Form(request.POST, request.FILES)
             if form.is_valid():
                 # Process the data.
                 # Just gonna save it for now without cleaning because I love me some technical debt.
@@ -324,7 +324,7 @@ def edit_molt(request, gecko, log):
     post_endpoint = f"/leopard_gecko/edit_molt/{gecko.id}/{molt.id}" #The feed_log's log id.
     if request.method == 'POST':
         if request.user.is_superuser:
-            form = Create_Molt_Form(request.POST, instance=molt)
+            form = Create_Molt_Form(request.POST, request.FILES, instance=molt)
             if form.is_valid():
                 # Process the data.
                 # Just gonna save it for now without cleaning because I love me some technical debt.
@@ -347,7 +347,7 @@ def add_gecko(request):
     post_endpoint = f"/leopard_gecko/add_gecko"
     if request.method == 'POST':
         if request.user.is_superuser:
-            form = Create_Gecko_Form(request.POST)
+            form = Create_Gecko_Form(request.POST, request.FILES)
             if form.is_valid():
                 # Process the data.
                 # Just gonna save it for now without cleaning because I love me some technical debt.
@@ -368,7 +368,7 @@ def edit_gecko(request, gecko):
     post_endpoint = f"/leopard_gecko/edit_gecko/{gecko.id}"
     if request.method == 'POST':
         if request.user.is_superuser:
-            form = Create_Gecko_Form(request.POST, instance=gecko)
+            form = Create_Gecko_Form(request.POST, request.FILES, instance=gecko)
             if form.is_valid():
                 # Process the data.
                 # Just gonna save it for now without cleaning because I love me some technical debt.
