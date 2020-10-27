@@ -74,6 +74,8 @@ class Morph(models.Model):
     codominant = models.BooleanField(default=False)
     # Incomplete_Dominant
     incomplete_dominant = models.BooleanField(default=False)
+    # Het
+    heterozygous = models.BooleanField(default=False)
 
 
 class Morph_Combo(models.Model):
