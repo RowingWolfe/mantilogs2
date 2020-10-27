@@ -14,6 +14,8 @@ urlpatterns = [
     path('edit_feed_log/<gecko>/<log>', views.edit_feed_log, name='edit-fd-log-form'),
     path('add_molt/<gecko>/<log>', views.add_molt, name='add-molt-form'),
     path('edit_molt/<gecko>/<log>', views.edit_molt, name='edit-molt-form'),
+    path('add_gecko', views.add_gecko, name='add-gecko-form'),
+    path('edit_gecko/<gecko>', views.edit_gecko, name='edit-gecko-form'),
 ]
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),

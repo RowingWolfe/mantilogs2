@@ -39,7 +39,11 @@
           <div class="columns">
             <p class="column">Hatched:</p><p class="column">{{gecko.birth_date}}</p>
           </div>
-
+          {% if user_info.is_superuser %}
+          <div class="columns has-text-centered">
+            <a class="button is-info ml-6 mt-6" href="/leopard_gecko/edit_gecko/{{gecko.id}}">Edit Gecko</a>
+          </div>
+          {% endif %}
         </div>
       </div>
     </div>

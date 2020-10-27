@@ -34,4 +34,5 @@ class Create_Molt_Form(ModelForm):
 class Create_Gecko_Form(ModelForm):
     class Meta:
         model = Gecko
-        fields = ['']
+        fields = ['name', 'nickname', 'egg', 'birth_date', 'morphs', 'gender', 'personality', 'profile_picture', 'bio',
+                  'caretaker_notes', 'caretaker']

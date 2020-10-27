@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect
 from django.template.defaulttags import register
 from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Clutch, Tank, Tank_Object, Death, Morph, Egg,Temperatures
-from .forms import Create_Log_Form, Create_Feed_Log_Form, Create_Molt_Form
+from .forms import Create_Log_Form, Create_Feed_Log_Form, Create_Molt_Form, Create_Gecko_Form
 
 @register.filter
 def get_item(dictionary, key):
@@ -210,7 +210,7 @@ def add_log(request, gecko):
                 # Redirect
                 return HttpResponseRedirect('/leopard_gecko/profile/'+str(gecko.id))
         else:
-            HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
+            return HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
     else:
         form = Create_Log_Form()
         form.fields['gecko'].initial = gecko
@@ -233,7 +233,7 @@ def edit_log(request, gecko, log):
                 # Redirect
                 return HttpResponseRedirect('/leopard_gecko/profile/'+str(gecko.id))
         else:
-            HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
+            return HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
     else:
         form = Create_Log_Form(instance=log)
         form.fields['gecko'].initial = gecko
@@ -256,7 +256,7 @@ def add_feed_log(request, gecko, log):
                 # Redirect
                 return HttpResponseRedirect('/leopard_gecko/profile/'+str(gecko.id))
         else:
-            HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
+            return HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
     else:
         form = Create_Feed_Log_Form()
         form.fields['gecko'].initial = gecko
@@ -281,7 +281,7 @@ def edit_feed_log(request, gecko, log):
                 # Redirect
                 return HttpResponseRedirect('/leopard_gecko/profile/'+str(gecko.id))
         else:
-            HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
+            return HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
     else:
         form = Create_Feed_Log_Form(instance=feed_log)
         print(form.fields)
@@ -306,7 +306,7 @@ def add_molt(request, gecko, log):
                 # Redirect
                 return HttpResponseRedirect('/leopard_gecko/profile/'+str(gecko.id))
         else:
-            HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
+            return HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
     else:
         form = Create_Molt_Form()
         form.fields['gecko'].initial = gecko
@@ -331,7 +331,7 @@ def edit_molt(request, gecko, log):
                 # Redirect
                 return HttpResponseRedirect('/leopard_gecko/profile/'+str(gecko.id))
         else:
-            HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
+            return HttpResponseRedirect('/leopard_gecko/profile/'+ str(gecko.id))
     else:
         form = Create_Molt_Form(instance=molt)
         print(form.fields)
@@ -339,3 +339,44 @@ def edit_molt(request, gecko, log):
         form.fields['log'].initial = molt.log
 
     return render(request, 'leo_log_form.html', {'form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
+
+
+def add_gecko(request):
+    """Add a gecko."""
+    post_endpoint = f"/leopard_gecko/add_gecko"
+    if request.method == 'POST':
+        if request.user.is_superuser:
+            form = Create_Gecko_Form(request.POST)
+            if form.is_valid():
+                # Process the data.
+                # Just gonna save it for now without cleaning because I love me some technical debt.
+                form.save()
+                # Redirect
+                return HttpResponseRedirect('/leopard_gecko/index')
+        else:
+            return HttpResponseRedirect('/leopard_gecko/index')
+    else:
+        form = Create_Gecko_Form()
+
+    return render(request, 'leo_form.html', {'form': form, 'user_info': request.user, 'endpoint': post_endpoint})
+
+
+def edit_gecko(request, gecko):
+    """Edit a gecko."""
+    gecko = get_object_or_404(Gecko, id=gecko)
+    post_endpoint = f"/leopard_gecko/edit_gecko/{gecko.id}"
+    if request.method == 'POST':
+        if request.user.is_superuser:
+            form = Create_Gecko_Form(request.POST, instance=gecko)
+            if form.is_valid():
+                # Process the data.
+                # Just gonna save it for now without cleaning because I love me some technical debt.
+                form.save()
+                # Redirect
+                return HttpResponseRedirect('/leopard_gecko/profile/' +str(gecko.id))
+        else:
+            return HttpResponseRedirect('/leopard_gecko/index')
+    else:
+        form = Create_Gecko_Form(instance=gecko)
+
+    return render(request, 'leo_form.html', {'form': form, 'user_info': request.user, 'endpoint': post_endpoint})

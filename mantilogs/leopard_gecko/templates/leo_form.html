@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if user_info.is_superuser %}
+<h2 class="is-size-2">Add or Edit Gecko</h2>
+<form action="{{endpoint}}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+{% else %}
+    <h2>Must be logged in as with a Staff account to add Geckos.</h2>
+{% endif %}
+{% endblock %}
