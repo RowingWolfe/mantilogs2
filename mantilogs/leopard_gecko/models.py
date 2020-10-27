@@ -52,6 +52,7 @@ class Morph(models.Model):
     morph_types = [('COLOR', 'Color'), ('PATTERN', 'Pattern'), ('EYE', 'Eye'), ('SIZE', 'Size'), ("NONE", 'None')]
     morph_type = models.CharField(max_length=16, choices=morph_types, default='COLOR')
     secondary_morph_type = models.CharField(max_length=16, choices=morph_types, default='NONE')
+    tertiary_morph_type = models.CharField(max_length=16, choices=morph_types, default='NONE')
     # Color (If Applicable)
     color = models.CharField(max_length=120, blank=True)
     # Discovery Date (If known)
@@ -70,7 +71,34 @@ class Morph(models.Model):
     codominant = models.BooleanField(default=False)
     # Incomplete_Dominant
     incomplete_dominant = models.BooleanField(default=False)
-    pass
+
+
+class Morph_Combo(models.Model):
+    """Combinations of morphs that make up other morphs"""
+    #ID
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    #Morph (FK)
+    morph = models.ForeignKey(Morph, on_delete=models.CASCADE, related_name='morph')
+    #Required 1
+    first_req_morph = models.ForeignKey(Morph, on_delete=models.CASCADE, related_name='firstreqmorph')
+    #Required 2
+    second_req_morph = models.ForeignKey(Morph, on_delete=models.CASCADE, related_name='secondreqmorph')
+    #Required 3
+    third_req_morph = models.ForeignKey(Morph, on_delete=models.CASCADE, related_name='thirdreqmorph', blank=True, null=True)
+    #Required 4
+    fourth_req_morph = models.ForeignKey(Morph, on_delete=models.CASCADE, related_name='fourthreqmorph', blank=True, null=True)
+    #Required 5
+    fifth_req_morph = models.ForeignKey(Morph, on_delete=models.CASCADE, related_name='fifthreqmorph', blank=True, null=True)
+    #Required 6
+    sixth_req_morph = models.ForeignKey(Morph, on_delete=models.CASCADE, related_name='sixthreqmorph', blank=True, null=True)
+    #Required 7
+    seventh_req_morph = models.ForeignKey(Morph, on_delete=models.CASCADE, related_name='seventhreqmorph', blank=True, null=True)
+    #Required 8
+    eighth_req_morph = models.ForeignKey(Morph, on_delete=models.CASCADE, related_name='eighthreqmorph', blank=True, null=True)
+    #Required 9
+    ninth_req_morph = models.ForeignKey(Morph, on_delete=models.CASCADE, related_name='ninthreqmorph', blank=True, null=True)
+    #Required 10
+    tenth_req_morph = models.ForeignKey(Morph, on_delete=models.CASCADE, related_name='tenthreqmorph', blank=True, null=True)
 
 
 class Log(models.Model):
