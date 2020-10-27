@@ -1,0 +1,29 @@
+<div class="container has-text-centered">
+    <div class="container has-text-centered">
+        <a href="/leopard_gecko/add_clean_log/{{tank.id}}" class="button is-info is-large mb-6">Add Cleaning Log</a>
+    </div>
+    <div class="box has-background-info is-bold has-text-light">
+        <h3 class="is-size-4"><strong>{{tank.gecko}}'s tank</strong> created {{tank.creation_date}}</h3>
+        <div class="columns is-multiline mt-6 has-text-centered">
+            {% for item in tank_contents %}
+            <div class="ml-1 mr-1 column box has-background-black has-text-centered">
+                <p class="has-text-light column">{{item.name}}</p>
+                <p class="has-text-light column">Purpose: {{item.purpose}}</p>
+                <p class="has-text-light column">{{item.picture}}</p>
+                {% if item.notes %}<p class="box column mt-4">{{item.notes}}</p>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="columns container is-multiline has-text-centered pl-4">
+    {% for log in logs %}
+        <div class="box has-background-dark has-text-light column ml-1 mr-1 " style="min-height: 200px;">
+            <h2>Cleaned</h2>
+            <h3 class="is-size-4">{{log.date}}</h3>
+            {% if log.full_tank_clean %}<p class="is-size-4">Full Tank Clean</p> {%endif%}
+            <p class="has-text-light mb-2"><strong class="has-text-light">Cleaned with: </strong>{{log.cleaner_used}}</p>
+            <div class="box has-background-black has-text-light mt-2">{{log.items_cleaned}}</div>
+        </div>
+    {% endfor %}
+    </div>
+</div>

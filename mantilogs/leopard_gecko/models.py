@@ -315,6 +315,8 @@ class Temperatures(models.Model):
 
 class Picture(models.Model):
     """For picture gallery"""
+    def __str__(self):
+        return f"{self.title} {self.gecko.name}: {self.time}"
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=120)
     gecko = models.ForeignKey('Gecko', on_delete=models.CASCADE)

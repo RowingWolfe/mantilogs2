@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect
 from django.template.defaulttags import register
-from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Clutch, Tank, Tank_Object, Death, Morph, Egg,Temperatures
-from .forms import Create_Log_Form, Create_Feed_Log_Form, Create_Molt_Form, Create_Gecko_Form
+from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Clutch, Tank, Tank_Object, Death, Morph, Egg,Temperatures, Picture
+from .forms import Create_Log_Form, Create_Feed_Log_Form, Create_Molt_Form, Create_Gecko_Form, Create_Tank_Cleaning_Log
 
 @register.filter
 def get_item(dictionary, key):
@@ -80,14 +80,14 @@ def index(request):
                                             'last_multivit': last_multivit, 'last_fed': last_fed, 'last_defecation': last_defecation,
                                             'last_molt': last_molt,
                                                 'user_info': request.user, 'page_title': 'Leopard Gecko Index',
-                                                'page_subtitle': f"Currently {total_geckos} Geckos"})
+                                                'page_subtitle': f"Currently {total_geckos} Geckos", 'tab_info': 'Leopard Gecko Index'})
 
 
 def profile(request, gecko):
     """Gather all required info for the Gecko itself. Tabbed info will be in sub-views and ajaxed in."""
     gecko = get_object_or_404(Gecko, id=gecko)
     morphs = gecko.morphs.all()
-    context = {'user_info': request.user, 'gecko': gecko, 'morphs': morphs}
+    context = {'user_info': request.user, 'gecko': gecko, 'morphs': morphs, 'tab_info': gecko.name}
     return render(request, 'leo_prof.html', context)
 
 
@@ -215,7 +215,8 @@ def add_log(request, gecko):
         form = Create_Log_Form()
         form.fields['gecko'].initial = gecko
 
-    return render(request, 'leo_log_form.html', {'form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
+    return render(request, 'leo_log_form.html', {'tab_info': gecko.name + ' Add log',
+                                                 'form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
 
 
 def edit_log(request, gecko, log):
@@ -238,7 +239,7 @@ def edit_log(request, gecko, log):
         form = Create_Log_Form(instance=log)
         form.fields['gecko'].initial = gecko
 
-    return render(request, 'leo_log_form.html', {'form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
+    return render(request, 'leo_log_form.html', {'tab_info': gecko.name + ' edit log', 'form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
 
 
 def add_feed_log(request, gecko, log):
@@ -263,7 +264,7 @@ def add_feed_log(request, gecko, log):
         #print(form.fields)
         form.fields['log'].initial = log
 
-    return render(request, 'leo_log_form.html', {'form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
+    return render(request, 'leo_log_form.html', {'tab_info': gecko.name + ' Feed log', 'form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
 
 
 def edit_feed_log(request, gecko, log):
@@ -288,7 +289,7 @@ def edit_feed_log(request, gecko, log):
         form.fields['gecko'].initial = gecko
         form.fields['log'].initial = feed_log.log
 
-    return render(request, 'leo_log_form.html', {'form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
+    return render(request, 'leo_log_form.html', {'tab_info': gecko.name + ' Feed log','form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
 
 
 def add_molt(request, gecko, log):
@@ -313,7 +314,7 @@ def add_molt(request, gecko, log):
         #print(form.fields)
         form.fields['log'].initial = log
 
-    return render(request, 'leo_log_form.html', {'form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
+    return render(request, 'leo_log_form.html', {'tab_info': gecko.name + ' Molt log', 'form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
 
 
 def edit_molt(request, gecko, log):
@@ -338,7 +339,7 @@ def edit_molt(request, gecko, log):
         form.fields['gecko'].initial = gecko
         form.fields['log'].initial = molt.log
 
-    return render(request, 'leo_log_form.html', {'form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
+    return render(request, 'leo_log_form.html', {'tab_info': gecko.name + ' Molt log','form': form, 'gecko': gecko, 'user_info': request.user, 'endpoint': post_endpoint})
 
 
 def add_gecko(request):
@@ -358,7 +359,7 @@ def add_gecko(request):
     else:
         form = Create_Gecko_Form()
 
-    return render(request, 'leo_form.html', {'form': form, 'user_info': request.user, 'endpoint': post_endpoint})
+    return render(request, 'leo_form.html', {'tab_info': ' Add New Gecko', 'form': form, 'user_info': request.user, 'endpoint': post_endpoint})
 
 
 def edit_gecko(request, gecko):
@@ -379,4 +380,65 @@ def edit_gecko(request, gecko):
     else:
         form = Create_Gecko_Form(instance=gecko)
 
-    return render(request, 'leo_form.html', {'form': form, 'user_info': request.user, 'endpoint': post_endpoint})
+    return render(request, 'leo_form.html', {'tab_info': gecko.name + ' Edit', 'form': form, 'user_info': request.user, 'endpoint': post_endpoint})
+
+
+def tank_partial(request, gecko):
+    """Gets logs for gecko, loads the logs partial."""
+    gecko = get_object_or_404(Gecko, id=gecko)
+    tank = get_object_or_404(Tank, gecko=gecko)
+    tank_contents = tank.contents.all()
+    tank_logs = Tank_Cleaning_Log.objects.filter(tank=tank).order_by('-date')
+    log_count = tank_logs.count()
+
+    context = {'user_info': request.user, 'gecko': gecko, 'tank': tank, 'logs': tank_logs, 'log_count': log_count, 'tank_contents': tank_contents}
+    return render(request, 'leo_tank_partial.html', context)
+
+
+def molt_partial(request, gecko):
+    """Gets logs for gecko, loads the logs partial."""
+    gecko = get_object_or_404(Gecko, id=gecko)
+    molts = get_list_or_404(Molt.objects.order_by('-time'), gecko=gecko)
+
+    context = {'user_info': request.user, 'gecko': gecko, 'molts': molts}
+    return render(request, 'leo_molt_partial.html', context)
+
+
+def gallery_partial(request, gecko):
+    """Gets logs for gecko, loads the logs partial."""
+    gecko = get_object_or_404(Gecko, id=gecko)
+    pictures = get_list_or_404(Picture, gecko=gecko)
+
+    context = {'user_info': request.user, 'gecko': gecko, 'pictures': pictures}
+    return render(request, 'leo_gallery_partial.html', context)
+
+
+def breeding_partial(request, gecko):
+    """Gets logs for gecko, loads the logs partial."""
+    gecko = get_object_or_404(Gecko, id=gecko)
+    breeding_logs = get_list_or_404(Breeding_Log)
+
+    context = {'user_info': request.user, 'gecko': gecko, 'breeding_logs': breeding_logs}
+    return render(request, 'leo_breeding_partial.html', context)
+
+
+def add_clean_log(request, tank):
+    """Add a gecko."""
+    post_endpoint = f"/leopard_gecko/add_clean_log/{tank}"
+    tank = get_object_or_404(Tank, id=tank)
+    if request.method == 'POST':
+        if request.user.is_superuser:
+            form = Create_Tank_Cleaning_Log(request.POST)
+            if form.is_valid():
+                # Process the data.
+                # Just gonna save it for now without cleaning because I love me some technical debt.
+                form.save()
+                # Redirect
+                return HttpResponseRedirect('/leopard_gecko/profile/' + str(tank.gecko.id))
+        else:
+            return HttpResponseRedirect('/leopard_gecko/profile/' + str(tank.gecko.id))
+    else:
+        form = Create_Tank_Cleaning_Log()
+        form.fields['tank'].initial = tank
+
+    return render(request, 'leo_log_form.html', {'tab_info': ' Add Cleaning Log', 'form': form, 'user_info': request.user, 'endpoint': post_endpoint})

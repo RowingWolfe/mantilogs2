@@ -34,5 +34,16 @@ class Create_Molt_Form(ModelForm):
 class Create_Gecko_Form(ModelForm):
     class Meta:
         model = Gecko
-        fields = ['name', 'nickname', 'egg', 'birth_date', 'morphs', 'gender', 'personality', 'profile_picture', 'bio',
-                  'caretaker_notes', 'caretaker']
+        fields = [
+            'name', 'nickname', 'egg', 'birth_date', 'morphs', 'gender', 'personality', 'profile_picture', 'bio',
+            'caretaker_notes', 'caretaker', 'acquired_date', 'acquired_price', 'captive_bred', 'breeder_name',
+            'breeder_email', 'weight', 'length'
+        ]
+
+class Create_Tank_Cleaning_Log(ModelForm):
+    class Meta:
+        model = Tank_Cleaning_Log
+        fields =['tank', 'date', 'full_tank_clean', 'cleaner_used', 'items_cleaned']
+        widgets = {
+            'tank': HiddenInput()
+        }

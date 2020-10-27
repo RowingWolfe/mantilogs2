@@ -1,0 +1,25 @@
+<div class="container columns is-multiline">
+    {% for molt in molts %}
+        <div class="box card column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+  <div class="card-image">
+    <figure class="image is-4by3">
+        <a href="/media/{{molt.after_molt_picture}}"> <img src="/media/{{molt.after_molt_picture}}" alt="{{molt.time}}"></a>
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+      </div>
+      <div class="media-content">
+        <p class="title is-4">{{molt.time}}</p>
+      </div>
+    </div>
+
+    <div class="content box has-background-dark has-text-light">
+        {{molt.notes}}
+      <br>
+    </div>
+  </div>
+</div>
+    {% endfor %}
+</div>

@@ -6,9 +6,11 @@
       <h1 class="title">
         {{gecko.name}}
       </h1>
+      {% if gecko.nickname %}
       <h2 class="subtitle mb-2">
         ({{gecko.nickname}})
       </h2>
+      {% endif %}
       <h2 class="subtitle mb-6">
         Caretaker: {{gecko.caretaker}}
       </h2>
@@ -85,13 +87,37 @@ $( document ).ready(function() {
     $( "#partialdisp" ).load( "/leopard_gecko/logs_partial/{{gecko.id}}" );
     $( "#logs-tab" ).click(function() {
       $( "#partialdisp" ).load( "/leopard_gecko/logs_partial/{{gecko.id}}" );
-      $("#at-a-glance").removeClass("is-active");
+      $(".is-active").removeClass("is-active");
       $("#logs").addClass("is-active");
     });
     $( "#at-a-glance-tab" ).click(function() {
       $( "#partialdisp" ).load( "/leopard_gecko/info_partial/{{gecko.id}}" );
-      $("#logs").removeClass("is-active");
+      $(".is-active").removeClass("is-active");
       $("#at-a-glance").addClass("is-active");
+    });
+    $( "#tank-tab" ).click(function() {
+      $( "#partialdisp" ).load( "/leopard_gecko/tank_partial/{{gecko.id}}" );
+      //Write a func to remove is-active from all in gex-tabs
+      $(".is-active").removeClass("is-active");
+      $("#tank").addClass("is-active");
+    });
+    $( "#molt-tab" ).click(function() {
+      $( "#partialdisp" ).load( "/leopard_gecko/molt_partial/{{gecko.id}}" );
+      //Write a func to remove is-active from all in gex-tabs
+      $(".is-active").removeClass("is-active");
+      $("#molt").addClass("is-active");
+    });
+     $( "#gallery-tab" ).click(function() {
+      $( "#partialdisp" ).load( "/leopard_gecko/gallery_partial/{{gecko.id}}" );
+      //Write a func to remove is-active from all in gex-tabs
+      $(".is-active").removeClass("is-active");
+      $("#gallery").addClass("is-active");
+    });
+     $( "#breeding-tab" ).click(function() {
+      $( "#partialdisp" ).load( "/leopard_gecko/breeding_partial/{{gecko.id}}" );
+      //Write a func to remove is-active from all in gex-tabs
+      $(".is-active").removeClass("is-active");
+      $("#breeding").addClass("is-active");
     });
 });
 
@@ -100,7 +126,7 @@ $( document ).ready(function() {
 
 <section class="container has-text-centered">
 <div class="tabs is-boxed is-large">
-  <ul>
+  <ul id="gex-tabs">
     <li id="at-a-glance">
       <a>
         <span id="at-a-glance-tab">At A Glance</span>
@@ -111,34 +137,24 @@ $( document ).ready(function() {
         <span id="logs-tab">Logs</span>
       </a>
     </li>
-    <li>
+    <li id="tank">
       <a>
-        <span>Lineage</span>
+        <span id="tank-tab">Tank</span>
       </a>
     </li>
-    <li>
+    <li id="molt">
       <a>
-        <span>Gallery</span>
+        <span id="molt-tab">Molts</span>
       </a>
     </li>
-    <li>
+    <li id="gallery">
       <a>
-        <span>Tank</span>
+        <span id="gallery-tab">Gallery</span>
       </a>
     </li>
-    <li>
+    <li id="breeding">
       <a>
-        <span>Molts</span>
-      </a>
-    </li>
-    <li>
-      <a>
-        <span>Bio</span>
-      </a>
-    </li>
-    <li>
-      <a>
-        <span>Journal</span>
+        <span id='breeding-tab'>Lineage & Breeding</span>
       </a>
     </li>
   </ul>

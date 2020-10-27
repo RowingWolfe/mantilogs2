@@ -1,0 +1,38 @@
+
+<div class="container has-text-center">
+    {% if gecko.egg %}
+    <h1>
+        <b>Mother</b>: <a href="/leopard_gecko/profile/{{gecko.egg.clutch.breeding_log.mother.id}}">{{gecko.egg.clutch.breeding_log.mother}}</a>
+    </h1>
+    <h1>
+        <b>Father</b>: <a href="/leopard_gecko/profile/{{gecko.egg.clutch.breeding_log.father.id}}">{{gecko.egg.clutch.breeding_log.father}}</a>
+    </h1>
+    <h1>
+        Clutch: {{gecko.egg.clutch}}
+    </h1>
+    <hr style="border-top: 3px solid black;">
+    {% endif %}
+
+    <div>
+        {% for log in breeding_logs %}
+            {% if log.clutch == gecko.egg.clutch%}
+                <p>{{log.date}}</p>
+            {% endif %}
+            {% if log.mother == gecko %}
+            <p>Date {{log.time}}</p>
+        <p>Bred with <a href="/leopard_gecko/profile/{{log.father.id}}">{{log.father}}</a></p>
+            {% if log.successful %}
+            <p>Successful.</p>
+            {% endif %}
+            {% endif %}
+            {% if log.father == gecko %}
+            <p>Date {{log.time}}</p>
+            <p>Bred with <a href="/leopard_gecko/profile/{{log.mother.id}}">{{log.mother}}</a></p>
+            {% if log.successful %}
+            <p>Successful.</p>
+            <p>A link to the clutch will go here. Breeding isn't currently a priority.</p>
+            {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
