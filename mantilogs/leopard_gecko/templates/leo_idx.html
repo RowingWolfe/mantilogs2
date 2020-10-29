@@ -6,10 +6,11 @@
     <a class="button is-success is-large" href="/leopard_gecko/morphs">View Morphs</a>
 </div>
 <!--For each culture...-->
-<div class="columns is-variable is-3 is-multiline is-centered has-background-dark">
+<div class="container">
+<div class="container columns is-centered is-variable is-2 has-background-dark">
 {% for gecko in geckos %}
 
-  <div class="card  has-background-dark has-text-light column is-three-quarters-mobile is-two-thirds-tablet is-one-third-desktop is-one-third-widescreen is-one-quarter-fullhd">
+  <div class="column card has-background-black has-text-light column is-three-quarters-mobile is-two-thirds-tablet is-one-third-desktop is-one-third-widescreen is-one-quarter-fullhd">
     <div class="card-image">
       <figure class="image is-4by3">
         <img src="/media/{{gecko.profile_picture}}" alt="Profile Picture">
@@ -26,7 +27,7 @@
       </div>
 
       <div class="content">
-        <div style="min-height:300px;">
+        <div style="min-height:500px;">
   <!--        Gecko Information                -->
             <div class="columns" style="margin-bottom: -30px">
                 <b class="column">Gender:</b> <p class="column">{{gecko.gender}}</p>
@@ -162,15 +163,16 @@
              </div>
          </div>
         <hr/>
-        <a href="/leopard_gecko/profile/{{gecko.id}}"><button class="button is-black is-large is-fullwidth">Profile</button></a>
+        <a href="/leopard_gecko/profile/{{gecko.id}}"><button class="button is-dark is-large is-fullwidth">Profile</button></a>
         <br>
-        <a href="/leopard_gecko/add_log/{{gecko.id}}"><button class="button is-success is-large is-fullwidth">Add Log</button></a>
+        <a href="/leopard_gecko/add_log/{{gecko.id}}"><button class="button is-success has-background-success-dark is-large is-fullwidth">Add Log</button></a>
         <br>
-        <a href="/leopard_gecko/edit_gecko/{{gecko.id}}"><button class="button is-info is-large is-fullwidth">Edit Profile</button></a>
+        <a href="/leopard_gecko/edit_gecko/{{gecko.id}}"><button class="button is-info has-background-info-dark is-large is-fullwidth">Edit Profile</button></a>
       </div>
     </div>
   </div>
 
 {% endfor %}
   </div>
+    </div>
 {% endblock %}
