@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container columns is-centered">
+    <a href="/inventory/add_item" class="button has-background-dark has-text-info is-large">Add Item</a>
+    <a href="/inventory/add_order" class="button has-background-dark has-text-info is-large">Add Order</a>
+</div>
+<div class="container columns is-centered is-variable is-2">
+    {% for item in inventory %}
+     <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+         <div class="card box">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="/media/{{item.item.picture}}" alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="card-content">
+                    <div class="media">
+                        {% for ex_item in expirations %}
+                        {% if item.item == ex_item.item and ex_item.expiration_date < a_week_from_today and ex_item.expiration_date > today%}
+                            <div class="media-left">
+                                <p class="has-text-danger">
+                                    Expires <br>
+                                    soon!
+                                </p>
+                            </div>
+                        {% endif %}
+                            {%endfor%}
+                  <div class="media-content">
+                    <p class="title is-4">{{item.item}}</p>
+                      {% if user_info.is_superuser %}
+                      <form action="/inventory/update_inventory" method="POST">
+                          {% csrf_token %}
+                          <div class="field">
+                              <label class="label">Quantity</label>
+                            <input class="input" type="text" id="count" name="count" value="{{item.count}}">
+                              <input type="hidden" value="{{item.item.id}}" id="item" name="item">
+                          </div>
+                          <input type="submit" value="Update">
+                      </form>
+                      {%else%}
+                    <p class="subtitle is-6">Quantity: {{item.count}}</p>
+                      {%endif%}
+                  </div>
+                </div>
+                <div class="content">
+                    <p style="min-height: 130px;">
+                       {{item.item.description}}
+                    </p>
+                    <p>Manufactured by: {{item.item.brand}}</p>
+                    <p class="has-text-centered box has-text-light has-background-dark">Cost ${{item.item.price}}</p>
+                    <div class="is-grouped is-centered has-text-centered">
+                        <a href="/inventory/item_used/{{item.item.id}}" class="button is-info">Used up</a>
+                        <a href="/inventory/item_expired/{{item.item.id}}" class="button is-danger">Expired</a>
+                        <a href="/inventory/add_expiration_date/{{item.item.id}}" class="button is-warning mt-1">Add Expiration Date</a>
+                    </div>
+
+                </div>
+              </div>
+         </div>
+     </div>
+    {% endfor %}
+</div>
+{% endblock %}

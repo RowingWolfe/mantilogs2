@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content">
+{% if user_info.is_superuser %}
+<h2 class="is-size-2">Add or Edit Item</h2>
+<form class="pl-3" action="{{endpoint}}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+{% else %}
+    <h2>Must be logged in as with a Staff account to add Geckos.</h2>
+{% endif %}
+</div>
+{% endblock %}
