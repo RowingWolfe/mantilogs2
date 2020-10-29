@@ -43,7 +43,15 @@
               <div class="columns" style="margin-bottom: -35px">
                 <p class="column">Last full tank clean:</p>
                 {% if gecko.id in full_tank_cleans %}
-                <p class="column"> {{full_tank_cleans|get_item:gecko.id}}</p>
+                <p class="column">
+                    {% if full_tank_cleans|get_item:gecko.id|date:"YmdHis" < a_month_ago|date:"YmdHis" %}
+                    <span class="has-text-danger">
+                    {% else %}
+                    <span class="has-text-success">
+                    {%endif%}
+                        {{full_tank_cleans|get_item:gecko.id}}
+                    </span>
+                </p>
                 {% else %}
                 <p class="column">Unknown</p>
                 {% endif %}
@@ -51,7 +59,15 @@
             <div class="columns" style="margin-bottom: -35px">
             <p class="column">Last water bowl clean:</p>
             {% if gecko.id in last_water_bowl_cleans %}
-            <p class="column"> {{last_water_bowl_cleans|get_item:gecko.id}}</p>
+            <p class="column">
+                {% if last_water_bowl_cleans|get_item:gecko.id|date:"YmdHis" < a_week_ago|date:"YmdHis" %}
+                    <span class="has-text-danger">
+                    {% else %}
+                    <span class="has-text-success">
+                    {%endif%}
+                {{last_water_bowl_cleans|get_item:gecko.id}}
+                    </span>
+            </p>
             {% else %}
             <p class="column">Unknown</p>
             {% endif %}
@@ -59,39 +75,79 @@
             <div class="columns" style="margin-bottom: -35px">
             <p class="column">Last food bowl clean:</p>
             {% if gecko.id in last_food_bowl_cleans %}
-            <p class="column"> {{last_food_bowl_cleans|get_item:gecko.id}}</p>
+            <p class="column">
+                    {% if last_food_bowl_cleans|get_item:gecko.id|date:"YmdHis" < a_week_ago|date:"YmdHis" %}
+                    <span class="has-text-danger">
+                    {% else %}
+                    <span class="has-text-success">
+                    {%endif%}
+                {{last_food_bowl_cleans|get_item:gecko.id}}
+                    </span>
+            </p>
             {% else %}
             <p class="column">Unknown</p>
             {% endif %}
              </div>
-            <div class="columns" style="margin-bottom: -35px">
+            <div class="columns" style="margin-bottom: -26px">
             <p class="column">Last ate:</p>
             {% if gecko.id in last_fed %}
-            <p class="column"> {{last_fed|get_item:gecko.id}}</p>
+            <p class="column">
+                    {% if last_fed|get_item:gecko.id|date:"YmdHis" < three_days_ago|date:"YmdHis" %}
+                    <span class="has-text-danger">
+                    {% else %}
+                    <span class="has-text-success">
+                    {%endif%}
+                {{last_fed|get_item:gecko.id}}
+                    </span>
+            </p>
             {% else %}
             <p class="column">Unknown</p>
             {% endif %}
              </div>
-            <div class="columns" style="margin-bottom: -35px">
+            <div class="columns" style="margin-bottom: -26px">
             <p class="column">Last Vitamin D:</p>
             {% if gecko.id in last_vitd %}
-            <p class="column"> {{last_vitd|get_item:gecko.id}}</p>
+            <p class="column">
+                    {% if last_vitd|get_item:gecko.id|date:"YmdHis" < a_week_ago|date:"YmdHis" %}
+                    <span class="has-text-danger">
+                    {% else %}
+                    <span class="has-text-success">
+                    {%endif%}
+                {{last_vitd|get_item:gecko.id}}
+                    </span>
+            </p>
             {% else %}
             <p class="column">Unknown</p>
             {% endif %}
              </div>
-            <div class="columns" style="margin-bottom: -35px">
+            <div class="columns" style="margin-bottom: -26px">
             <p class="column">Last Multivitamin:</p>
             {% if gecko.id in last_multivit %}
-            <p class="column"> {{last_multivit|get_item:gecko.id}}</p>
+            <p class="column">
+                    {% if last_multivit|get_item:gecko.id|date:"YmdHis" < a_week_ago|date:"YmdHis" %}
+                    <span class="has-text-danger">
+                    {% else %}
+                    <span class="has-text-success">
+                    {%endif%}
+                {{last_multivit|get_item:gecko.id}}
+                    </span>
+            </p>
             {% else %}
             <p class="column">Unknown</p>
             {% endif %}
              </div>
-            <div class="columns" style="margin-bottom: -35px">
+            <div class="columns" style="margin-bottom: -26px">
             <p class="column">Last Defecation:</p>
             {% if gecko.id in last_defecation %}
-            <p class="column"> {{last_defecation|get_item:gecko.id}}</p>
+            <p class="column">
+                    {% if last_defecation|get_item:gecko.id|date:"YmdHis" < three_days_ago|date:"YmdHis" %}
+                    <span class="has-text-danger">
+                    {% else %}
+                    <span class="has-text-success">
+                    {%endif%}
+                {{last_defecation|get_item:gecko.id}}
+                    </span>
+            </p>
             {% else %}
             <p class="column">Unknown</p>
             {% endif %}

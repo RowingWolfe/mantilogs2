@@ -141,7 +141,8 @@ class Log(models.Model):
     problems = models.TextField(max_length=2048, blank=True)
     # Notes
     other_notes = models.TextField(max_length=2048, blank=True)
-    pass
+
+
 
 
 class Feeding_Log(models.Model):

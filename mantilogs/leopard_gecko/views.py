@@ -4,6 +4,8 @@ from django.template.defaulttags import register
 from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Morph_Combo, Clutch, Tank, Tank_Object, Death, Morph, Egg,Temperatures, Picture
 from .forms import Create_Log_Form, Create_Feed_Log_Form, Create_Molt_Form, Create_Gecko_Form, Create_Tank_Cleaning_Log, Add_Picture_Form
 
+import datetime
+
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
@@ -23,6 +25,10 @@ def index(request):
     last_defecation = {}
     last_molt = {}
     total_geckos = 0
+    today = datetime.datetime.now()
+    a_week = datetime.timedelta(days=7)
+    a_month = datetime.timedelta(days=30)
+    four_days = datetime.timedelta(days=4)
     for gecko in geckos:
         total_geckos += 1
         # Find logs for Gecko
@@ -46,6 +52,8 @@ def index(request):
                 if Tank_Cleaning_Log.objects.filter(tank=tank, items_cleaned__icontains="Food Bowl"):
                     last_food_bowl_cleaning_logs[gecko.id] = Tank_Cleaning_Log.objects.filter(tank=tank,
                                                             items_cleaned__icontains="Food Bowl").latest('date').date
+                    #print(type(Tank_Cleaning_Log.objects.filter(tank=tank,
+                    #                                        items_cleaned__icontains="Food Bowl").latest('date').date))
 
         except Tank.DoesNotExist:
             pass
@@ -80,7 +88,9 @@ def index(request):
                                             'last_multivit': last_multivit, 'last_fed': last_fed, 'last_defecation': last_defecation,
                                             'last_molt': last_molt,
                                                 'user_info': request.user, 'page_title': 'Leopard Gecko Index',
-                                                'page_subtitle': f"Currently {total_geckos} Geckos", 'tab_info': 'Leopard Gecko Index'})
+                                                'page_subtitle': f"Currently {total_geckos} Geckos", 'tab_info': 'Leopard Gecko Index',
+                                            'today': today, 'a_week_ago': today - a_week, 'four_days_ago': today - four_days,
+                                            'a_month_ago': today - a_month})
 
 
 def profile(request, gecko):
