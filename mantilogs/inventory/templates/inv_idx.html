@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container columns is-centered">
-    <a href="/inventory/add_item" class="button has-background-dark has-text-info is-large">Add Item</a>
-    <a href="/inventory/add_order" class="button has-background-dark has-text-info is-large">Add Order</a>
+<div class="container columns is-centered is-4">
+    <a href="/inventory/add_item" class="button has-background-black has-text-info is-large">Add Item</a>
+    <a href="/inventory/add_order" class="button has-background-black has-text-info is-large ml-4">Add Order</a>
 </div>
 <div class="container columns is-centered is-variable is-2">
     {% for item in inventory %}
@@ -43,7 +43,7 @@
                   </div>
                 </div>
                 <div class="content">
-                    <p style="min-height: 130px;">
+                    <p style="min-height: 30px;">
                        {{item.item.description}}
                     </p>
                     <p>Manufactured by: {{item.item.brand}}</p>

@@ -6,9 +6,9 @@
     <title>{{tab_info}} | Mantilogs</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 </head>
-<body>
+<body class="has-background-dark">
 <!--Nav-->
-<nav class="navbar has-background-dark has-text-light" role="navigation" aria-label="main navigation">
+<nav class="navbar has-background-black has-text-light" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="/">
       <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
@@ -95,18 +95,20 @@
 <section class="hero">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title">
+      <h1 class="title has-text-success">
         {{ page_title }}
       </h1>
-      <h2 class="subtitle">
+      <h2 class="subtitle has-text-success-dark ml-4">
         {{ page_subtitle }}
       </h2>
     </div>
   </div>
 </section>
+<section class="has-background-dark has-text-light container">
 {% block content %}
 {% endblock %}
-<footer class="footer">
+</section>
+<footer class="footer has-background-black">
   <div class="content has-text-centered">
     <p>
       <strong>Mantilogs</strong> by <a href="https://yarrbeard.com">Yarrbeard</a>. The source code is licensed
