@@ -1,7 +1,7 @@
 
 <!--Display all logs for now, will need to write a pagination system later.-->
 <!-- TODO: Pagination System -->
-<section class="container pb-6 has-background-dark box mb-4">
+<section class="container pb-6 has-background-black box mb-4">
     <h3 class="is-size-3 box has-background-dark has-text-success mr-3 ml-3">
         <time datetime="2016-1-1">{{log.time}}</time>
         {% if user_info.is_superuser %}
@@ -14,13 +14,13 @@
         {% endif %}
     </h3>
 
-    <div class="container box has-background-white-ter">
+    <div class="container box has-background-black has-text-light">
 
         <div class="columns">
 
     <!--        If defecation -->
             {% if log.defecation %}
-            <h3 class="column is-size-4 box has-text-success has-background-dark mr-3 ml-3">Defecation</h3>
+            <h3 class="column is-size-4 box has-background-success has-text-light mr-3 ml-3">Defecation</h3>
             {% endif %}
         </div>
         <hr>
@@ -30,8 +30,8 @@
     <div class="container has-text-centered">
         <div class="container columns">
             {% if log.behavior %}
-            <div class="column box mb-3 ml-3 mr-3">
-                <h2 class="is-size-4 has-text-success-dark mb-3">Behavior</h2>
+            <div class="column box mb-3 ml-3 mr-3 has-background-dark has-text-light">
+                <h2 class="is-size-4 has-text-success mb-3">Behavior</h2>
                 <p class="pb-4">
                     {{log.behavior}}
                 </p>
@@ -60,19 +60,19 @@
 
 <!--    IF feed log for log    -->
     {% if feed_log %}
-    <div class="container pb-6 pt-4 pb-6 box has-background-white-ter">
+    <div class="container pb-6 pt-4 pb-6 box has-background-black">
         <div class="box has-background-success">
-            <h2 class="has-text-centered is-size-3  has-text-light">Fed Today</h2>
+            <h2 class="has-text-centered is-size-4  has-text-light">Fed Today</h2>
         </div>
         <hr>
 
-        <div class="container columns box mr-1 ml-1">
+        <div class="container columns box mr-1 ml-1 has-background-dark has-text-light">
             <p class="column is-size-6"><b>Ate</b> @ <time datetime="2016-1-1">{{feed_log.time}}</time> <b class="has-text-info">{{feed_log.get_feed_supplement_display}}</b> fortified</p>
-            <p class="column is-size-5 pt-5 has-text-right"><b>Feed Item(s)</b>:</p>
+            <p class="column is-size-5 pt-5 has-text-right has-text-light"><b>Feed Item(s)</b>:</p>
             <!--For each feed item. (Arr)-->
             <p class="column has-text-left">
                 {% for f in feed_log.feed %}
-                <p class="column is-size-5 pt-5 has-text-left">{{f}}</p>
+                <p class="column is-size-5 pt-5 has-text-left has-text-success">{{f}}</p>
                 {% endfor %}
 
             </p>
@@ -93,8 +93,8 @@
 
 <!--    If Molt for Log     -->
     {% if molt_log %}
-    <div class="container pb-6 has-background-white-ter pt-4 pb-6 box">
-        <h2 class="has-text-centered is-size-4 pb-2 has-text-warn-dark">Molted</h2>
+    <div class="container pb-6 has-background-dark pt-4 pb-6 box has-text-light ml-4 mr-4">
+        <h2 class="has-text-centered is-size-4 pb-2 has-text-light box has-background-success">Molted</h2>
         <hr style="border-top: 1px solid black;">
         <article class="media">
           <figure class="media-left ml-6">
