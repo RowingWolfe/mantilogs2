@@ -23,11 +23,11 @@
         {% else %}
         <div class="column is-6 pt-6"> <img src="/media/{{gecko.profile_picture}}"> </div>
         {% endif %}
-        <div class="column is-6">
+        <div class="column is-6 box has-background-black has-text-light pb-6 pr-6">
           <!-- start slipsum code -->
-          <h2 class="is-size-4 has-text-success">Biography</h2>
+          <h2 class="is-size-4 has-text-warning">Biography</h2>
           <p>{{gecko.bio}}</p>
-          <h2 class="is-size-4 has-text-success">Notes</h2>
+          <h2 class="is-size-4 has-text-warning">Notes</h2>
           <p>{{gecko.caretaker_notes}}</p>
           <p> </p>
           <!-- end slipsum code -->
@@ -69,8 +69,8 @@
 
           {% if user_info.is_superuser %}
           <div class="columns has-text-centered mt-6">
-            <a class="button is-info ml-6 column" href="/leopard_gecko/edit_gecko/{{gecko.id}}">Edit Gecko</a>
-            <a class="button is-info ml-1 column" href="/leopard_gecko/add_picture/{{gecko.id}}">Add Picture</a>
+            <a class="button is-dark has-text-success ml-6 column pb-5" href="/leopard_gecko/edit_gecko/{{gecko.id}}">Edit Gecko</a>
+            <a class="button is-dark has-text-success ml-2 column pb-5" href="/leopard_gecko/add_picture/{{gecko.id}}">Add Picture</a>
           </div>
           {% endif %}
         </div>
@@ -125,37 +125,37 @@ $( document ).ready(function() {
 </script>
 
 
-<section class="container has-text-centered">
-<div class="tabs is-boxed is-large">
+<section class="container has-text-centered has-text-success">
+<div class="tabs is-boxed is-large container columns is-centered is-variable is-2 has-text-success">
   <ul id="gex-tabs">
     <li id="at-a-glance">
       <a>
-        <span id="at-a-glance-tab">At A Glance</span>
+        <span id="at-a-glance-tab" class="has-text-success">At A Glance</span>
       </a>
     </li>
     <li id="logs"  class="is-active">
       <a>
-        <span id="logs-tab">Logs</span>
+        <span id="logs-tab" class="has-text-success">Logs</span>
       </a>
     </li>
     <li id="tank">
       <a>
-        <span id="tank-tab">Tank</span>
+        <span id="tank-tab" class="has-text-success">Tank</span>
       </a>
     </li>
     <li id="molt">
       <a>
-        <span id="molt-tab">Molts</span>
+        <span id="molt-tab" class="has-text-success">Molts</span>
       </a>
     </li>
     <li id="gallery">
       <a>
-        <span id="gallery-tab">Gallery</span>
+        <span id="gallery-tab" class="has-text-success">Gallery</span>
       </a>
     </li>
     <li id="breeding">
       <a>
-        <span id='breeding-tab'>Lineage & Breeding</span>
+        <span id="breeding-tab" class="has-text-success">Lineage & Breeding</span>
       </a>
     </li>
   </ul>
