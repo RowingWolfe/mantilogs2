@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Clutch, Tank, Tank_Object, Death, Morph, Egg,Temperatures, Morph_Combo, Picture
+from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Clutch, Tank, Tank_Object, Death, Morph, Egg,Temperatures, Morph_Combo, Picture, Measurement
 # Register your models here.
 
 admin.site.register(Gecko)
@@ -16,3 +16,4 @@ admin.site.register(Clutch)
 admin.site.register(Tank)
 admin.site.register(Tank_Object)
 admin.site.register(Death)
+admin.site.register(Measurement)

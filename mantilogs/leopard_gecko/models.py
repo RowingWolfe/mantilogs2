@@ -143,6 +143,20 @@ class Log(models.Model):
     other_notes = models.TextField(max_length=2048, blank=True)
 
 
+class Measurement(models.Model):
+    """Measurements taken, length and weight."""
+    # ID
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # Time of log
+    time = models.DateTimeField(default=datetime.datetime.now)
+    # Gecko (FK)
+    gecko = models.ForeignKey('Gecko', on_delete=models.CASCADE)
+    # Length
+    length = models.FloatField(default=0.0, help_text="cm")
+    # Weight
+    weight = models.FloatField(default=0.0, help_text="gm")
+
+
 
 
 class Feeding_Log(models.Model):
