@@ -145,6 +145,8 @@ class Log(models.Model):
 
 class Measurement(models.Model):
     """Measurements taken, length and weight."""
+    def __str__(self):
+        return f"{self.gecko} @ {self.time} || {self.weight}gm, {self.length}cm"
     # ID
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # Time of log
