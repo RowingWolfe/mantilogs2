@@ -24,6 +24,7 @@ urlpatterns = [
     path('edit_gecko/<gecko>', views.edit_gecko, name='edit-gecko-form'),
     path('morphs', views.morph_index, name='morphs-index'),
     path('morph/<morph>', views.morph, name='morph'),
+    path('add_measurement/<gecko>', views.add_measurement, name='add-measurement')
 ]
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),

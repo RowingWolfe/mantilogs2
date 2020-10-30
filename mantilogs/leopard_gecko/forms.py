@@ -1,5 +1,5 @@
 from django.forms import ModelForm, HiddenInput
-from .models import Log, Gecko, Tank_Cleaning_Log, Breeding_Log, Feeding_Log, Molt, Picture
+from .models import Log, Gecko, Tank_Cleaning_Log, Breeding_Log, Feeding_Log, Molt, Picture, Measurement
 
 
 class Create_Log_Form(ModelForm):
@@ -54,5 +54,15 @@ class Add_Picture_Form(ModelForm):
         model = Picture
         fields = ['title', 'gecko', 'picture', 'time', 'notes']
         widgets = {
+            'gecko': HiddenInput()
+        }
+
+
+class Add_Measurement_Form(ModelForm):
+    class Meta:
+        model = Measurement
+        fields = ['time', 'gecko', 'length', 'weight']
+        widgets = {
+            'time': HiddenInput(),
             'gecko': HiddenInput()
         }

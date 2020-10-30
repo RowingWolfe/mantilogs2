@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect
 from django.template.defaulttags import register
 from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Morph_Combo, Clutch, Tank, Tank_Object, Death, Morph, Egg,Temperatures, Picture
-from .forms import Create_Log_Form, Create_Feed_Log_Form, Create_Molt_Form, Create_Gecko_Form, Create_Tank_Cleaning_Log, Add_Picture_Form
+from .forms import Create_Log_Form, Create_Feed_Log_Form, Create_Molt_Form, Create_Gecko_Form, Create_Tank_Cleaning_Log, Add_Picture_Form, Add_Measurement_Form
 
 import datetime
 
@@ -532,3 +532,32 @@ def morph(request, morph):
     context = {'tab_info': morph.morph_name, 'morph': morph, 'combo_morphs': combo_morphs, 'user_info': request.user,
                'is_combo': is_combo, 'geckos_with_morph': geckos_with_morph}
     return render(request, 'leo_morph.html', context)
+
+
+def add_measurement(request, gecko):
+    gecko = get_object_or_404(Gecko, id=gecko)
+    post_endpoint = f"/leopard_gecko/add_measurement/{gecko.id}"
+
+    if request.method == 'POST':
+        if request.user.is_superuser:
+            form = Add_Measurement_Form(request.POST, request.FILES)
+            if form.is_valid():
+                # Process the data.
+                # Just gonna save it for now without cleaning because I love me some technical debt.
+                form.save()
+                length = request.POST['length']
+                weight = request.POST['weight']
+                gecko.length = length
+                gecko.weight = weight
+                gecko.save()
+                # Redirect
+                return HttpResponseRedirect('/leopard_gecko/profile/' + str(gecko.id))
+        else:
+            return HttpResponseRedirect('/leopard_gecko/profile/' + str(gecko.id))
+    else:
+        form = Add_Measurement_Form()
+        form.fields['gecko'].initial = gecko
+
+    return render(request, 'leo_log_form.html',
+                  {'tab_info': ' Add Measurement Log', 'form': form, 'user_info': request.user, 'endpoint': post_endpoint,
+                   'page_title': f"Adding measurement for {gecko.name}"})
