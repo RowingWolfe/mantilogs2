@@ -135,6 +135,10 @@ class Log(models.Model):
     gecko = models.ForeignKey('Gecko', on_delete=models.CASCADE)
     # Defecation
     defecation = models.BooleanField(default=False)
+    # Enrichment Center Time
+    spent_time_in_enrichment = models.BooleanField(default=False)
+    time_spent_in_enrichment = models.IntegerField(default=0, help_text="In minutes")
+
     # Behavior/Interaction
     behavior = models.TextField(max_length=2048, blank=True)
     # Problems

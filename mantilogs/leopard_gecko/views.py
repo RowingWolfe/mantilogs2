@@ -24,6 +24,7 @@ def index(request):
     last_multivit = {}
     last_defecation = {}
     last_molt = {}
+    last_enrichment = {}
     total_geckos = 0
     today = datetime.datetime.now()
     a_week = datetime.timedelta(days=7)
@@ -77,6 +78,12 @@ def index(request):
             pass
 
         try:
+            if Log.objects.filter(gecko=gecko, spent_time_in_enrichment=True):
+                last_enrichment[gecko.id] = Log.objects.filter(gecko=gecko, spent_time_in_enrichment=True).latest('time').time
+        except Log.DoesNotExist:
+            pass
+
+        try:
             if Molt.objects.filter(gecko=gecko):
                 last_molt[gecko.id] = Molt.objects.filter(gecko=gecko).latest('time').time
         except Molt.DoesNotExist:
@@ -90,14 +97,22 @@ def index(request):
                                                 'user_info': request.user, 'page_title': 'Leopard Gecko Index',
                                                 'page_subtitle': f"Currently {total_geckos} Geckos", 'tab_info': 'Leopard Gecko Index',
                                             'today': today, 'a_week_ago': today - a_week, 'four_days_ago': today - four_days,
-                                            'a_month_ago': today - a_month})
+                                            'a_month_ago': today - a_month, 'last_enrichment': last_enrichment})
 
 
 def profile(request, gecko):
     """Gather all required info for the Gecko itself. Tabbed info will be in sub-views and ajaxed in."""
     gecko = get_object_or_404(Gecko, id=gecko)
     morphs = gecko.morphs.all()
-    context = {'user_info': request.user, 'gecko': gecko, 'morphs': morphs, 'tab_info': gecko.name}
+    total_enrichment_time = 0
+    try:
+        for log in Log.objects.filter(gecko = gecko):
+            if log.spent_time_in_enrichment:
+                total_enrichment_time += log.time_spent_in_enrichment
+    except:
+        pass
+    context = {'user_info': request.user, 'gecko': gecko, 'morphs': morphs, 'tab_info': gecko.name,
+               'total_enrichment_time':total_enrichment_time}
     return render(request, 'leo_prof.html', context)
 
 

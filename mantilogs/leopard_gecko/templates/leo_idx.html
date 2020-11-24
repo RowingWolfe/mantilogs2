@@ -135,6 +135,26 @@
             <p class="column">Unknown</p>
             {% endif %}
              </div>
+
+<!--             LAST ENRICHMENT ========================================================================= -->
+
+            <div class="columns" style="margin-bottom: -26px">
+            <p class="column">Last Enrichment:</p>
+            {% if gecko.id in last_enrichment %}
+            <p class="column">
+                    {% if last_enrichment|get_item:gecko.id|date:"YmdHis" < a_week_ago|date:"YmdHis" %}
+                    <span class="has-text-danger">
+                    {% else %}
+                    <span class="has-text-success">
+                    {%endif%}
+                {{last_enrichment|get_item:gecko.id}}
+                    </span>
+            </p>
+            {% else %}
+            <p class="column">Unknown</p>
+            {% endif %}
+             </div>
+
             <div class="columns" style="margin-bottom: -26px">
             <p class="column">Last Defecation:</p>
             {% if gecko.id in last_defecation %}

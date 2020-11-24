@@ -5,7 +5,8 @@ from .models import Log, Gecko, Tank_Cleaning_Log, Breeding_Log, Feeding_Log, Mo
 class Create_Log_Form(ModelForm):
     class Meta:
         model = Log
-        fields = ['gecko', 'defecation', 'behavior', 'problems', 'other_notes']
+        fields = ['gecko', 'defecation', 'spent_time_in_enrichment', 'time_spent_in_enrichment', 'behavior',
+                  'problems', 'other_notes']
         widgets = {
             'gecko': HiddenInput(),
         }

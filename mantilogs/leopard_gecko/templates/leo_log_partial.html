@@ -29,6 +29,11 @@
 
     <div class="container has-text-centered">
         <div class="container columns">
+            {% if log.spent_time_in_enrichment %}
+            <div class="column box mb-3 ml-3 mr-3 has-background-dark has-text-light has-text-centered">
+                <h2 class="is-size-4 has-text-success mb-3 has-text-centered">Spent {{log.time_spent_in_enrichment}} minutes in enrichment center. </h2>
+            </div>
+            {% endif %}
             {% if log.behavior %}
             <div class="column box mb-3 ml-3 mr-3 has-background-dark has-text-light">
                 <h2 class="is-size-4 has-text-success mb-3">Behavior</h2>
