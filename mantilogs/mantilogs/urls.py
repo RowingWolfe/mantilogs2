@@ -25,6 +25,7 @@ urlpatterns = [
     path('leopard_gecko/', include('leopard_gecko.urls')),
     path('meta/', include('specie_meta.urls')),
     path('inventory/', include('inventory.urls')),
+    path('gen/', include('gen_calculator.urls')),
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
     #path('', view.main, name="main"),

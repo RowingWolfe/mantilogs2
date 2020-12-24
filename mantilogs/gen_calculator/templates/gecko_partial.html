@@ -1,0 +1,59 @@
+<div class="has-text-centered">
+<p class="is-size-3">
+    {{gecko1.name}} -
+    {% for morph in gecko1_morphs %}
+    {{morph}}
+    {% endfor %}
+</p>
+<p class="is-size-3">
+    {{gecko2.name}} -
+    {% for morph in gecko2_morphs %}
+    {{morph}}
+    {% endfor %}
+</p>
+<hr/>
+<h2 class="is-size-4">Parent Morphs:</h2>
+<ul>
+    {% for morph in all_morphs%}
+    <li>{{morph}}</li>
+    {% endfor %}
+</ul>
+    <br><br><br>
+<h2 class="is-size-2">Potential Morphs from Genetic Pool</h2>
+<!--<ul>-->
+<!--    {% for morph in potential_morphs %}-->
+<!--    <li class="is-size-5">{{morph}}-->
+<!--    <img src=""></li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+    </div>
+<hr/>
+<div class="ml-6 container columns is-multiline is-fullsize box has-text-centered is-centered has-background-dark">
+    {% for morph in potential_morphs %}
+    <div style="min-height: 430px;" class="box has-background-black has-text-light ml-1 card column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+      <div class="card-image">
+        <figure class="image is-4by3">
+            <a href="/leopard_gecko/morph/{{morph.id}}"> <img src="/media/{{morph.picture}}" alt="{{morph.morph_name}}"></a>
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content" style="min-height:90px;">
+              <a href="/leopard_gecko/morph/{{morph.id}}"> <p class="title is-4 has-text-success">{{morph.morph_name}}</p> </a>
+            {%if morph.alternate_names%}<p class="mt-1 subtitle is-6 has-text-info" >{{morph.alternate_names}}</p> {% endif %}
+          </div>
+        </div>
+
+        <div class="content">
+            {% if morph.discovery_date %}
+            <hr>
+            Discovered: <time datetime="2016-1-1">{{morph.discovery_date}}</time>
+            {% else %}
+            <hr>
+            Unknown Discovery Date
+            {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>

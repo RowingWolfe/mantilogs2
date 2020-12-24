@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Gecko Morph Calculator</title>
+</head>
+<body class="has-text-centered">
+    <h1 class="is-size-1">Choose Geckos to Pair</h1>
+
+
+    <form onsubmit="return renderPartial();" class="has-text-centered is-centered">
+        <label for="gecko1">Gecko One</label>
+        <select id="gecko1" name="gecko1">
+            {% for gecko in geckos %}
+            <option value="{{gecko.name}}">{{gecko.name}} - {{gecko.gender}}</option>
+            {% endfor %}
+        </select>
+        <label for="gecko2">Gecko Two</label>
+        <select id="gecko2" name="gecko2">
+            {% for gecko in geckos %}
+            <option value="{{gecko.name}}">{{gecko.name}} - {{gecko.gender}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+
+    <div class="" id="morphs_partial">
+        Morphs show up here.
+    </div>
+
+
+
+
+    <script>
+        function renderPartial() {
+            console.log("Fetching data for...");
+            var gecko1 = document.getElementById("gecko1").value;
+            var gecko2 = document.getElementById("gecko2").value;
+            console.log(gecko1 + " " + gecko2);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("morphs_partial").innerHTML  = this.responseText;
+                }
+            };
+            xhttp.open("GET", "/gen/gecko_partial/"+gecko1+"/"+gecko2, true);
+            xhttp.send();
+            
+            return false;
+        }
+    </script>
+</body>
+</html>
+{% endblock %}

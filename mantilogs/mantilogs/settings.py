@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'leopard_gecko',
     'specie_meta',
     'inventory',
+    'gen_calculator',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
