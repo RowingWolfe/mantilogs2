@@ -3,6 +3,9 @@ from django.http import HttpResponseRedirect
 from django.template.defaulttags import register
 from .models import Gecko, Log, Breeding_Log, Feeding_Log, Tank_Cleaning_Log, Molt, Morph_Combo, Clutch, Tank, Tank_Object, Death, Morph, Egg,Temperatures, Picture
 from .forms import Create_Log_Form, Create_Feed_Log_Form, Create_Molt_Form, Create_Gecko_Form, Create_Tank_Cleaning_Log, Add_Picture_Form, Add_Measurement_Form
+from django.core.paginator import Paginator
+from django.db.models import Q
+
 
 import datetime
 
@@ -214,7 +217,7 @@ def log_partial(request, log):
 def logs_partial(request, gecko):
     """Gets logs for gecko, loads the logs partial."""
     gecko = get_object_or_404(Gecko, id=gecko)
-    logs = Log.objects.filter(gecko=gecko).order_by('-time')
+    logs = Log.objects.filter(gecko=gecko).order_by('-time')[:10]
     log_count = logs.count()
 
     context = {'user_info': request.user, 'gecko': gecko, 'logs': logs, 'log_count': log_count}
@@ -576,3 +579,25 @@ def add_measurement(request, gecko):
     return render(request, 'leo_log_form.html',
                   {'tab_info': ' Add Measurement Log', 'form': form, 'user_info': request.user, 'endpoint': post_endpoint,
                    'page_title': f"Adding measurement for {gecko.name}"})
+
+
+def paginated_leo_logs(request, gecko):
+    gecko = get_object_or_404(Gecko, id=gecko)
+    logs = Log.objects.filter(gecko=gecko).order_by('-time')
+    p = Paginator(logs, 10)
+    page_number = request.GET.get('page')
+    page_obj = p.get_page(page_number)
+    return render(request, 'leo_logs_pagin.html', {'page_obj': page_obj, 'gecko_name': gecko.name, 'gecko_id': gecko.id})
+
+
+def search_logs(request, gecko):
+    gecko = get_object_or_404(Gecko, id=gecko)
+    keywords = request.GET.get('keywords')
+    logs = Log.objects.filter(gecko=gecko).order_by('-time').filter(
+        Q(behavior__icontains=keywords) or Q(problems__icontains=keywords) or Q(other_notes__icontains=keywords)
+    )
+
+    p = Paginator(logs, 10)
+    page_number = request.GET.get('page')
+    page_obj = p.get_page(page_number)
+    return render(request, 'leo_logs_pagin.html', {'page_obj': page_obj, 'gecko_name': gecko.name, 'gecko_id': gecko.id})
