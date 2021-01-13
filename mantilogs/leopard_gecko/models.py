@@ -12,6 +12,9 @@ class Gecko(models.Model):
         if self.nickname:
             return f"{self.nickname}"
         return f"{self.name}"
+
+    class Meta:
+        ordering = ['-name']
     # ID
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # Name
