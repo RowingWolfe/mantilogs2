@@ -14,7 +14,7 @@ class Gecko(models.Model):
         return f"{self.name}"
 
     class Meta:
-        ordering = ['-name']
+        ordering = ['name']
     # ID
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # Name
