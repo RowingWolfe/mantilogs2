@@ -91,7 +91,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'mantilogs_2',
-        'USER': 'mantilogs_user',
+        'USER': 'mantilogs',
         'PASSWORD': 'Alycydu42',
         'HOST': '192.168.0.180',
         'PORT': '',
