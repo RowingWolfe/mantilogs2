@@ -13,6 +13,10 @@ import datetime
 def get_item(dictionary, key):
     return dictionary.get(key)
 
+@register.filter
+def get_last_log(dictionary, key):
+    return dictionary.get(key).id
+
 
 def index(request):
     """Display a full list of all active cultures with links to their profiles, add log, add quarantine."""
@@ -23,6 +27,7 @@ def index(request):
     last_water_bowl_cleaning_logs = {}
     last_food_bowl_cleaning_logs = {}
     last_fed = {}
+    last_fed_items = {}
     last_vitd = {}
     last_multivit = {}
     last_defecation = {}
@@ -39,6 +44,7 @@ def index(request):
         if (Log.objects.filter(gecko=gecko)):
             last_logs[gecko] = Log.objects.filter(
                 gecko=gecko).latest('time')
+            print("Last logs: ", last_logs)
 
         # Get last tank cleaning information.
         try:
@@ -65,6 +71,7 @@ def index(request):
         try:
             if Feeding_Log.objects.filter(gecko=gecko):
                 last_fed[gecko.id] = Feeding_Log.objects.filter(gecko=gecko).latest('time').time
+                last_fed_items[gecko.id] = Feeding_Log.objects.filter(gecko=gecko).latest('time').feed
 
                 if Feeding_Log.objects.filter(gecko=gecko, feed_supplement="VITD"):
                     last_vitd[gecko.id] = Feeding_Log.objects.filter(gecko=gecko, feed_supplement="VITD").latest('time').time
@@ -95,7 +102,7 @@ def index(request):
     return render(request, 'leo_idx.html', {'geckos': geckos, 'last_logs': last_logs,'full_tank_cleans': full_tank_clean_logs,
                                             'last_10_cleans': last_10_cleaning_logs, 'last_water_bowl_cleans': last_water_bowl_cleaning_logs,
                                             'last_food_bowl_cleans': last_food_bowl_cleaning_logs, 'last_vitd': last_vitd,
-                                            'last_multivit': last_multivit, 'last_fed': last_fed, 'last_defecation': last_defecation,
+                                            'last_multivit': last_multivit, 'last_fed': last_fed, 'last_fed_items': last_fed_items, 'last_defecation': last_defecation,
                                             'last_molt': last_molt,
                                                 'user_info': request.user, 'page_title': 'Leopard Gecko Index',
                                                 'page_subtitle': f"Currently {total_geckos} Geckos", 'tab_info': 'Leopard Gecko Index',

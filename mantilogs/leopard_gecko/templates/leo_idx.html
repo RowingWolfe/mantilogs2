@@ -99,10 +99,23 @@
                 {{last_fed|get_item:gecko.id}}
                     </span>
             </p>
+
             {% else %}
             <p class="column">Unknown</p>
             {% endif %}
              </div>
+            <div class="columns" style="margin-bottom: -26px">
+                <p class="column">Fed:</p>
+                {% if gecko.id in last_fed_items %}
+                <p class="column">
+                    <span class="has-text-light">
+                        {% for item in last_fed_items|get_item:gecko.id %}
+                            [{{item}}]
+                        {% endfor %}
+                    </span>
+                </p>
+                {% endif %}
+            </div>
             <div class="columns" style="margin-bottom: -26px">
             <p class="column">Last Vitamin D:</p>
             {% if gecko.id in last_vitd %}
@@ -185,6 +198,9 @@
         <br>
         <a href="/leopard_gecko/add_log/{{gecko.id}}"><button class="button is-success has-background-success-dark is-large is-fullwidth">Add Log</button></a>
         <br>
+<!--           TODO: This, but less fucking stupid. -->
+          <a href="/leopard_gecko/edit_log/{{gecko.id}}/{{last_logs|get_last_log:gecko}}"><button class="button is-success has-background-warning-dark is-large is-fullwidth">Edit Last Log</button></a>
+            <br>
         <a href="/leopard_gecko/edit_gecko/{{gecko.id}}"><button class="button is-info has-background-info-dark is-large is-fullwidth">Edit Profile</button></a>
       </div>
     </div>

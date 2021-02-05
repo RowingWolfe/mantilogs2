@@ -149,6 +149,9 @@ class Log(models.Model):
     # Notes
     other_notes = models.TextField(max_length=2048, blank=True)
 
+    #Log writer:
+    writer = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+
 
 class Measurement(models.Model):
     """Measurements taken, length and weight."""
